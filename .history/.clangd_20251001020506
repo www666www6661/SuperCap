@@ -1,0 +1,26 @@
+CompileFlags:
+  Add: 
+    - -target
+    - arm-none-eabi
+    - -mcpu=cortex-m4
+    - -mfpu=fpv4-sp-d16
+    - -mfloat-abi=hard
+    - -std=gnu11
+    - -DUSE_HAL_DRIVER
+    - -DSTM32F334x8
+    - -DARM_MATH_CM4
+    - -DHARDWARE_ID=205
+
+Diagnostics:
+  ClangTidy:
+    Add: 
+      - -*
+      - bugprone-*
+      - performance-*
+      - readability-*
+      - modernize-*
+  
+  UnusedIncludes: Strict
+
+Index:
+  Background: Skip

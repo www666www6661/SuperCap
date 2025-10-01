@@ -1,0 +1,780 @@
+ARM GAS   			page 1
+
+
+   1              	 .cpu cortex-m4
+   2              	 .eabi_attribute 27,1
+   3              	 .eabi_attribute 28,1
+   4              	 .eabi_attribute 20,1
+   5              	 .eabi_attribute 21,1
+   6              	 .eabi_attribute 23,3
+   7              	 .eabi_attribute 24,1
+   8              	 .eabi_attribute 25,1
+   9              	 .eabi_attribute 26,1
+  10              	 .eabi_attribute 30,2
+  11              	 .eabi_attribute 34,1
+  12              	 .eabi_attribute 18,4
+  13              	 .file "Communication.cpp"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .section .text._ZN13Communication4initEv,"ax",%progbits
+  18              	 .align 1
+  19              	 .p2align 2,,3
+  20              	 .global _ZN13Communication4initEv
+  21              	 .arch armv7e-m
+  22              	 .syntax unified
+  23              	 .thumb
+  24              	 .thumb_func
+  25              	 .fpu fpv4-sp-d16
+  27              	_ZN13Communication4initEv:
+  28              	.LFB383:
+  29              	 .file 1 "Core/Src/Communication.cpp"
+   1:Core/Src/Communication.cpp **** #include "Communication.hpp"
+   2:Core/Src/Communication.cpp **** 
+   3:Core/Src/Communication.cpp **** #include "MathUtil.hpp"
+   4:Core/Src/Communication.cpp **** #include "PowerManager.hpp"
+   5:Core/Src/Communication.cpp **** #include "can.h"
+   6:Core/Src/Communication.cpp **** 
+   7:Core/Src/Communication.cpp **** namespace Communication
+   8:Core/Src/Communication.cpp **** {
+   9:Core/Src/Communication.cpp **** struct RxData
+  10:Core/Src/Communication.cpp **** {
+  11:Core/Src/Communication.cpp ****     uint8_t enableDCDC : 1;
+  12:Core/Src/Communication.cpp ****     uint8_t systemRestart : 1;
+  13:Core/Src/Communication.cpp ****     uint8_t resv0 : 6;
+  14:Core/Src/Communication.cpp ****     uint16_t feedbackRefereePowerLimit;
+  15:Core/Src/Communication.cpp ****     uint16_t feedbackRefereeEnergyBuffer;
+  16:Core/Src/Communication.cpp ****     uint8_t resv1[3];
+  17:Core/Src/Communication.cpp **** } __attribute__((packed));
+  18:Core/Src/Communication.cpp **** 
+  19:Core/Src/Communication.cpp **** static RxData rxData;
+  20:Core/Src/Communication.cpp **** 
+  21:Core/Src/Communication.cpp **** struct TxData
+  22:Core/Src/Communication.cpp **** {
+  23:Core/Src/Communication.cpp ****     uint8_t errorCode;
+  24:Core/Src/Communication.cpp ****     float chassisPower;
+  25:Core/Src/Communication.cpp ****     uint16_t chassisPowerLimit;
+  26:Core/Src/Communication.cpp ****     uint8_t capEnergy;
+  27:Core/Src/Communication.cpp **** } __attribute__((packed));
+  28:Core/Src/Communication.cpp **** 
+  29:Core/Src/Communication.cpp **** static TxData txData;
+ARM GAS   			page 2
+
+
+  30:Core/Src/Communication.cpp **** 
+  31:Core/Src/Communication.cpp **** void init()
+  32:Core/Src/Communication.cpp **** {
+  30              	 .loc 1 32 1 view-0
+  31              	 .cfi_startproc
+  32              	 
+  33              	 
+  33:Core/Src/Communication.cpp ****     static_assert(sizeof(RxData) == 8, "RxData size error");
+  34              	 .loc 1 33 5 view .LVU1
+  34:Core/Src/Communication.cpp ****     static_assert(sizeof(TxData) == 8, "TxData size error");
+  35              	 .loc 1 34 5 view .LVU2
+  35:Core/Src/Communication.cpp **** 
+  36:Core/Src/Communication.cpp ****     CAN_FilterTypeDef filter = {
+  36              	 .loc 1 36 5 view .LVU3
+  32:Core/Src/Communication.cpp ****     static_assert(sizeof(RxData) == 8, "RxData size error");
+  37              	 .loc 1 32 1 is_stmt 0 view .LVU4
+  38 0000 10B5     	 push {r4,lr}
+  39              	 .cfi_def_cfa_offset 8
+  40              	 .cfi_offset 4,-8
+  41              	 .cfi_offset 14,-4
+  42              	 .loc 1 36 23 view .LVU5
+  43 0002 0E4C     	 ldr r4,.L4
+  44 0004 0FCC     	 ldmia r4!,{r0,r1,r2,r3}
+  32:Core/Src/Communication.cpp ****     static_assert(sizeof(RxData) == 8, "RxData size error");
+  45              	 .loc 1 32 1 view .LVU6
+  46 0006 8AB0     	 sub sp,sp,#40
+  47              	 .cfi_def_cfa_offset 48
+  48              	 .loc 1 36 23 view .LVU7
+  49 0008 EC46     	 mov ip,sp
+  50 000a ACE80F00 	 stmia ip!,{r0,r1,r2,r3}
+  51 000e 0FCC     	 ldmia r4!,{r0,r1,r2,r3}
+  52 0010 ACE80F00 	 stmia ip!,{r0,r1,r2,r3}
+  53 0014 94E80300 	 ldm r4,{r0,r1}
+  37:Core/Src/Communication.cpp ****         0x061 << 5,             // filterID HI
+  38:Core/Src/Communication.cpp ****         0,                      // filterID LO
+  39:Core/Src/Communication.cpp ****         0,                      // filterMask HI
+  40:Core/Src/Communication.cpp ****         0,                      // filterMask LO
+  41:Core/Src/Communication.cpp ****         CAN_RX_FIFO0,           // FIFO assignment
+  42:Core/Src/Communication.cpp ****         CAN_FILTER_FIFO0,       // filterBank number
+  43:Core/Src/Communication.cpp ****         CAN_FILTERMODE_IDLIST,  // filter mode
+  44:Core/Src/Communication.cpp ****         CAN_FILTERSCALE_16BIT,  // filter size
+  45:Core/Src/Communication.cpp ****         CAN_FILTER_ENABLE,      // ENABLE or DISABLE
+  46:Core/Src/Communication.cpp ****         0                       // Slave start bank, STM32F334 only has master
+  47:Core/Src/Communication.cpp ****     };
+  48:Core/Src/Communication.cpp ****     HAL_CAN_ConfigFilter(&hcan, &filter);
+  54              	 .loc 1 48 25 view .LVU8
+  55 0018 094C     	 ldr r4,.L4+4
+  36:Core/Src/Communication.cpp ****         0x061 << 5,             // filterID HI
+  56              	 .loc 1 36 23 view .LVU9
+  57 001a 8CE80300 	 stm ip,{r0,r1}
+  58              	 .loc 1 48 5 is_stmt 1 view .LVU10
+  59              	 .loc 1 48 25 is_stmt 0 view .LVU11
+  60 001e 6946     	 mov r1,sp
+  61 0020 2046     	 mov r0,r4
+  62 0022 FFF7FEFF 	 bl HAL_CAN_ConfigFilter
+  63              	.LVL0:
+  49:Core/Src/Communication.cpp ****     __HAL_CAN_ENABLE_IT(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+ARM GAS   			page 3
+
+
+  64              	 .loc 1 49 5 is_stmt 1 view .LVU12
+  65 0026 2268     	 ldr r2,[r4]
+  66 0028 5369     	 ldr r3,[r2,#20]
+  67 002a 43F00203 	 orr r3,r3,#2
+  50:Core/Src/Communication.cpp ****     HAL_CAN_Start(&hcan);
+  68              	 .loc 1 50 18 is_stmt 0 view .LVU13
+  69 002e 2046     	 mov r0,r4
+  49:Core/Src/Communication.cpp ****     __HAL_CAN_ENABLE_IT(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+  70              	 .loc 1 49 5 view .LVU14
+  71 0030 5361     	 str r3,[r2,#20]
+  72              	 .loc 1 50 5 is_stmt 1 view .LVU15
+  73              	 .loc 1 50 18 is_stmt 0 view .LVU16
+  74 0032 FFF7FEFF 	 bl HAL_CAN_Start
+  75              	.LVL1:
+  51:Core/Src/Communication.cpp **** }
+  76              	 .loc 1 51 1 view .LVU17
+  77 0036 0AB0     	 add sp,sp,#40
+  78              	 .cfi_def_cfa_offset 8
+  79              	 
+  80 0038 10BD     	 pop {r4,pc}
+  81              	.L5:
+  82 003a 00BF     	 .align 2
+  83              	.L4:
+  84 003c 00000000 	 .word .LANCHOR0
+  85 0040 00000000 	 .word hcan
+  86              	 .cfi_endproc
+  87              	.LFE383:
+  89              	 .section .text._ZN13Communication17feedbackPowerDataEv,"ax",%progbits
+  90              	 .align 1
+  91              	 .p2align 2,,3
+  92              	 .global _ZN13Communication17feedbackPowerDataEv
+  93              	 .syntax unified
+  94              	 .thumb
+  95              	 .thumb_func
+  96              	 .fpu fpv4-sp-d16
+  98              	_ZN13Communication17feedbackPowerDataEv:
+  99              	.LFB384:
+  52:Core/Src/Communication.cpp **** 
+  53:Core/Src/Communication.cpp **** static CAN_TxHeaderTypeDef txHeader = {
+  54:Core/Src/Communication.cpp ****     0x051,         // StdId
+  55:Core/Src/Communication.cpp ****     0,             // ExtId
+  56:Core/Src/Communication.cpp ****     CAN_ID_STD,    // IDE
+  57:Core/Src/Communication.cpp ****     CAN_RTR_DATA,  // RTR
+  58:Core/Src/Communication.cpp ****     8,             // DLC
+  59:Core/Src/Communication.cpp ****     DISABLE,       // TransmitGlobalTime
+  60:Core/Src/Communication.cpp **** };
+  61:Core/Src/Communication.cpp **** 
+  62:Core/Src/Communication.cpp **** void feedbackPowerData()
+  63:Core/Src/Communication.cpp **** {
+ 100              	 .loc 1 63 1 is_stmt 1 view-0
+ 101              	 .cfi_startproc
+ 102              	 
+ 103              	 
+  64:Core/Src/Communication.cpp ****     txData.errorCode         = PowerManager::Status::status.errorCode | ((uint8_t)!PowerManager::St
+ 104              	 .loc 1 64 5 view .LVU19
+  63:Core/Src/Communication.cpp ****     txData.errorCode         = PowerManager::Status::status.errorCode | ((uint8_t)!PowerManager::St
+ 105              	 .loc 1 63 1 is_stmt 0 view .LVU20
+ARM GAS   			page 4
+
+
+ 106 0000 10B5     	 push {r4,lr}
+ 107              	 .cfi_def_cfa_offset 8
+ 108              	 .cfi_offset 4,-8
+ 109              	 .cfi_offset 14,-4
+ 110              	 .loc 1 64 113 view .LVU21
+ 111 0002 2A4A     	 ldr r2,.L15
+ 112              	 .loc 1 64 83 view .LVU22
+ 113 0004 92F800E0 	 ldrb lr,[r2]
+  65:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+  66:Core/Src/Communication.cpp ****     txData.chassisPowerLimit = PowerManager::Status::status.chassisPowerLimit;
+ 114              	 .loc 1 66 30 view .LVU23
+ 115 0008 92ED037A 	 vldr.32 s14,[r2,#12]
+  64:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+ 116              	 .loc 1 64 71 view .LVU24
+ 117 000c 5378     	 ldrb r3,[r2,#1]
+  67:Core/Src/Communication.cpp ****     txData.capEnergy         = PowerManager::Status::status.capEnergy > 1.0f ? 255 : PowerManager::
+ 118              	 .loc 1 67 61 view .LVU25
+ 119 000e D2ED017A 	 vldr.32 s15,[r2,#4]
+  65:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+ 120              	 .loc 1 65 61 view .LVU26
+ 121 0012 9168     	 ldr r1,[r2,#8]
+  64:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+ 122              	 .loc 1 64 74 view .LVU27
+ 123 0014 8EF0010E 	 eor lr,lr,#1
+  66:Core/Src/Communication.cpp ****     txData.capEnergy         = PowerManager::Status::status.capEnergy > 1.0f ? 255 : PowerManager::
+ 124              	 .loc 1 66 30 view .LVU28
+ 125 0018 BCEEC77A 	 vcvt.u32.f32 s14,s14
+  64:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+ 126              	 .loc 1 64 71 view .LVU29
+ 127 001c 43EACE13 	 orr r3,r3,lr,lsl#7
+ 128              	 .loc 1 67 30 view .LVU30
+ 129 0020 F7EE006A 	 vmov.f32 s13,#1.0e+0
+  64:Core/Src/Communication.cpp ****     txData.chassisPower      = PowerManager::Status::status.chassisPower;
+ 130              	 .loc 1 64 71 view .LVU31
+ 131 0024 5FFA83FE 	 uxtb lr,r3
+  65:Core/Src/Communication.cpp ****     txData.chassisPowerLimit = PowerManager::Status::status.chassisPowerLimit;
+ 132              	 .loc 1 65 5 is_stmt 1 view .LVU32
+  66:Core/Src/Communication.cpp ****     txData.capEnergy         = PowerManager::Status::status.capEnergy > 1.0f ? 255 : PowerManager::
+ 133              	 .loc 1 66 5 view .LVU33
+ 134              	 .loc 1 67 30 is_stmt 0 view .LVU34
+ 135 0028 F4EEE67A 	 vcmpe.f32 s15,s13
+  66:Core/Src/Communication.cpp ****     txData.capEnergy         = PowerManager::Status::status.capEnergy > 1.0f ? 255 : PowerManager::
+ 136              	 .loc 1 66 30 view .LVU35
+ 137 002c 17EE103A 	 vmov r3,s14
+ 138              	 .loc 1 67 30 view .LVU36
+ 139 0030 F1EE10FA 	 vmrs APSR_nzcv,FPSCR
+  66:Core/Src/Communication.cpp ****     txData.capEnergy         = PowerManager::Status::status.capEnergy > 1.0f ? 255 : PowerManager::
+ 140              	 .loc 1 66 30 view .LVU37
+ 141 0034 9CB2     	 uxth r4,r3
+ 142              	 .loc 1 67 5 is_stmt 1 view .LVU38
+ 143              	 .loc 1 67 30 is_stmt 0 view .LVU39
+ 144 0036 2DDD     	 ble .L14
+ 145 0038 4FF07F4C 	 mov ip,#-16777216
+ 146              	.L7:
+  68:Core/Src/Communication.cpp ****     // HAL_CAN_AddTxMessage(&hcan, &txHeader, (uint8_t *)&txData, &txMailbox);
+  69:Core/Src/Communication.cpp ****     if ((READ_REG(hcan.Instance->TSR) & CAN_TSR_TME0) != 0U)
+ 147              	 .loc 1 69 5 is_stmt 1 discriminator 4 view .LVU40
+ARM GAS   			page 5
+
+
+ 148              	 .loc 1 69 10 is_stmt 0 discriminator 4 view .LVU41
+ 149 003c 1C4B     	 ldr r3,.L15+4
+ 150 003e 1A68     	 ldr r2,[r3]
+ 151 0040 9368     	 ldr r3,[r2,#8]
+ 152              	 .loc 1 69 5 discriminator 4 view .LVU42
+ 153 0042 5B01     	 lsls r3,r3,#5
+ 154 0044 03D5     	 bpl .L8
+  70:Core/Src/Communication.cpp ****         SET_BIT(hcan.Instance->TSR, CAN_TSR_ABRQ0);
+ 155              	 .loc 1 70 9 is_stmt 1 view .LVU43
+ 156 0046 9368     	 ldr r3,[r2,#8]
+ 157 0048 43F08003 	 orr r3,r3,#128
+ 158 004c 9360     	 str r3,[r2,#8]
+ 159              	.L8:
+  71:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TIR  = ((txHeader.StdId << CAN_TI0R_STID_Pos) | txHe
+ 160              	 .loc 1 71 5 view .LVU44
+  72:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDTR = (txHeader.DLC);
+  73:Core/Src/Communication.cpp ****     WRITE_REG(hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDHR,
+  74:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+  75:Core/Src/Communication.cpp ****                   ((uint32_t)(((uint8_t *)&txData)[5]) << CAN_TDH0R_DATA5_Pos) | ((uint32_t)(((uint
+  76:Core/Src/Communication.cpp ****     WRITE_REG(hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDLR,
+ 161              	 .loc 1 76 5 is_stmt 0 view .LVU45
+ 162 004e C1F30723 	 ubfx r3,r1,#8,#8
+ 163 0052 C1F30740 	 ubfx r0,r1,#16,#8
+ 164 0056 1B04     	 lsls r3,r3,#16
+ 165 0058 43EA0063 	 orr r3,r3,r0,lsl#24
+  73:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+ 166              	 .loc 1 73 5 view .LVU46
+ 167 005c 080E     	 lsrs r0,r1,#24
+ 168              	 .loc 1 76 5 view .LVU47
+ 169 005e C9B2     	 uxtb r1,r1
+  73:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+ 170              	 .loc 1 73 5 view .LVU48
+ 171 0060 40EA0420 	 orr r0,r0,r4,lsl#8
+ 172              	 .loc 1 76 5 view .LVU49
+ 173 0064 43EA0123 	 orr r3,r3,r1,lsl#8
+ 174 0068 43EA0E03 	 orr r3,r3,lr
+  73:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+ 175              	 .loc 1 73 5 view .LVU50
+ 176 006c 40EA0C00 	 orr r0,r0,ip
+  71:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TIR  = ((txHeader.StdId << CAN_TI0R_STID_Pos) | txHe
+ 177              	 .loc 1 71 53 view .LVU51
+ 178 0070 4FF02264 	 mov r4,#169869312
+  72:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDTR = (txHeader.DLC);
+ 179              	 .loc 1 72 53 view .LVU52
+ 180 0074 0821     	 movs r1,#8
+  71:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TIR  = ((txHeader.StdId << CAN_TI0R_STID_Pos) | txHe
+ 181              	 .loc 1 71 53 view .LVU53
+ 182 0076 C2F89041 	 str r4,[r2,#400]
+  72:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDTR = (txHeader.DLC);
+ 183              	 .loc 1 72 5 is_stmt 1 view .LVU54
+  72:Core/Src/Communication.cpp ****     hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDTR = (txHeader.DLC);
+ 184              	 .loc 1 72 53 is_stmt 0 view .LVU55
+ 185 007a C2F89411 	 str r1,[r2,#404]
+  73:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+ 186              	 .loc 1 73 5 is_stmt 1 view .LVU56
+ 187 007e C2F89C01 	 str r0,[r2,#412]
+ 188              	 .loc 1 76 5 view .LVU57
+ARM GAS   			page 6
+
+
+ 189 0082 C2F89831 	 str r3,[r2,#408]
+  77:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[3]) << CAN_TDL0R_DATA3_Pos) | ((uint32_t)(((uint8_t 
+  78:Core/Src/Communication.cpp ****                   ((uint32_t)(((uint8_t *)&txData)[1]) << CAN_TDL0R_DATA1_Pos) | ((uint32_t)(((uint
+  79:Core/Src/Communication.cpp ****     SET_BIT(hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TIR, CAN_TI0R_TXRQ);
+ 190              	 .loc 1 79 5 view .LVU58
+ 191 0086 D2F89031 	 ldr r3,[r2,#400]
+ 192 008a 43F00103 	 orr r3,r3,#1
+ 193 008e C2F89031 	 str r3,[r2,#400]
+  80:Core/Src/Communication.cpp **** }
+ 194              	 .loc 1 80 1 is_stmt 0 view .LVU59
+ 195 0092 10BD     	 pop {r4,pc}
+ 196              	.L14:
+  67:Core/Src/Communication.cpp ****     // HAL_CAN_AddTxMessage(&hcan, &txHeader, (uint8_t *)&txData, &txMailbox);
+ 197              	 .loc 1 67 125 discriminator 2 view .LVU60
+ 198 0094 9FED077A 	 vldr.32 s14,.L15+8
+ 199 0098 67EE877A 	 vmul.f32 s15,s15,s14
+  67:Core/Src/Communication.cpp ****     // HAL_CAN_AddTxMessage(&hcan, &txHeader, (uint8_t *)&txData, &txMailbox);
+ 200              	 .loc 1 67 30 discriminator 2 view .LVU61
+ 201 009c FCEEE77A 	 vcvt.u32.f32 s15,s15
+  73:Core/Src/Communication.cpp ****               ((uint32_t)(((uint8_t *)&txData)[7]) << CAN_TDH0R_DATA7_Pos) | ((uint32_t)(((uint8_t 
+ 202              	 .loc 1 73 5 discriminator 2 view .LVU62
+ 203 00a0 17EE903A 	 vmov r3,s15
+ 204 00a4 4FEA036C 	 lsl ip,r3,#24
+ 205 00a8 C8E7     	 b .L7
+ 206              	.L16:
+ 207 00aa 00BF     	 .align 2
+ 208              	.L15:
+ 209 00ac 00000000 	 .word _ZN12PowerManager6Status6statusE
+ 210 00b0 00000000 	 .word hcan
+ 211 00b4 00007F43 	 .word 1132396544
+ 212              	 .cfi_endproc
+ 213              	.LFE384:
+ 215              	 .section .text.CAN_RX0_IRQHandler,"ax",%progbits
+ 216              	 .align 1
+ 217              	 .p2align 2,,3
+ 218              	 .global CAN_RX0_IRQHandler
+ 219              	 .syntax unified
+ 220              	 .thumb
+ 221              	 .thumb_func
+ 222              	 .fpu fpv4-sp-d16
+ 224              	CAN_RX0_IRQHandler:
+ 225              	.LFB385:
+  81:Core/Src/Communication.cpp **** 
+  82:Core/Src/Communication.cpp **** CAN_RxHeaderTypeDef rxHeader;
+  83:Core/Src/Communication.cpp **** 
+  84:Core/Src/Communication.cpp **** extern "C"
+  85:Core/Src/Communication.cpp **** {
+  86:Core/Src/Communication.cpp ****     void CAN_RX0_IRQHandler(void)
+  87:Core/Src/Communication.cpp ****     {
+ 226              	 .loc 1 87 5 is_stmt 1 view-0
+ 227              	 .cfi_startproc
+ 228              	 
+ 229              	 
+  88:Core/Src/Communication.cpp ****         if ((hcan.Instance->RF0R & CAN_RF0R_FMP0) != 0U)
+ 230              	 .loc 1 88 9 view .LVU64
+  87:Core/Src/Communication.cpp ****         if ((hcan.Instance->RF0R & CAN_RF0R_FMP0) != 0U)
+ 231              	 .loc 1 87 5 is_stmt 0 view .LVU65
+ARM GAS   			page 7
+
+
+ 232 0000 38B5     	 push {r3,r4,r5,lr}
+ 233              	 .cfi_def_cfa_offset 16
+ 234              	 .cfi_offset 3,-16
+ 235              	 .cfi_offset 4,-12
+ 236              	 .cfi_offset 5,-8
+ 237              	 .cfi_offset 14,-4
+ 238              	.LBB2:
+ 239              	 .loc 1 88 19 view .LVU66
+ 240 0002 324B     	 ldr r3,.L43
+ 241 0004 1B68     	 ldr r3,[r3]
+ 242              	 .loc 1 88 29 view .LVU67
+ 243 0006 DB68     	 ldr r3,[r3,#12]
+ 244              	 .loc 1 88 9 view .LVU68
+ 245 0008 9807     	 lsls r0,r3,#30
+ 246              	.LBE2:
+  87:Core/Src/Communication.cpp ****         if ((hcan.Instance->RF0R & CAN_RF0R_FMP0) != 0U)
+ 247              	 .loc 1 87 5 view .LVU69
+ 248 000a 2DED028B 	 vpush.64 {d8}
+ 249              	 .cfi_def_cfa_offset 24
+ 250              	 .cfi_offset 80,-24
+ 251              	 .cfi_offset 81,-20
+ 252              	.LBB12:
+ 253              	 .loc 1 88 9 view .LVU70
+ 254 000e 40D0     	 beq .L17
+ 255 0010 2F4D     	 ldr r5,.L43+4
+ 256 0012 304C     	 ldr r4,.L43+8
+ 257              	.LBB3:
+ 258              	.LBB4:
+ 259              	.LBB5:
+  89:Core/Src/Communication.cpp ****         {
+  90:Core/Src/Communication.cpp ****             while (HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &rxHeader, (uint8_t *)&rxData) == HAL_
+  91:Core/Src/Communication.cpp ****                 if ((rxHeader.StdId == 0x061) && (rxHeader.DLC == 8) && (rxHeader.IDE == CAN_ID_STD
+  92:Core/Src/Communication.cpp ****                 {
+  93:Core/Src/Communication.cpp ****                     static bool lastEnableDCDC = true;
+  94:Core/Src/Communication.cpp **** 
+  95:Core/Src/Communication.cpp ****                     if (rxData.systemRestart)
+  96:Core/Src/Communication.cpp ****                         PowerManager::systemRestart();
+  97:Core/Src/Communication.cpp **** 
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.refereePowerLimit = M_CLAMP(rxData.feedb
+  99:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ 100:Core/Src/Communication.cpp **** 
+ 101:Core/Src/Communication.cpp ****                     if (rxData.enableDCDC == false || rxData.feedbackRefereePowerLimit > 250.0f)
+ 260              	 .loc 1 101 52 view .LVU71
+ 261 0014 9FED308A 	 vldr.32 s16,.L43+12
+  99:Core/Src/Communication.cpp **** 
+ 262              	 .loc 1 99 80 view .LVU72
+ 263 0018 DFED308A 	 vldr.32 s17,.L43+16
+ 264              	.L18:
+ 265              	.LBE5:
+ 266              	.LBE4:
+  90:Core/Src/Communication.cpp ****                 if ((rxHeader.StdId == 0x061) && (rxHeader.DLC == 8) && (rxHeader.IDE == CAN_ID_STD
+ 267              	 .loc 1 90 13 is_stmt 1 view .LVU73
+  90:Core/Src/Communication.cpp ****                 if ((rxHeader.StdId == 0x061) && (rxHeader.DLC == 8) && (rxHeader.IDE == CAN_ID_STD
+ 268              	 .loc 1 90 93 view .LVU74
+  90:Core/Src/Communication.cpp ****                 if ((rxHeader.StdId == 0x061) && (rxHeader.DLC == 8) && (rxHeader.IDE == CAN_ID_STD
+ 269              	 .loc 1 90 40 is_stmt 0 view .LVU75
+ 270 001c 2D4A     	 ldr r2,.L43+8
+ARM GAS   			page 8
+
+
+ 271 001e 2B48     	 ldr r0,.L43
+ 272 0020 2B46     	 mov r3,r5
+ 273 0022 0021     	 movs r1,#0
+ 274 0024 FFF7FEFF 	 bl HAL_CAN_GetRxMessage
+ 275              	.LVL2:
+  90:Core/Src/Communication.cpp ****                 if ((rxHeader.StdId == 0x061) && (rxHeader.DLC == 8) && (rxHeader.IDE == CAN_ID_STD
+ 276              	 .loc 1 90 93 view .LVU76
+ 277 0028 98BB     	 cbnz r0,.L17
+ 278              	.LBE3:
+ 279              	.LBE12:
+  91:Core/Src/Communication.cpp ****                 {
+ 280              	 .loc 1 91 17 is_stmt 1 view .LVU77
+ 281              	.LBB13:
+ 282              	.LBB10:
+ 283              	.LBB8:
+ 284 002a 2268     	 ldr r2,[r4]
+ 285 002c 612A     	 cmp r2,#97
+ 286 002e F5D1     	 bne .L18
+  91:Core/Src/Communication.cpp ****                 {
+ 287              	 .loc 1 91 47 is_stmt 0 discriminator 1 view .LVU78
+ 288 0030 2369     	 ldr r3,[r4,#16]
+ 289 0032 082B     	 cmp r3,#8
+ 290 0034 F2D1     	 bne .L18
+  91:Core/Src/Communication.cpp ****                 {
+ 291              	 .loc 1 91 70 discriminator 2 view .LVU79
+ 292 0036 A368     	 ldr r3,[r4,#8]
+ 293 0038 002B     	 cmp r3,#0
+ 294 003a EFD1     	 bne .L18
+ 295              	.LBB6:
+  93:Core/Src/Communication.cpp **** 
+ 296              	 .loc 1 93 21 is_stmt 1 view .LVU80
+  95:Core/Src/Communication.cpp ****                         PowerManager::systemRestart();
+ 297              	 .loc 1 95 21 view .LVU81
+  95:Core/Src/Communication.cpp ****                         PowerManager::systemRestart();
+ 298              	 .loc 1 95 32 is_stmt 0 view .LVU82
+ 299 003c 2A78     	 ldrb r2,[r5]
+  95:Core/Src/Communication.cpp ****                         PowerManager::systemRestart();
+ 300              	 .loc 1 95 21 view .LVU83
+ 301 003e 9107     	 lsls r1,r2,#30
+ 302 0040 3FD4     	 bmi .L40
+ 303              	.L21:
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ 304              	 .loc 1 98 21 is_stmt 1 view .LVU84
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ 305              	 .loc 1 98 80 is_stmt 0 view .LVU85
+ 306 0042 B5F80130 	 ldrh r3,[r5,#1]
+ 307 0046 07EE103A 	 vmov s14,r3
+ 308 004a B8EEC77A 	 vcvt.f32.s32 s14,s14
+ 309 004e F3EE0E7A 	 vmov.f32 s15,#3.0e+1
+ 310 0052 B4EEE77A 	 vcmpe.f32 s14,s15
+ 311 0056 F1EE10FA 	 vmrs APSR_nzcv,FPSCR
+ 312 005a 1DD5     	 bpl .L41
+ 313              	.L22:
+  99:Core/Src/Communication.cpp **** 
+ 314              	 .loc 1 99 80 discriminator 12 view .LVU86
+ 315 005c B5F80330 	 ldrh r3,[r5,#3]
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ARM GAS   			page 9
+
+
+ 316              	 .loc 1 98 78 discriminator 12 view .LVU87
+ 317 0060 1F49     	 ldr r1,.L43+20
+  99:Core/Src/Communication.cpp **** 
+ 318              	 .loc 1 99 80 discriminator 12 view .LVU88
+ 319 0062 B3F5967F 	 cmp r3,#300
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ 320              	 .loc 1 98 78 discriminator 12 view .LVU89
+ 321 0066 C1ED007A 	 vstr.32 s15,[r1]
+  99:Core/Src/Communication.cpp **** 
+ 322              	 .loc 1 99 21 is_stmt 1 discriminator 12 view .LVU90
+  99:Core/Src/Communication.cpp **** 
+ 323              	 .loc 1 99 80 is_stmt 0 discriminator 12 view .LVU91
+ 324 006a 9ABF     	 itte ls
+ 325 006c 07EE903A 	 vmovls s15,r3
+ 326 0070 F8EE677A 	 vcvtls.f32.u32 s15,s15
+ 327 0074 F0EE687A 	 vmovhi.f32 s15,s17
+ 328              	 .loc 1 101 21 discriminator 12 view .LVU92
+ 329 0078 D307     	 lsls r3,r2,#31
+  99:Core/Src/Communication.cpp **** 
+ 330              	 .loc 1 99 78 discriminator 12 view .LVU93
+ 331 007a C1ED017A 	 vstr.32 s15,[r1,#4]
+ 332              	 .loc 1 101 21 is_stmt 1 discriminator 12 view .LVU94
+ 333              	 .loc 1 101 43 is_stmt 0 discriminator 12 view .LVU95
+ 334 007e 02F00100 	 and r0,r2,#1
+ 335              	 .loc 1 101 21 discriminator 12 view .LVU96
+ 336 0082 12D4     	 bmi .L42
+ 337              	.L24:
+ 102:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = false;
+ 338              	 .loc 1 102 25 is_stmt 1 view .LVU97
+ 339              	 .loc 1 102 77 is_stmt 0 view .LVU98
+ 340 0084 0023     	 movs r3,#0
+ 341 0086 0B72     	 strb r3,[r1,#8]
+ 342 0088 164B     	 ldr r3,.L43+24
+ 343              	.L27:
+ 103:Core/Src/Communication.cpp ****                     else if (lastEnableDCDC == false)
+ 104:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = true;
+ 105:Core/Src/Communication.cpp ****                     lastEnableDCDC = rxData.enableDCDC;
+ 344              	 .loc 1 105 21 is_stmt 1 view .LVU99
+ 345              	 .loc 1 105 45 is_stmt 0 view .LVU100
+ 346 008a 1870     	 strb r0,[r3]
+ 106:Core/Src/Communication.cpp **** 
+ 107:Core/Src/Communication.cpp ****                     PowerManager::updateEnergy();
+ 347              	 .loc 1 107 21 is_stmt 1 view .LVU101
+ 348              	 .loc 1 107 47 is_stmt 0 view .LVU102
+ 349 008c FFF7FEFF 	 bl _ZN12PowerManager12updateEnergyEv
+ 350              	.LVL3:
+ 351              	.LBE6:
+ 352 0090 C4E7     	 b .L18
+ 353              	.L17:
+ 354              	.LBE8:
+ 355              	.LBE10:
+ 356              	.LBE13:
+ 108:Core/Src/Communication.cpp ****                 }
+ 109:Core/Src/Communication.cpp ****         }
+ 110:Core/Src/Communication.cpp ****     }
+ 357              	 .loc 1 110 5 view .LVU103
+ 358 0092 BDEC028B 	 vldm sp!,{d8}
+ARM GAS   			page 10
+
+
+ 359              	 .cfi_remember_state
+ 360              	 .cfi_restore 80
+ 361              	 .cfi_restore 81
+ 362              	 .cfi_def_cfa_offset 16
+ 363 0096 38BD     	 pop {r3,r4,r5,pc}
+ 364              	.L41:
+ 365              	 .cfi_restore_state
+ 366              	.LBB14:
+ 367              	.LBB11:
+ 368              	.LBB9:
+ 369              	.LBB7:
+  98:Core/Src/Communication.cpp ****                     PowerManager::ControlData::controlData.energyRemain      = M_CLAMP(rxData.feedb
+ 370              	 .loc 1 98 80 discriminator 2 view .LVU104
+ 371 0098 FA2B     	 cmp r3,#250
+ 372 009a 96BF     	 itet ls
+ 373 009c 07EE903A 	 vmovls s15,r3
+ 374 00a0 F0EE487A 	 vmovhi.f32 s15,s16
+ 375 00a4 F8EE677A 	 vcvtls.f32.u32 s15,s15
+ 376 00a8 D8E7     	 b .L22
+ 377              	.L42:
+ 101:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = false;
+ 378              	 .loc 1 101 52 discriminator 1 view .LVU105
+ 379 00aa B4EEC87A 	 vcmpe.f32 s14,s16
+ 380 00ae F1EE10FA 	 vmrs APSR_nzcv,FPSCR
+ 381 00b2 E7DC     	 bgt .L24
+ 103:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = true;
+ 382              	 .loc 1 103 26 is_stmt 1 view .LVU106
+ 103:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = true;
+ 383              	 .loc 1 103 45 is_stmt 0 view .LVU107
+ 384 00b4 0B4B     	 ldr r3,.L43+24
+ 103:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = true;
+ 385              	 .loc 1 103 26 view .LVU108
+ 386 00b6 1A78     	 ldrb r2,[r3]
+ 387 00b8 002A     	 cmp r2,#0
+ 388 00ba E6D1     	 bne .L27
+ 104:Core/Src/Communication.cpp ****                     lastEnableDCDC = rxData.enableDCDC;
+ 389              	 .loc 1 104 25 is_stmt 1 view .LVU109
+ 104:Core/Src/Communication.cpp ****                     lastEnableDCDC = rxData.enableDCDC;
+ 390              	 .loc 1 104 77 is_stmt 0 view .LVU110
+ 391 00bc 0122     	 movs r2,#1
+ 392 00be 0A72     	 strb r2,[r1,#8]
+ 393 00c0 E3E7     	 b .L27
+ 394              	.L40:
+  96:Core/Src/Communication.cpp **** 
+ 395              	 .loc 1 96 25 is_stmt 1 view .LVU111
+  96:Core/Src/Communication.cpp **** 
+ 396              	 .loc 1 96 52 is_stmt 0 view .LVU112
+ 397 00c2 FFF7FEFF 	 bl _ZN12PowerManager13systemRestartEv
+ 398              	.LVL4:
+ 101:Core/Src/Communication.cpp ****                         PowerManager::ControlData::controlData.enableOutput = false;
+ 399              	 .loc 1 101 43 view .LVU113
+ 400 00c6 2A78     	 ldrb r2,[r5]
+ 401 00c8 BBE7     	 b .L21
+ 402              	.L44:
+ 403 00ca 00BF     	 .align 2
+ 404              	.L43:
+ 405 00cc 00000000 	 .word hcan
+ARM GAS   			page 11
+
+
+ 406 00d0 00000000 	 .word .LANCHOR1
+ 407 00d4 00000000 	 .word .LANCHOR2
+ 408 00d8 00007A43 	 .word 1132068864
+ 409 00dc 00009643 	 .word 1133903872
+ 410 00e0 00000000 	 .word _ZN12PowerManager11ControlData11controlDataE
+ 411 00e4 00000000 	 .word .LANCHOR3
+ 412              	.LBE7:
+ 413              	.LBE9:
+ 414              	.LBE11:
+ 415              	.LBE14:
+ 416              	 .cfi_endproc
+ 417              	.LFE385:
+ 419              	 .global _ZN13Communication8rxHeaderE
+ 420              	 .section .rodata
+ 421              	 .align 2
+ 422              	 .set .LANCHOR0,.+0
+ 423              	.LC0:
+ 424 0000 200C0000 	 .word 3104
+ 425 0004 00000000 	 .word 0
+ 426 0008 00000000 	 .word 0
+ 427 000c 00000000 	 .word 0
+ 428 0010 00000000 	 .word 0
+ 429 0014 00000000 	 .word 0
+ 430 0018 01000000 	 .word 1
+ 431 001c 00000000 	 .word 0
+ 432 0020 01000000 	 .word 1
+ 433 0024 00000000 	 .word 0
+ 434              	 .section .bss._ZN13Communication8rxHeaderE,"aw",%nobits
+ 435              	 .align 2
+ 436              	 .set .LANCHOR2,.+0
+ 439              	_ZN13Communication8rxHeaderE:
+ 440 0000 00000000 	 .space 28
+ 440      00000000 
+ 440      00000000 
+ 440      00000000 
+ 440      00000000 
+ 441              	 .section .bss._ZN13CommunicationL6rxDataE,"aw",%nobits
+ 442              	 .align 2
+ 443              	 .set .LANCHOR1,.+0
+ 446              	_ZN13CommunicationL6rxDataE:
+ 447 0000 00000000 	 .space 8
+ 447      00000000 
+ 448              	 .section .data._ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC,"aw"
+ 449              	 .set .LANCHOR3,.+0
+ 452              	_ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC:
+ 453 0000 01       	 .byte 1
+ 454              	 .text
+ 455              	.Letext0:
+ 456              	 .file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 457              	 .file 3 "Drivers/CMSIS/Device/ST/STM32F3xx/Include/stm32f334x8.h"
+ 458              	 .file 4 "Drivers/CMSIS/Device/ST/STM32F3xx/Include/stm32f3xx.h"
+ 459              	 .file 5 "Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h"
+ 460              	 .file 6 "Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_can.h"
+ 461              	 .file 7 "/usr/include/newlib/c++/10.3.1/cmath"
+ 462              	 .file 8 "/usr/include/newlib/c++/10.3.1/bits/std_abs.h"
+ 463              	 .file 9 "/usr/include/newlib/c++/10.3.1/arm-none-eabi/thumb/v7e-m+fp/hard/bits/c++config.h"
+ 464              	 .file 10 "/usr/include/newlib/math.h"
+ARM GAS   			page 12
+
+
+ 465              	 .file 11 "/usr/include/newlib/c++/10.3.1/math.h"
+ 466              	 .file 12 "Core/Inc/PowerManager.hpp"
+ 467              	 .file 13 "Core/Inc/IncrementalPID.hpp"
+ 468              	 .file 14 "Core/Inc/Communication.hpp"
+ 469              	 .file 15 "<built-in>"
+ 470              	 .file 16 "Core/Inc/can.h"
+ARM GAS   			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Communication.cpp
+    {standard input}:18     .text._ZN13Communication4initEv:0000000000000000 $t
+    {standard input}:27     .text._ZN13Communication4initEv:0000000000000000 _ZN13Communication4initEv
+    {standard input}:84     .text._ZN13Communication4initEv:000000000000003c $d
+    {standard input}:90     .text._ZN13Communication17feedbackPowerDataEv:0000000000000000 $t
+    {standard input}:98     .text._ZN13Communication17feedbackPowerDataEv:0000000000000000 _ZN13Communication17feedbackPowerDataEv
+    {standard input}:209    .text._ZN13Communication17feedbackPowerDataEv:00000000000000ac $d
+    {standard input}:216    .text.CAN_RX0_IRQHandler:0000000000000000 $t
+    {standard input}:224    .text.CAN_RX0_IRQHandler:0000000000000000 CAN_RX0_IRQHandler
+    {standard input}:405    .text.CAN_RX0_IRQHandler:00000000000000cc $d
+    {standard input}:439    .bss._ZN13Communication8rxHeaderE:0000000000000000 _ZN13Communication8rxHeaderE
+    {standard input}:421    .rodata:0000000000000000 $d
+    {standard input}:435    .bss._ZN13Communication8rxHeaderE:0000000000000000 $d
+    {standard input}:442    .bss._ZN13CommunicationL6rxDataE:0000000000000000 $d
+    {standard input}:446    .bss._ZN13CommunicationL6rxDataE:0000000000000000 _ZN13CommunicationL6rxDataE
+    {standard input}:452    .data._ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC:0000000000000000 _ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC
+                           .group:0000000000000000 wm4.0.0f733fc808126e870021205966761dfa
+                           .group:0000000000000000 wm4.stm32f3xx_hal_conf.h.22.68702fcb376080053c327f742c9961b5
+                           .group:0000000000000000 wm4.stm32f3xx.h.38.82e8e99dfe49c20b1a4a903bd92d6a62
+                           .group:0000000000000000 wm4.stm32f334x8.h.34.4062b27910dbe4163b311597cc3129d0
+                           .group:0000000000000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:0000000000000000 wm4.cmsis_version.h.32.4d5822004c01a829a975260e854b5f8e
+                           .group:0000000000000000 wm4.core_cm4.h.66.e4ff136c4a17abc46741866f64f8e729
+                           .group:0000000000000000 wm4.cmsis_gcc.h.26.6774fe91202d65f4d5ffcff60e00da34
+                           .group:0000000000000000 wm4.core_cm4.h.174.50ec3abb944da12b18793171c26093dc
+                           .group:0000000000000000 wm4.stm32f334x8.h.742.4d018c717ec53f6245cec4363d185c67
+                           .group:0000000000000000 wm4.stm32f3xx.h.174.91b72afab8b3d83f71cfd7ef15cf4952
+                           .group:0000000000000000 wm4.stm32_hal_legacy.h.22.faf2d895fc44f19fdf533a93a00a4465
+                           .group:0000000000000000 wm4.stddef.h.39.cdc2cef840622b974aa19abcc0caae93
+                           .group:0000000000000000 wm4.stm32f3xx_hal_def.h.58.9b3c2bdf4a254dccb0f88c83bea62e05
+                           .group:0000000000000000 wm4.stm32f3xx_hal_rcc.h.46.e37a97e5b8d0ca06a596d1c15979cbcc
+                           .group:0000000000000000 wm4.stm32f3xx_hal_rcc_ex.h.20.10471072208d7575503f2f1804851a76
+                           .group:0000000000000000 wm4.stm32f3xx_hal_gpio.h.21.7cd0c7cb2091a8a34b9016ef7d16b8a7
+                           .group:0000000000000000 wm4.stm32f3xx_hal_gpio_ex.h.21.af39eaa5623e0a1009fcf4398ea2c1b7
+                           .group:0000000000000000 wm4.stm32f3xx_hal_exti.h.21.97ce243ab3f68da52c38aef7d478a1e0
+                           .group:0000000000000000 wm4.stm32f3xx_hal_dma.h.21.cc527711b185a0aec89274d6a9e66e40
+                           .group:0000000000000000 wm4.stm32f3xx_hal_dma_ex.h.21.0990be4ccabf56d8663bc991eae085b1
+                           .group:0000000000000000 wm4.stm32f3xx_hal_dma.h.406.bee398d2c322633b5d4483460294543c
+                           .group:0000000000000000 wm4.stm32f3xx_hal_cortex.h.21.2e6f8d82a4b5342dc6cb4d8275d4190e
+                           .group:0000000000000000 wm4.stm32f3xx_hal_adc_ex.h.21.83e1b666f94c6741e0f75669498b4cf0
+                           .group:0000000000000000 wm4.stm32f3xx_hal_adc.h.55.6de54c307a17ed796a45b8e483250af2
+                           .group:0000000000000000 wm4.stm32f3xx_hal_can.h.21.e8a2553fb767050d2b1baa10ea524b9c
+                           .group:0000000000000000 wm4.stm32f3xx_hal_flash.h.20.53fc2ade23629e1c8d41b6b358abbb8d
+                           .group:0000000000000000 wm4.stm32f3xx_hal_flash_ex.h.20.66a2e271db53c743be1fcb77b2017459
+                           .group:0000000000000000 wm4.stm32f3xx_hal_hrtim.h.21.fb28980682ad68d99a88889d8ff4d172
+                           .group:0000000000000000 wm4.stm32f3xx_hal_i2c.h.21.f7663f116d03c0043fd0e75e612f16ea
+                           .group:0000000000000000 wm4.stm32f3xx_hal_i2c_ex.h.21.cf479782f4f3a68ef5fbce499167225b
+                           .group:0000000000000000 wm4.stm32f3xx_hal_i2c.h.739.edde0c83ea6830c2c975fff967ebea26
+                           .group:0000000000000000 wm4.stm32f3xx_hal_iwdg.h.21.3504a210964eb279ef1de8bb44988f11
+                           .group:0000000000000000 wm4.stm32f3xx_hal_pwr.h.21.6193057a5c33d0b02d2f3a23acd22249
+                           .group:0000000000000000 wm4.stm32f3xx_hal_pwr_ex.h.21.0ae6fdf7fd790f205b68ea57197f080d
+                           .group:0000000000000000 wm4.stm32f3xx_hal_tim.h.21.d20cc3ea3a57aedcc53e87fa48cc1f6c
+                           .group:0000000000000000 wm4.stm32f3xx_hal_tim_ex.h.21.87406a6cc7024a9faaf6aed69e2733ce
+                           .group:0000000000000000 wm4.stm32f3xx_hal_uart.h.21.11bf2ca66aa636cfe74a1eb39fe0d460
+                           .group:0000000000000000 wm4.stm32f3xx_hal_uart_ex.h.21.f592049ad8b63c2f48d6a2e8f48bef5c
+                           .group:0000000000000000 wm4.stm32f3xx_hal.h.43.350d066a115a4ce03caef6c5048b93ca
+ARM GAS   			page 14
+
+
+                           .group:0000000000000000 wm4.main.h.60.25040540409f96806b00c4a4ef3ee0f3
+                           .group:0000000000000000 wm4.arm_math.h.290.6f4761c19be9b0245e2b0f8716189955
+                           .group:0000000000000000 wm4.arm_math.h.323.1b1d33459ea768a55fb1e001f3146f2d
+                           .group:0000000000000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
+                           .group:0000000000000000 wm4.newlib.h.34.e1d8fb0ee5aae520702cb2a689564661
+                           .group:0000000000000000 wm4.ieeefp.h.77.f33a4dce62116f6f5175ff8bae57a54c
+                           .group:0000000000000000 wm4.features.h.22.fad1cec3bc7ff06488171438dbdcfd02
+                           .group:0000000000000000 wm4.config.h.224.79362c3cdb280fe0b8d95bd0bc4d5c54
+                           .group:0000000000000000 wm4._ansi.h.21.5136fa2a01d1fcd44a2e65c6c2417611
+                           .group:0000000000000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:0000000000000000 wm4.stddef.h.155.7076294d263a8c080378a0849fe2c570
+                           .group:0000000000000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:0000000000000000 wm4._types.h.127.34941de1b2539d59d5cac00e0dd27a45
+                           .group:0000000000000000 wm4.reent.h.17.e292bf8b0bec6c96e131a54347145a30
+                           .group:0000000000000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:0000000000000000 wm4.reent.h.77.32fd7d280fc2a40b0797abce5beaf6e3
+                           .group:0000000000000000 wm4.assert.h.11.a5d97ca77559a42890313c4941c01fd9
+                           .group:0000000000000000 wm4.reent.h.504.40d20ade344680fbcb6a0178bf7ae09e
+                           .group:0000000000000000 wm4.cdefs.h.49.6cb61cdf7b446f131d08825667c792f6
+                           .group:0000000000000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:0000000000000000 wm4.stddef.h.155.6a74c971399e3775a985604de4c85627
+                           .group:0000000000000000 wm4.cconfig.h.31.ca70615ac5d64b381092c67e2aa4ba65
+                           .group:0000000000000000 wm4.cpu_defines.h.31.bf53b50a3b7882b34c717ebded187478
+                           .group:0000000000000000 wm4.cconfig.h.530.a3a0c82a92af211af9550e404267bc51
+                           .group:0000000000000000 wm4.cpp_type_traits.h.33.1347139df156938d2b4c9385225deb4d
+                           .group:0000000000000000 wm4.math.h.13.98adda230be3f94a08dc0346fcfae897
+                           .group:0000000000000000 wm4.std_abs.h.31.040e5b5b1580bc5021e41927de41d0b5
+                           .group:0000000000000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:0000000000000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:0000000000000000 wm4.stdlib.h.56.f4862cfbf4363a1db01842d5bdf72c18
+                           .group:0000000000000000 wm4.std_abs.h.42.301267e565a27b578b118540cf0e4de0
+                           .group:0000000000000000 wm4.cmath.50.11a1e578194018fe11be5eaded245320
+                           .group:0000000000000000 wm4.arm_math.h.357.f2026be44e4a6d6b548e27bef67666b1
+                           .group:0000000000000000 wm4.MathUtil.hpp.7.99fb1c9703fa67ce79b0db1c584432c4
+                           .group:0000000000000000 wm4.Buzzer.hpp.16.737626402bcd6fbabc170a71ab5298d8
+                           .group:0000000000000000 wm4.Calibration.hpp.8.db75527d44715a193e195c1fa5b4c885
+                           .group:0000000000000000 wm4.Config.hpp.11.33febacfddf8346375256a547be6a888
+                           .group:0000000000000000 wm4.PowerManager.hpp.24.d2146c2cd9d7360668c6691b95101c56
+
+UNDEFINED SYMBOLS
+HAL_CAN_ConfigFilter
+HAL_CAN_Start
+hcan
+_ZN12PowerManager6Status6statusE
+HAL_CAN_GetRxMessage
+_ZN12PowerManager12updateEnergyEv
+_ZN12PowerManager13systemRestartEv
+_ZN12PowerManager11ControlData11controlDataE

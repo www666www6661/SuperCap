@@ -1,0 +1,3 @@
+Core/Src/Communication.cpp:31:6:void Communication::init()	48	static
+Core/Src/Communication.cpp:62:6:void Communication::feedbackPowerData()	8	static
+Core/Src/Communication.cpp:86:10:void Communication::CAN_RX0_IRQHandler()	24	static
