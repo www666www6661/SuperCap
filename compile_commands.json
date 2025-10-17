@@ -6,7 +6,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -44,9 +44,9 @@
       "build/Core/Src/main.o",
       "Core/Src/main.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/main.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/main.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/main.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/main.o"
   },
   {
     "arguments": [
@@ -55,7 +55,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -93,9 +93,9 @@
       "build/Core/Src/gpio.o",
       "Core/Src/gpio.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/gpio.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/gpio.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/gpio.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/gpio.o"
   },
   {
     "arguments": [
@@ -104,7 +104,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -142,9 +142,9 @@
       "build/Core/Src/adc.o",
       "Core/Src/adc.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/adc.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/adc.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/adc.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/adc.o"
   },
   {
     "arguments": [
@@ -153,7 +153,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -191,9 +191,9 @@
       "build/Core/Src/can.o",
       "Core/Src/can.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/can.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/can.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/can.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/can.o"
   },
   {
     "arguments": [
@@ -202,7 +202,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -240,9 +240,9 @@
       "build/Core/Src/hrtim.o",
       "Core/Src/hrtim.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/hrtim.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/hrtim.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/hrtim.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/hrtim.o"
   },
   {
     "arguments": [
@@ -251,7 +251,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -289,9 +289,9 @@
       "build/Core/Src/tim.o",
       "Core/Src/tim.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/tim.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/tim.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/tim.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/tim.o"
   },
   {
     "arguments": [
@@ -300,7 +300,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -338,9 +338,9 @@
       "build/Core/Src/usart.o",
       "Core/Src/usart.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/usart.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/usart.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/usart.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/usart.o"
   },
   {
     "arguments": [
@@ -349,7 +349,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -387,9 +387,9 @@
       "build/Core/Src/stm32f3xx_it.o",
       "Core/Src/stm32f3xx_it.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/stm32f3xx_it.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/stm32f3xx_it.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/stm32f3xx_it.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/stm32f3xx_it.o"
   },
   {
     "arguments": [
@@ -398,7 +398,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -436,9 +436,9 @@
       "build/Core/Src/stm32f3xx_hal_msp.o",
       "Core/Src/stm32f3xx_hal_msp.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/stm32f3xx_hal_msp.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/stm32f3xx_hal_msp.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/stm32f3xx_hal_msp.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/stm32f3xx_hal_msp.o"
   },
   {
     "arguments": [
@@ -447,7 +447,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -485,9 +485,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o"
   },
   {
     "arguments": [
@@ -496,7 +496,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -534,9 +534,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o"
   },
   {
     "arguments": [
@@ -545,56 +545,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
-      "-ICore/Inc",
-      "-IDrivers/STM32F3xx_HAL_Driver/Inc",
-      "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
-      "-IDrivers/CMSIS/Device/ST/STM32F3xx/Include",
-      "-IDrivers/CMSIS/Include",
-      "-IMiddlewares/ST/ARM/DSP/Inc",
-      "-std=gnu11",
-      "-mcpu=cortex-m4",
-      "-mthumb",
-      "-mfpu=fpv4-sp-d16",
-      "-mfloat-abi=hard",
-      "-fdata-sections",
-      "-ffunction-sections",
-      "-fstack-usage",
-      "-specs=nano.specs",
-      "-O3",
-      "-pipe",
-      "-Wfatal-errors",
-      "-Wall",
-      "-Wextra",
-      "-Wpedantic",
-      "-Wshadow",
-      "-Wdouble-promotion",
-      "-Wlogical-op",
-      "-Wpointer-arith",
-      "-Wmissing-field-initializers",
-      "-Wno-unused-parameter",
-      "-Wno-unused-const-variable",
-      "-fdiagnostics-color=auto",
-      "-g3",
-      "-gdwarf-4",
-      "-MTbuild/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o",
-      "-Wa,-a,-ad,-alms=build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.lst",
-      "-o",
-      "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o",
-      "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c"
-    ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/arm-none-eabi-gcc",
-      "-c",
-      "-DUSE_HAL_DRIVER",
-      "-DSTM32F334x8",
-      "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -632,9 +583,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.o"
   },
   {
     "arguments": [
@@ -643,7 +594,56 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
+      "-ICore/Inc",
+      "-IDrivers/STM32F3xx_HAL_Driver/Inc",
+      "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
+      "-IDrivers/CMSIS/Device/ST/STM32F3xx/Include",
+      "-IDrivers/CMSIS/Include",
+      "-IMiddlewares/ST/ARM/DSP/Inc",
+      "-std=gnu11",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfpu=fpv4-sp-d16",
+      "-mfloat-abi=hard",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-fstack-usage",
+      "-specs=nano.specs",
+      "-O3",
+      "-pipe",
+      "-Wfatal-errors",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Wshadow",
+      "-Wdouble-promotion",
+      "-Wlogical-op",
+      "-Wpointer-arith",
+      "-Wmissing-field-initializers",
+      "-Wno-unused-parameter",
+      "-Wno-unused-const-variable",
+      "-fdiagnostics-color=auto",
+      "-g3",
+      "-gdwarf-4",
+      "-MTbuild/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o",
+      "-Wa,-a,-ad,-alms=build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.lst",
+      "-o",
+      "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o",
+      "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c"
+    ],
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/arm-none-eabi-gcc",
+      "-c",
+      "-DUSE_HAL_DRIVER",
+      "-DSTM32F334x8",
+      "-DARM_MATH_CM4",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -681,9 +681,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.o"
   },
   {
     "arguments": [
@@ -692,7 +692,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -730,9 +730,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.o"
   },
   {
     "arguments": [
@@ -741,7 +741,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -779,9 +779,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.o"
   },
   {
     "arguments": [
@@ -790,7 +790,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -828,9 +828,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o"
   },
   {
     "arguments": [
@@ -839,7 +839,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -877,9 +877,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.o"
   },
   {
     "arguments": [
@@ -888,7 +888,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -926,9 +926,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.o"
   },
   {
     "arguments": [
@@ -937,7 +937,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -975,9 +975,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.o"
   },
   {
     "arguments": [
@@ -986,7 +986,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1024,9 +1024,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.o"
   },
   {
     "arguments": [
@@ -1035,7 +1035,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1073,9 +1073,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.o"
   },
   {
     "arguments": [
@@ -1084,7 +1084,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1122,9 +1122,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.o"
   },
   {
     "arguments": [
@@ -1133,7 +1133,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1171,9 +1171,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.o"
   },
   {
     "arguments": [
@@ -1182,7 +1182,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1220,9 +1220,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o"
   },
   {
     "arguments": [
@@ -1231,7 +1231,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1269,9 +1269,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_hrtim.o"
   },
   {
     "arguments": [
@@ -1280,7 +1280,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1318,9 +1318,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.o"
   },
   {
     "arguments": [
@@ -1329,7 +1329,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1367,9 +1367,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.o"
   },
   {
     "arguments": [
@@ -1378,7 +1378,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1416,9 +1416,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.o"
   },
   {
     "arguments": [
@@ -1427,7 +1427,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1465,9 +1465,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.o"
   },
   {
     "arguments": [
@@ -1476,7 +1476,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1514,9 +1514,9 @@
       "build/Core/Src/system_stm32f3xx.o",
       "Core/Src/system_stm32f3xx.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/system_stm32f3xx.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/system_stm32f3xx.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/system_stm32f3xx.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/system_stm32f3xx.o"
   },
   {
     "arguments": [
@@ -1525,7 +1525,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1563,9 +1563,9 @@
       "build/Core/Src/dma.o",
       "Core/Src/dma.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/dma.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/dma.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/dma.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/dma.o"
   },
   {
     "arguments": [
@@ -1574,7 +1574,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1612,9 +1612,9 @@
       "build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.o",
       "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_iwdg.o"
   },
   {
     "arguments": [
@@ -1623,7 +1623,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1661,9 +1661,9 @@
       "build/Core/Src/iwdg.o",
       "Core/Src/iwdg.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/iwdg.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/iwdg.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/iwdg.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/iwdg.o"
   },
   {
     "arguments": [
@@ -1672,7 +1672,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1710,9 +1710,9 @@
       "build/Core/Src/sysmem.o",
       "Core/Src/sysmem.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/sysmem.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/sysmem.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/sysmem.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/sysmem.o"
   },
   {
     "arguments": [
@@ -1721,7 +1721,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1759,9 +1759,9 @@
       "build/Core/Src/syscalls.o",
       "Core/Src/syscalls.c"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/syscalls.c",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/syscalls.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/syscalls.c",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/syscalls.o"
   },
   {
     "arguments": [
@@ -1770,7 +1770,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1811,9 +1811,9 @@
       "build/Core/Src/Buzzer.o",
       "Core/Src/Buzzer.cpp"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/Buzzer.cpp",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/Buzzer.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/Buzzer.cpp",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/Buzzer.o"
   },
   {
     "arguments": [
@@ -1822,7 +1822,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1863,9 +1863,9 @@
       "build/Core/Src/Communication.o",
       "Core/Src/Communication.cpp"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/Communication.cpp",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/Communication.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/Communication.cpp",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/Communication.o"
   },
   {
     "arguments": [
@@ -1874,7 +1874,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1915,9 +1915,9 @@
       "build/Core/Src/IncrementalPID.o",
       "Core/Src/IncrementalPID.cpp"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/IncrementalPID.cpp",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/IncrementalPID.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/IncrementalPID.cpp",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/IncrementalPID.o"
   },
   {
     "arguments": [
@@ -1926,7 +1926,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -1967,9 +1967,9 @@
       "build/Core/Src/PowerManager.o",
       "Core/Src/PowerManager.cpp"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/PowerManager.cpp",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/PowerManager.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/PowerManager.cpp",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/PowerManager.o"
   },
   {
     "arguments": [
@@ -1978,7 +1978,7 @@
       "-DUSE_HAL_DRIVER",
       "-DSTM32F334x8",
       "-DARM_MATH_CM4",
-      "-DHARDWARE_ID=0",
+      "-DHARDWARE_ID=205",
       "-ICore/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc",
       "-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy",
@@ -2019,9 +2019,9 @@
       "build/Core/Src/SuperCap.o",
       "Core/Src/SuperCap.cpp"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/Core/Src/SuperCap.cpp",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/Core/Src/SuperCap.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/Core/Src/SuperCap.cpp",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/Core/Src/SuperCap.o"
   },
   {
     "arguments": [
@@ -2058,8 +2058,8 @@
       "build/startup_stm32f334x8_SuperCap.o",
       "startup_stm32f334x8_SuperCap.s"
     ],
-    "directory": "/home/concon/SuperCup_ENTERPRIZE",
-    "file": "/home/concon/SuperCup_ENTERPRIZE/startup_stm32f334x8_SuperCap.s",
-    "output": "/home/concon/SuperCup_ENTERPRIZE/build/startup_stm32f334x8_SuperCap.o"
+    "directory": "/home/concon/SuperCap_ENTERPRIZE",
+    "file": "/home/concon/SuperCap_ENTERPRIZE/startup_stm32f334x8_SuperCap.s",
+    "output": "/home/concon/SuperCap_ENTERPRIZE/build/startup_stm32f334x8_SuperCap.o"
   }
 ]

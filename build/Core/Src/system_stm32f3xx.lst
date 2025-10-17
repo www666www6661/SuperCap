@@ -534,7 +534,7 @@ DEFINED SYMBOLS
     {standard input}:172    .data.SystemCoreClock:0000000000000000 $d
     {standard input}:179    .rodata.AHBPrescTable:0000000000000000 $d
     {standard input}:187    .rodata.APBPrescTable:0000000000000000 $d
-                           .group:0000000000000000 wm4.0.5bd3fb47ece8cd89db7f39859867d34b
+                           .group:0000000000000000 wm4.0.5772491a24f9cd1476a244d548d5000f
                            .group:0000000000000000 wm4.stm32f3xx.h.38.82e8e99dfe49c20b1a4a903bd92d6a62
                            .group:0000000000000000 wm4.stm32f334x8.h.34.4062b27910dbe4163b311597cc3129d0
                            .group:0000000000000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f

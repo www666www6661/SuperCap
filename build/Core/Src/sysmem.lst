@@ -234,7 +234,7 @@ DEFINED SYMBOLS
     {standard input}:107    .text._sbrk:0000000000000034 $d
     {standard input}:115    .bss.__sbrk_heap_end:0000000000000000 $d
     {standard input}:119    .bss.__sbrk_heap_end:0000000000000000 __sbrk_heap_end
-                           .group:0000000000000000 wm4.0.5bd3fb47ece8cd89db7f39859867d34b
+                           .group:0000000000000000 wm4.0.5772491a24f9cd1476a244d548d5000f
                            .group:0000000000000000 wm4.errno.h.2.ba016d646105af6cad23be83630b6a3f
                            .group:0000000000000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
                            .group:0000000000000000 wm4.newlib.h.34.e1d8fb0ee5aae520702cb2a689564661

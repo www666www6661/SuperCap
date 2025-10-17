@@ -525,12 +525,12 @@ static void handleErrorState()
         SampleManager::ProcessedData::processedData.vASide / SampleManager::ProcessedData::processedData.vBSide * tempData.outputDuty;
     dutyDiffRatio = M_ABS(dutyDiffRatio);
     if (Status::status.outputEnabled &&
-        (((SampleManager::ProcessedData::processedData.pASide > 10.0f || SampleManager::ProcessedData::processedData.pBSide > 10.0f) &&
-          SampleManager::ProcessedData::processedData.efficiency < 0.5f) ||  // efficiency abnormal
+        (((SampleManager::ProcessedData::processedData.pASide > 15.5f || SampleManager::ProcessedData::processedData.pBSide > 13.0f) &&
+          SampleManager::ProcessedData::processedData.efficiency < 0.45f) ||  // efficiency abnormal
          dutyDiffRatio > 2.0f ||
          dutyDiffRatio < 0.5f))  // duty ratio abnormal
     {
-        if (errorCheckData.buckBoostCheckCnt++ > 40)
+        if (errorCheckData.buckBoostCheckCnt++ > 80)
         {
             errorCheckData.currentError |= ERROR_BUCK_BOOST;
             Status::status.errorCode |= ERROR_BUCK_BOOST;

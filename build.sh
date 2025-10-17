@@ -27,7 +27,7 @@ echo ">>> [Step 2/2] Starting firmware compilation with 8 parallel jobs..."
 
 # 执行编译命令，-j8 表示使用8个核心并行编译
 # 如果您的CPU核心数不同，可以调整这个数字，例如 -j16
-make -j8 HARDWARE_ID=0
+make -j8 HARDWARE_ID=205
 
 echo ""
 echo ">>> Build finished successfully!"

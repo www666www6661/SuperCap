@@ -1600,7 +1600,7 @@ DEFINED SYMBOLS
     {standard input}:1039   .text.HAL_HRTIM_MspDeInit:000000000000001c $d
     {standard input}:1050   .bss.hhrtim1:0000000000000000 hhrtim1
     {standard input}:1046   .bss.hhrtim1:0000000000000000 $d
-                           .group:0000000000000000 wm4.0.5bd3fb47ece8cd89db7f39859867d34b
+                           .group:0000000000000000 wm4.0.5772491a24f9cd1476a244d548d5000f
                            .group:0000000000000000 wm4.stm32f3xx_hal_conf.h.22.68702fcb376080053c327f742c9961b5
                            .group:0000000000000000 wm4.stm32f3xx.h.38.82e8e99dfe49c20b1a4a903bd92d6a62
                            .group:0000000000000000 wm4.stm32f334x8.h.34.4062b27910dbe4163b311597cc3129d0

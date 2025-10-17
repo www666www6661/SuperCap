@@ -887,7 +887,7 @@ DEFINED SYMBOLS
     {standard input}:643    .bss.__env:0000000000000000 __env
     {standard input}:640    .bss.__env:0000000000000000 $d
     {standard input}:646    .data.environ:0000000000000000 $d
-                           .group:0000000000000000 wm4.0.5bd3fb47ece8cd89db7f39859867d34b
+                           .group:0000000000000000 wm4.0.5772491a24f9cd1476a244d548d5000f
                            .group:0000000000000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
                            .group:0000000000000000 wm4.newlib.h.34.e1d8fb0ee5aae520702cb2a689564661
                            .group:0000000000000000 wm4.ieeefp.h.77.f33a4dce62116f6f5175ff8bae57a54c

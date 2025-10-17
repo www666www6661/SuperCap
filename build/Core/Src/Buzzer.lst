@@ -224,7 +224,7 @@ DEFINED SYMBOLS
     {standard input}:57     .text.TIM1_UP_TIM16_IRQHandler:0000000000000000 $t
     {standard input}:65     .text.TIM1_UP_TIM16_IRQHandler:0000000000000000 TIM1_UP_TIM16_IRQHandler
     {standard input}:104    .text.TIM1_UP_TIM16_IRQHandler:0000000000000018 $d
-                           .group:0000000000000000 wm4.0.0f733fc808126e870021205966761dfa
+                           .group:0000000000000000 wm4.0.8aa5dda2f385e1046792ed921bd1f17a
                            .group:0000000000000000 wm4.stm32f3xx_hal_conf.h.22.68702fcb376080053c327f742c9961b5
                            .group:0000000000000000 wm4.stm32f3xx.h.38.82e8e99dfe49c20b1a4a903bd92d6a62
                            .group:0000000000000000 wm4.stm32f334x8.h.34.4062b27910dbe4163b311597cc3129d0
@@ -266,7 +266,7 @@ DEFINED SYMBOLS
                            .group:0000000000000000 wm4.stm32f3xx_hal.h.43.350d066a115a4ce03caef6c5048b93ca
                            .group:0000000000000000 wm4.main.h.60.25040540409f96806b00c4a4ef3ee0f3
                            .group:0000000000000000 wm4.Buzzer.hpp.16.737626402bcd6fbabc170a71ab5298d8
-                           .group:0000000000000000 wm4.Config.hpp.11.33febacfddf8346375256a547be6a888
+                           .group:0000000000000000 wm4.Config.hpp.11.9c0704772cb31e2ad94f4faa30dee35e
 
 UNDEFINED SYMBOLS
 HAL_TIMEx_PWMN_Start

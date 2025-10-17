@@ -687,7 +687,7 @@ DEFINED SYMBOLS
     {standard input}:442    .bss._ZN13CommunicationL6rxDataE:0000000000000000 $d
     {standard input}:446    .bss._ZN13CommunicationL6rxDataE:0000000000000000 _ZN13CommunicationL6rxDataE
     {standard input}:452    .data._ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC:0000000000000000 _ZZ18CAN_RX0_IRQHandlerE14lastEnableDCDC
-                           .group:0000000000000000 wm4.0.0f733fc808126e870021205966761dfa
+                           .group:0000000000000000 wm4.0.8aa5dda2f385e1046792ed921bd1f17a
                            .group:0000000000000000 wm4.stm32f3xx_hal_conf.h.22.68702fcb376080053c327f742c9961b5
                            .group:0000000000000000 wm4.stm32f3xx.h.38.82e8e99dfe49c20b1a4a903bd92d6a62
                            .group:0000000000000000 wm4.stm32f334x8.h.34.4062b27910dbe4163b311597cc3129d0
@@ -765,8 +765,8 @@ DEFINED SYMBOLS
                            .group:0000000000000000 wm4.arm_math.h.357.f2026be44e4a6d6b548e27bef67666b1
                            .group:0000000000000000 wm4.MathUtil.hpp.7.99fb1c9703fa67ce79b0db1c584432c4
                            .group:0000000000000000 wm4.Buzzer.hpp.16.737626402bcd6fbabc170a71ab5298d8
-                           .group:0000000000000000 wm4.Calibration.hpp.8.db75527d44715a193e195c1fa5b4c885
-                           .group:0000000000000000 wm4.Config.hpp.11.33febacfddf8346375256a547be6a888
+                           .group:0000000000000000 wm4.Calibration.hpp.8.3e5ee8ffaba3f1028f9887b5a2332250
+                           .group:0000000000000000 wm4.Config.hpp.11.9c0704772cb31e2ad94f4faa30dee35e
                            .group:0000000000000000 wm4.PowerManager.hpp.24.d2146c2cd9d7360668c6691b95101c56
 
 UNDEFINED SYMBOLS
