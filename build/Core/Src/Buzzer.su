@@ -1,2 +1,0 @@
-Core/Src/Buzzer.cpp:17:6:void Buzzer::init()	0	static
-Core/Src/Buzzer.cpp:25:10:void Buzzer::TIM1_UP_TIM16_IRQHandler()	0	static
