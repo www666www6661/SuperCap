@@ -19,7 +19,7 @@ typedef enum {
 
 // ADC Buffer
 __attribute__((section(
-    ".BUFFER"))) static uint16_t adcBuf[ADC_COUNT][ADC_BUFFER_SIZE] = {};
+    ".BUFFER"))) static uint32_t adcBuf[ADC_COUNT][ADC_BUFFER_SIZE] = {};
 
 bsp_status_t inline bsp_adc_cal(bsp_adc_channel_t ch);
 bsp_status_t inline bsp_adc_start(bsp_adc_channel_t ch);

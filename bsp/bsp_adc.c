@@ -78,7 +78,7 @@ bsp_status_t BSP_ADC_GetSumBuffer(bsp_adc_channel_t ch) {
 
   for (uint16_t i = bsp_adc_map[ch].offset; i < ADC_BUFFER_SIZE;
        i += ADC_CHANNEL_COUNT) {
-    bsp_adc_sumBuf[ch] += adcBuf[i];
+    bsp_adc_sumBuf[ch] += adcBuf[bsp_adc_map[ch].adc == &hadc1 ? 0 : 1][i];
   }
 
   return BSP_OK;
