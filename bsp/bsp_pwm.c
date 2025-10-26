@@ -1,15 +1,13 @@
-#include "bsp_pwm.h"
+#include <assert.h>
 
 #include "bsp.h"
+#include "bsp_pwm.h"
 #include "main.h"
 #include "stm32f334x8.h"
 #include "stm32f3xx_hal_cortex.h"
 #include "stm32f3xx_hal_hrtim.h"
 #include "stm32f3xx_hal_tim.h"
-#include <assert.h>
-
 // TODO:simple mode for hrtim(maybe)
-
 /**
  * @brief TIM1 计数时钟频率 (Hz)
  * @note TIM_CLK = PCLK2 / (Prescaler + 1)
@@ -18,10 +16,8 @@
  *       TIM_CLK = 72,000,000 / (1439 + 1) = 50,000 Hz
  */
 #define BUZZER_TIM_CLK_HZ 50000.0f
-
 /**
  * @brief defined at cubemx
- *
  */
 #define HRTIM_PERIOD 16000u
 
@@ -39,9 +35,9 @@ static bsp_pwm_config_t bsp_pwm_map[BSP_PWM_NUM] = {
     [BSP_PWM_BUZZER] = {&htim1, TIM_CHANNEL_2}};
 
 /* 兼容妥协部分(only this file reachable)
-====================================================================================================
-*/
-bsp_status_t hrtim_pwm_start(uint32_t OutputChannel) {
+ * ====================================================================================================
+ */
+static bsp_status_t hrtim_pwm_start(uint32_t OutputChannel) {
   if (OutputChannel == HRTIM_TIMERID_TIMER_A) {
     HAL_HRTIM_WaveformCountStart(&hhrtim1, HRTIM_TIMERID_TIMER_A);
     HAL_HRTIM_WaveformOutputStart(&hhrtim1, HRTIM_OUTPUT_TA1);
@@ -58,13 +54,16 @@ bsp_status_t hrtim_pwm_start(uint32_t OutputChannel) {
 /**
  * @brief set hrtim CMP register
  *
- * @param OutputChannel HRTIM_TIMERINDEX_TIMER_A/B
+ * @param OutputChannel timerid
+ *                      This parameter can be one of the following values:
+ *                      HRTIM_TIMERID_TIMER_A/HRTIM_TIMERID_TIMER_B
  * @param duty_cycle To caculate the CMP value:
  *                    xCMP1 = Period/2 * (1 – dutyA);
  *                    xCMP2 = Period/2 * (1 + dutyA)
  * @return bsp_status_t
  */
-bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel, float duty_cycle) {
+static bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel,
+                                         float duty_cycle) {
   HRTIM_CompareCfgTypeDef compare_config = {0};
   if (OutputChannel == HRTIM_TIMERID_TIMER_A) {
 
@@ -87,9 +86,9 @@ bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel, float duty_cycle) {
   return BSP_OK;
 }
 
-/* 兼容妥协部分结束
-====================================================================================================
-*/
+/* 兼容妥协部分
+ * ====================================================================================================
+ */
 
 /**
  * @brief Start PWM output on a specific channel.
@@ -113,7 +112,7 @@ bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch) {
  * @param ch The PWM channel to start.
  * @return bsp_status_t Status of the operation.
  */
-bsp_status_t inline bsp_pwmn_start(bsp_pwm_channel_t ch) {
+bsp_status_t bsp_pwmn_start(bsp_pwm_channel_t ch) {
   if (bsp_pwm_map[ch].tim == &htim1) {
     HAL_TIMEx_PWMN_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   } else {

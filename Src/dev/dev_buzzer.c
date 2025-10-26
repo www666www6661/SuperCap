@@ -29,7 +29,7 @@ void Buzzer_PowerOn() {
   // HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
   //                                 HRTIM_COMPAREUNIT_1, &compare_config);
 
-  // compare_config.CompareValue = 6000;
+  // compare_config.CompareValue = 6000;@arg
   // HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
   //                                 HRTIM_COMPAREUNIT_3, &compare_config);
 
@@ -40,5 +40,5 @@ void Buzzer_PowerOn() {
   bsp_pwm_set_comp(BSP_PWM_B, 0.5);
   bsp_pwm_start(BSP_PWM_A);
   bsp_pwm_start(BSP_PWM_B);
-  bsp_pwm_set_comp(BSP_PWM_A, 0.6)
+  bsp_pwm_set_comp(BSP_PWM_A, 0.6);
 }
