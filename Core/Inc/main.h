@@ -68,8 +68,6 @@ void Error_Handler(void);
 #define I_SENSE_JUDGE_GPIO_Port GPIOA
 #define I_SENSE_A_Pin GPIO_PIN_2
 #define I_SENSE_A_GPIO_Port GPIOA
-#define TIM1_CH2N_BUZZER_Pin GPIO_PIN_0
-#define TIM1_CH2N_BUZZER_GPIO_Port GPIOB
 #define MOS_A_H_Pin GPIO_PIN_8
 #define MOS_A_H_GPIO_Port GPIOA
 #define MOS_A_L_Pin GPIO_PIN_9

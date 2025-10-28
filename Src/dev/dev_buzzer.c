@@ -1,44 +1,34 @@
 #include "dev_buzzer.h"
 
+#include "bsp_adc.h"
 #include "bsp_pwm.h"
 #include "stm32f3xx_hal.h"
 #include "stm32f3xx_hal_tim.h"
 #include "tim.h"
 
-bool Buzzer_Start() { return bsp_pwmn_start(BSP_PWM_BUZZER) == BSP_OK; }
+void Buzzer_Start() { bsp_pwm_start(BSP_PWM_BUZZER); }
 
-bool Buzzer_Stop() { return bsp_pwmn_stop(BSP_PWM_BUZZER) == BSP_OK; }
+void Buzzer_Stop() { bsp_pwm_stop(BSP_PWM_BUZZER); }
 
-bool Buzzer_Set(float freq, float duty_cycle) {
+void Buzzer_Set(float freq, float duty_cycle) {
   bsp_pwm_set_freq(BSP_PWM_BUZZER, freq);
-  return bsp_pwm_set_comp(BSP_PWM_BUZZER, duty_cycle) == BSP_OK;
+  bsp_pwm_set_comp(BSP_PWM_BUZZER, duty_cycle);
 }
 
 void Buzzer_PowerOn() {
-  Buzzer_Set(1300.0f, 1.0f / 3.0f);
+
   Buzzer_Start();
-  HAL_Delay(2000);
+  HAL_Delay(100);
+  Buzzer_Set(1046.50f * 0.65f, 0.66f);
+  HAL_Delay(250);
+
+  /* D5 */
+  Buzzer_Set(1174.66f * 0.65f, 0.66f);
+  HAL_Delay(250);
+
+  /* G5 */
+  Buzzer_Set(1567.98f * 0.65f, 0.66f);
+  HAL_Delay(250);
+
   Buzzer_Stop();
-  extern HRTIM_HandleTypeDef hhrtim1;
-  // HRTIM_CompareCfgTypeDef compare_config = {0};
-  //  compare_config.CompareValue = 6000;
-  //  HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-  //                                  HRTIM_COMPAREUNIT_3, &compare_config);
-
-  // compare_config.CompareValue = 3000;
-  // HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-  //                                 HRTIM_COMPAREUNIT_1, &compare_config);
-
-  // compare_config.CompareValue = 6000;@arg
-  // HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-  //                                 HRTIM_COMPAREUNIT_3, &compare_config);
-
-  // compare_config.CompareValue = 3000;
-  // HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-  //                                 HRTIM_COMPAREUNIT_1, &compare_config);
-  bsp_pwm_set_comp(BSP_PWM_A, 0.9);
-  bsp_pwm_set_comp(BSP_PWM_B, 0.5);
-  bsp_pwm_start(BSP_PWM_A);
-  bsp_pwm_start(BSP_PWM_B);
-  bsp_pwm_set_comp(BSP_PWM_A, 0.6);
 }

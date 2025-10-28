@@ -12,17 +12,14 @@
  * @brief TIM1 计数时钟频率 (Hz)
  * @note TIM_CLK = PCLK2 / (Prescaler + 1)
  *       PCLK2 = 72MHz (SystemCoreClock)
- *       Prescaler = 1439
- *       TIM_CLK = 72,000,000 / (1439 + 1) = 50,000 Hz
+ *       Prescaler = 72
+ *       TIM_CLK = 36,000,000 / (35 + 1) = 1000,000 Hz
  */
-#define BUZZER_TIM_CLK_HZ 50000.0f
-/**
- * @brief defined at cubemx
- */
-#define HRTIM_PERIOD 16000u
+#define BUZZER_TIM_CLK_HZ 1000000.0f
+#define HRTIM_PERIOD 16000u // defined on stm32cubemx
 
 extern HRTIM_HandleTypeDef hhrtim1; // master
-extern TIM_HandleTypeDef htim1;     // buzzer
+extern TIM_HandleTypeDef htim3;     // buzzer
 
 typedef struct {
   void *tim;
@@ -32,7 +29,7 @@ typedef struct {
 static bsp_pwm_config_t bsp_pwm_map[BSP_PWM_NUM] = {
     [BSP_PWM_A] = {&hhrtim1, HRTIM_TIMERID_TIMER_A},
     [BSP_PWM_B] = {&hhrtim1, HRTIM_TIMERID_TIMER_B},
-    [BSP_PWM_BUZZER] = {&htim1, TIM_CHANNEL_2}};
+    [BSP_PWM_BUZZER] = {&htim3, TIM_CHANNEL_3}};
 
 /* 兼容妥协部分(only this file reachable)
  * ====================================================================================================
@@ -97,7 +94,7 @@ static bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel,
  * two mode reguler/multi(hrtim)
  */
 bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim1) {
+  if (bsp_pwm_map[ch].tim == &htim3) {
     HAL_TIM_PWM_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
     hrtim_pwm_start(bsp_pwm_map[ch].channel);
@@ -113,7 +110,7 @@ bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch) {
  * @return bsp_status_t Status of the operation.
  */
 bsp_status_t bsp_pwmn_start(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim1) {
+  if (bsp_pwm_map[ch].tim == &htim3) {
     HAL_TIMEx_PWMN_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   } else {
     return BSP_ERR;
@@ -135,17 +132,18 @@ bsp_status_t bsp_pwm_set_comp(bsp_pwm_channel_t ch, float duty_cycle) {
     duty_cycle = 0.f;
   }
 
-  if (bsp_pwm_map[ch].tim == &htim1) {
-    TIM_HandleTypeDef *tim = (TIM_HandleTypeDef *)bsp_pwm_map[ch].tim;
+  if (bsp_pwm_map[ch].tim == &htim3) {
+
     uint16_t pulse =
-        (uint16_t)(duty_cycle * (float)__HAL_TIM_GET_AUTORELOAD(tim));
-    __HAL_TIM_SET_COMPARE(tim, bsp_pwm_map[ch].channel, pulse);
+        (uint16_t)(duty_cycle * (float)__HAL_TIM_GET_AUTORELOAD(
+                                    (TIM_HandleTypeDef *)bsp_pwm_map[ch].tim));
+    __HAL_TIM_SET_COMPARE((TIM_HandleTypeDef *)bsp_pwm_map[ch].tim,
+                          bsp_pwm_map[ch].channel, pulse);
   } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
     hrtim_pwm_setcompare(bsp_pwm_map[ch].channel, duty_cycle);
   } else {
     return BSP_ERR;
   }
-
   return BSP_OK;
 }
 
@@ -168,7 +166,7 @@ bsp_status_t bsp_pwm_set_freq(bsp_pwm_channel_t ch, float freq) {
 }
 
 bsp_status_t bsp_pwm_stop(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim1) {
+  if (bsp_pwm_map[ch].tim == &htim3) {
     HAL_TIM_PWM_Stop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
     HAL_HRTIM_WaveformOutputStop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
