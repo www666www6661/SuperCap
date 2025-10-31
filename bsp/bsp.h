@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdint.h"
+
 typedef enum {
   BSP_OK,
   BSP_ERR,

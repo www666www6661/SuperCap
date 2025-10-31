@@ -1,10 +1,13 @@
 #include "dev_buzzer.h"
 
 #include "bsp_adc.h"
+#include "bsp_can.h"
 #include "bsp_pwm.h"
 #include "stm32f3xx_hal.h"
 #include "stm32f3xx_hal_tim.h"
 #include "tim.h"
+
+extern CAN_HandleTypeDef hcan;
 
 void Buzzer_Start() { bsp_pwm_start(BSP_PWM_BUZZER); }
 
@@ -16,6 +19,7 @@ void Buzzer_Set(float freq, float duty_cycle) {
 }
 
 void Buzzer_PowerOn() {
+  bsp_can_init();
 
   Buzzer_Start();
   HAL_Delay(100);

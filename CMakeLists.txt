@@ -54,6 +54,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${DEV_Dirs}/dev_buzzer.c
     ${APP_Dirs}/SuperCap.c
     ${BSP_Dirs}/bsp_adc.c
+    ${BSP_Dirs}/bsp_can.c
 )
 
 # Add include paths
