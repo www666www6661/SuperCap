@@ -16,6 +16,5 @@ typedef enum {
 } bsp_can_format_t;
 
 void bsp_can_init(void);
-bsp_status_t bsp_can_trans_packet(bsp_can_t can, bsp_can_format_t format,
-                                  /*uint32_t id,*/ uint8_t *data);
+bsp_status_t bsp_can_trans_packet(bsp_can_t can,uint8_t *data);
 bsp_status_t bsp_can_get_msg(uint8_t *data, uint32_t *index);

@@ -17,12 +17,16 @@ typedef struct {
   uint8_t data[8];
 } can_raw_rx_t;
 
+/**
+ * @brief can_filter_init can_it enable can_start
+ *
+ */
 void bsp_can_init(void) {
 
   CAN_FilterTypeDef can_filter = {0};
 
   can_filter.FilterBank = 0;
-  can_filter.FilterIdHigh = 0x010 << 5;
+  can_filter.FilterIdHigh = 0x061 << 5;
   can_filter.FilterIdLow = 0;
   can_filter.FilterMode = CAN_FILTERMODE_IDLIST;
   can_filter.FilterScale = CAN_FILTERSCALE_16BIT;
@@ -36,8 +40,15 @@ void bsp_can_init(void) {
   HAL_CAN_Start(CAN_DEV);
 }
 
-bsp_status_t bsp_can_trans_packet(bsp_can_t can, bsp_can_format_t format,
-                                  /*uint32_t id,*/ uint8_t *data) {
+/**
+ * @brief trans a std can packet(add to mailbox)
+ *
+ * @param can can_channel
+ * @param data trans_bata_buf
+ * @return bsp_status_t
+ */
+bsp_status_t bsp_can_trans_packet(bsp_can_t can, uint8_t *data) {
+
   CAN_TxHeaderTypeDef header;
   header.StdId = 0x051;
   header.ExtId = 0;
@@ -46,8 +57,8 @@ bsp_status_t bsp_can_trans_packet(bsp_can_t can, bsp_can_format_t format,
   header.DLC = 8;
   header.TransmitGlobalTime = DISABLE;
 
-  uint32_t txMailBox = 0;
-  HAL_CAN_AddTxMessage(CAN_DEV, &header, data, &txMailBox);
+  uint32_t ptxMailBox = 0;
+  HAL_CAN_AddTxMessage(CAN_DEV, &header, data, &ptxMailBox);
   //   hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TIR  = ((txHeader.StdId <<
   //   CAN_TI0R_STID_Pos) | txHeader.RTR);
   // hcan.Instance->sTxMailBox[CAN_TX_MAILBOX0].TDTR = (txHeader.DLC);
@@ -69,6 +80,13 @@ bsp_status_t bsp_can_trans_packet(bsp_can_t can, bsp_can_format_t format,
   return BSP_OK;
 }
 
+/**
+ * @brief get can message (0x61)
+ *
+ * @param data receive_buffer
+ * @param index can_header_index
+ * @return bsp_status_t
+ */
 bsp_status_t bsp_can_get_msg(uint8_t *data, uint32_t *index) {
   can_raw_rx_t rx = {};
 
@@ -82,12 +100,7 @@ bsp_status_t bsp_can_get_msg(uint8_t *data, uint32_t *index) {
   return BSP_ERR;
 }
 
+// temp
 uint32_t id = 0;
 uint8_t data[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-void CAN_RX0_IRQHandler(void) {
-  if (bsp_can_get_msg(data, &id) == BSP_OK) {
-    for (int i = 0; i < 5; i++)
-      data[0] = i;
-    bsp_can_trans_packet(BSP_CAN_2, CAN_FORMAT_STD_DATA, data);
-  }
-}
+void CAN_RX0_IRQHandler(void) { bsp_can_get_msg(data, &id); }

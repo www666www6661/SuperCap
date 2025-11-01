@@ -55,6 +55,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${APP_Dirs}/SuperCap.c
     ${BSP_Dirs}/bsp_adc.c
     ${BSP_Dirs}/bsp_can.c
+   # ${DEV_Dirs}/dev_led.c
+    ${BSP_Dirs}/bsp_gpio.c
 )
 
 # Add include paths
