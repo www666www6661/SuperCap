@@ -49,7 +49,7 @@ void init()
     /* check hardware id */
     static volatile uint32_t hardwareID = 0;
 
-    hardwareID = HAL_FLASHEx_OBGetUserData(OB_DATA_ADDRESS_DATA0);
+    hardwareID = 205;  // HAL_FLASHEx_OBGetUserData(OB_DATA_ADDRESS_DATA0);
 
     if (hardwareID != (uint32_t)HARDWARE_ID)
     {
@@ -67,7 +67,7 @@ void init()
         pOBInit.RDPLevel    = OB_RDP_LEVEL_0;
         pOBInit.USERConfig  = OB_IWDG_SW | OB_STOP_NO_RST | OB_STDBY_NO_RST | OB_BOOT1_RESET | OB_VDDA_ANALOG_ON | OB_SRAM_PARITY_RESET;
         pOBInit.DATAAddress = OB_DATA_ADDRESS_DATA0;
-        pOBInit.DATAData    = (uint8_t)HARDWARE_ID;        // set hardware id
+        pOBInit.DATAData    = (uint8_t)HARDWARE_ID;  // set hardware id
 
         while (HAL_FLASHEx_OBProgram(&pOBInit) != HAL_OK)  // program option bytes
             __ASM volatile("bkpt ");
