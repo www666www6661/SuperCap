@@ -41,6 +41,7 @@ add_subdirectory(cmake/stm32cubemx)
 set(BSP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/bsp)
 set(DEV_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/dev)
 set(APP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/app)
+set(COMP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -57,6 +58,9 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${BSP_Dirs}/bsp_can.c
    # ${DEV_Dirs}/dev_led.c
     ${BSP_Dirs}/bsp_gpio.c
+    ${COMP_Dirs}/comp_pid.c
+    ${COMP_Dirs}/comp_utils.c
+    ${COMP_Dirs}/comp_filter.c
 )
 
 # Add include paths
@@ -65,6 +69,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${BSP_Dirs}
     ${DEV_Dirs}
     ${APP_Dirs}
+    ${COMP_Dirs}
 )
 
 # Add project symbols (macros)
