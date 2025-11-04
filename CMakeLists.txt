@@ -61,6 +61,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${COMP_Dirs}/comp_pid.c
     ${COMP_Dirs}/comp_utils.c
     ${COMP_Dirs}/comp_filter.c
+    ${DEV_Dirs}/dev_sampler.c
 )
 
 # Add include paths

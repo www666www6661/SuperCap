@@ -2,22 +2,40 @@
 #include "SuperCap.h"
 #include "comp_utils.h"
 #include <math.h>
+#include <string.h>
 
 #define SIGMA 0.000001f
 
-float PID_Calculate(Component_PID *this, float sp, float fb, float dt) {
+void Component_PID_Init(Component_PID *pid, Component_PID_Param param_) {
+  memset(&pid->dfilter_, 0, sizeof(pid->dfilter_));
+  memset(&pid->last_, 0, sizeof(pid->last_));
+  memset(&pid->dt_min_, 0, sizeof(pid->dt_min_));
+  memset(&pid->i_, 0, sizeof(pid->i_));
+
+  pid->param_ = param_;
+
+  LowPassFilter_Init(&pid->dfilter_, pid->param_.d_cutoff_freq);
+}
+
+/**
+ * @brief Calculates the PID controller output.
+ * @param this  Pointer to the PID controller instance.
+ * @param sp    The setpoint (desired value).
+ * @param fb    The feedback (measured value).
+ * @param dt    The time interval (delta time) in seconds.
+ * @return float The calculated controller output.
+ * @note This implementation uses derivative on measurement to prevent
+ * "derivative kick" and includes integral anti-windup. The derivative term is
+ * also low-pass filtered.
+ */
+float Component_PID_Calculate(Component_PID *this, float sp, float fb,
+                              float dt) {
   if (!isfinite(sp) || !isfinite(fb) || !isfinite(dt)) {
     return this->last_.out;
   }
 
   /* 计算误差值 */
-  float err = 0.0f;
-
-  if (this->param_.cycle) {
-    err = sp - fb;
-  } else {
-    err = sp - fb;
-  }
+  float err = sp - fb;
 
   /* 计算P项 */
   float k_err = err * this->param_.k;
@@ -67,23 +85,19 @@ float PID_Calculate(Component_PID *this, float sp, float fb, float dt) {
   return this->last_.out;
 }
 
-void PID_SetK(Component_PID *this, float k) { this->param_.k = k; }
+void Component_PID_SetK(Component_PID *this, float k) { this->param_.k = k; }
 
-void PID_SetP(Component_PID *this, float p) { this->param_.p = p; }
+void Component_PID_SetP(Component_PID *this, float p) { this->param_.p = p; }
 
-void PID_SetI(Component_PID *this, float i) { this->param_.i = i; }
+void Component_PID_SetI(Component_PID *this, float i) { this->param_.i = i; }
 
-void PID_SetD(Component_PID *this, float d) { this->param_.d = d; }
+void Component_PID_SetD(Component_PID *this, float d) { this->param_.d = d; }
 
-void PID_Reset(Component_PID *this) {
+void Component_PID_Reset(Component_PID *this) {
 
   this->i_ = 0.0f;
   this->last_.err = 0.0f;
   this->last_.k_fb = 0.0f;
   this->last_.out = 0.0f;
   LowPassFilter_Reset(&this->dfilter_, 0.0f);
-}
-
-void PID_Init(Component_PID *pid, Component_PID_Param param_) {
-  LowPassFilter_Init(&pid->dfilter_, pid->param_.d_cutoff_freq);
 }

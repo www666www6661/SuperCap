@@ -12,7 +12,6 @@ typedef struct Param {
   float i_limit;       /* 积分项上限 */
   float out_limit;     /* 输出绝对值限制 */
   float d_cutoff_freq; /* D项低通截止频率 */
-  bool cycle;          /* 是否为循环角度值 */
 } Component_PID_Param;
 
 typedef struct Last {
@@ -29,4 +28,12 @@ typedef struct Component_PID {
   LowPassFilter dfilter_; /* D项低通滤波器 */
 } Component_PID;
 
-void PID_Init(Component_PID *pid, Component_PID_Param param_);
+void Component_PID_Init(Component_PID *pid, Component_PID_Param param_);
+
+float Component_PID_Calculate(Component_PID *this, float sp, float fb,
+                              float dt);
+void Component_PID_SetK(Component_PID *this, float k);
+void Component_PID_SetP(Component_PID *this, float p);
+void Component_PID_SetI(Component_PID *this, float i);
+void Component_PID_SetD(Component_PID *this, float d);
+void Component_PID_Reset(Component_PID *this);
