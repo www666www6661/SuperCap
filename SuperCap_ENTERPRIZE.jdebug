@@ -4,9 +4,9 @@
 *                         www.segger.com                             *
 **********************************************************************
 
-File          : /home/concon/SuperCap_ENTERPRIZE/SuperCap_ENTERPRIZE.jdebug
-Created       : 17 Oct 2025 02:21
-Ozone Version : V3.38g
+File          : 
+Created       : 07. Nov 2025 00:16
+Ozone Version : V3.40c
 */
 
 /*********************************************************************
@@ -22,8 +22,8 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.AddPathSubstitute ("/home/concon/SuperCap_ENTERPRIZE", "$(ProjectDir)");
-  Project.AddPathSubstitute ("/home/concon/supercap_enterprize", "$(ProjectDir)");
+  Project.AddPathSubstitute ("/home/concon/Documents/SuperCap_ENTERPRIZE", "$(ProjectDir)");
+  Project.AddPathSubstitute ("/home/concon/documents/supercap_enterprize", "$(ProjectDir)");
   Project.SetDevice ("STM32F334R8");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");
@@ -33,6 +33,7 @@ void OnProjectLoad (void) {
   // User settings
   //
   File.Open ("$(ProjectDir)/build/RM2024-SuperCap-F3-V0.2.elf");
+  Edit.SysVar (VAR_HSS_SPEED, 1000000);
 }
 
 /*********************************************************************

@@ -994,8 +994,8 @@ extern "C"
             __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);  // stall the loop
         }
 
-        static volatile float load;
-        load = __HAL_TIM_GET_COUNTER(&htim16) / cnt;
+        // static volatile float load;
+        // load = __HAL_TIM_GET_COUNTER(&htim16) / cnt;
     }
 
     void TIM2_IRQHandler(void)
