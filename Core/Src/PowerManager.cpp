@@ -1,5 +1,7 @@
 #include "PowerManager.hpp"
 
+float dutyDiffRatio = 0;
+
 namespace PowerManager
 {
 
@@ -174,10 +176,10 @@ IncrementalPID::IncrementalPID pidVoltageB(1.00f, 2.00f, 0.05f, 0.7f);
  */
 
 // Raw PID
-// IncrementalPID::IncrementalPID pidCurrentA(0.0017f, 0.007f, 0.0016f, 0.0005f); //2024/5之前调出来的，似乎还是有点慢
+// IncrementalPID::IncrementalPID pidCurrentA(0.0017f, 0.007f, 0.0016f, 0.0005f);  // 2024/5之前调出来的，似乎还是有点慢
 IncrementalPID::IncrementalPID pidCurrentA(0.0046f, 0.0091f, 0.0015f, 0.0015f);  // 2024/5/15调的，大概5~10ms
 
-IncrementalPID::IncrementalPID pidPowerReferee(0.205f, 0.31f, 0.03f, 0.022f);
+IncrementalPID::IncrementalPID pidPowerReferee(0.205f, 0.1f, 0.03f, 0.022f);
 IncrementalPID::IncrementalPID pidEnergyReferee(0.5f, 2.0f, 0.5f, 0.2f);
 
 void systemRestart()
@@ -521,8 +523,7 @@ static void handleErrorState()
      * @note When error with the buck-boost circuit occurred, normally, the efficiency will be very low, and the duty ratio will be abnormal.
      * This is sometimes caused by the burned MOSFET, abnormal MOSFET driver, or abnormal MOSFET driving voltage.
      */
-    float dutyDiffRatio =
-        SampleManager::ProcessedData::processedData.vASide / SampleManager::ProcessedData::processedData.vBSide * tempData.outputDuty;
+    dutyDiffRatio = SampleManager::ProcessedData::processedData.vASide / SampleManager::ProcessedData::processedData.vBSide * tempData.outputDuty;
     dutyDiffRatio = M_ABS(dutyDiffRatio);
     if (Status::status.outputEnabled &&
         (((SampleManager::ProcessedData::processedData.pASide > 15.5f || SampleManager::ProcessedData::processedData.pBSide > 13.0f) &&
@@ -693,6 +694,8 @@ static inline void updateVIP()
         pidPowerReferee.update(tempData.targetRefereePower, SampleManager::ProcessedData::processedData.pReferee);
 
         tempData.targetAPower += pidPowerReferee.getDeltaOutput();
+        if (tempData.targetAPower < -31.5f)
+            tempData.targetAPower = -31.5f;
 
         float tempCapOutILimit;
         float tempCapInILimit        = I_LIMIT;

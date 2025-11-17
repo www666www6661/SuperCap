@@ -161,8 +161,6 @@ void MX_HRTIM1_Init(void)
   {
     Error_Handler();
   }
-  pDeadTimeCfg.RisingValue = 20;
-  pDeadTimeCfg.FallingValue = 20;
   if (HAL_HRTIM_DeadTimeConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, &pDeadTimeCfg) != HAL_OK)
   {
     Error_Handler();

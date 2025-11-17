@@ -1,30 +1,41 @@
 
 
-
-Breakpoint=/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/PowerManager.cpp:274, State=BP_STATE_ON
-Breakpoint=/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/PowerManager.cpp:538, State=BP_STATE_ON
-GraphedExpression="(processedData).iBSide", Color=#e56a6f
-GraphedExpression="(processedData).iASide", Color=#35792b
-GraphedExpression="(processedData).iReferee", Color=#769dda
-OpenDocument="startup_stm32f334x8_SuperCap.s", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/startup_stm32f334x8_SuperCap.s", Line=54
-OpenDocument="stm32f3xx_hal.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c", Line=354
-OpenDocument="PowerManager.cpp", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/PowerManager.cpp", Line=219
+GraphedExpression="(processedData).iReferee", DisplayFormat=DISPLAY_FORMAT_DEC, Color=#e56a6f, Show=0
+GraphedExpression="(adcIReferee).sum", Color=#35792b, Show=0
+GraphedExpression="(adcVA).sum", Color=#769dda, Show=0
+GraphedExpression="(processedData).pASide", Color=#b14f0d
+GraphedExpression="(processedData).pBSide", Color=#b3c38e
+GraphedExpression="(processedData).efficiency", Color=#ab7b05
 OpenDocument="main.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/main.c", Line=69
+OpenDocument="PowerManager.hpp", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Inc/PowerManager.hpp", Line=52
+OpenDocument="PowerManager.cpp", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/PowerManager.cpp", Line=970
+OpenDocument="Communication.cpp", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/Communication.cpp", Line=45
+OpenDocument="Config.hpp", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Inc/Config.hpp", Line=0
+OpenDocument="config.h", FilePath="/usr/include/newlib/sys/config.h", Line=0
+OpenDocument="stm32f3xx_it.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/stm32f3xx_it.c", Line=84
+OpenDocument="stm32f3xx_hal.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c", Line=282
+OpenDocument="startup_stm32f334x8_SuperCap.s", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/startup_stm32f334x8_SuperCap.s", Line=54
 OpenToolbar="Debug", Floating=0, x=0, y=0
-OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=0, w=300, h=661, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=300, h=370, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=300, h=290, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=213, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x828F5C04
-OpenWindow="Global Data", DockArea=LEFT, x=0, y=0, w=522, h=358, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=522, h=302, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=539, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
-OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=988, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="50 s", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="734;123", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="809;1", CodeGraphLegendShown=0, CodeGraphLegendPosition="824;0"
-OpenWindow="Console", DockArea=BOTTOM, x=2, y=0, w=177, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Global Data", DockArea=LEFT, x=0, y=0, w=522, h=352, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=522, h=308, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=543, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=986, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="200 ms", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="728;51", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="795;1", CodeGraphLegendShown=0, CodeGraphLegendPosition="811;0"
+OpenWindow="Console", DockArea=BOTTOM, x=2, y=0, w=175, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
-TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[100;100;100;100;100;0;100]
-TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";" (processedData).iBSide";" (processedData).iASide";" (processedData).iReferee"], ColWidths=[100;100;100;100;100]
-TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[148;100;100;100;104;100;100;100;100]
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[149;100;100;100;100;27;308]
+TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";" (processedData).iReferee";" (adcIReferee).sum";" (adcVA).sum";" (processedData).pASide";" (processedData).pBSide";" (processedData).efficiency"], ColWidths=[100;100;100;100;100;100;100;100]
+TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[148;100;100;100;100;100;100;100;100]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
-TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[100;100;105]
-TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Location";"Value";"Refresh";"Access"], ColWidths=[100;103;264;100;100]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[100;100;259]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Location";"Value";"Refresh";"Access"], ColWidths=[214;66;120;39;100]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
-TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[27;27;27;26]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[27;27;27;1581]
+WatchedExpression="status", RefreshRate=5, Window=Watched Data 1
 WatchedExpression="processedData", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="(pwmDutyVariable).buckBoostMode", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="tempData", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="adcIReferee", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="adcVA", Window=Watched Data 1
