@@ -5,9 +5,8 @@
 #include "main.h"
 #include "stm32f334x8.h"
 #include "stm32f3xx_hal_cortex.h"
-#include "stm32f3xx_hal_hrtim.h"
 #include "stm32f3xx_hal_tim.h"
-// TODO:simple mode for hrtim(maybe)
+
 /**
  * @brief TIM1 计数时钟频率 (Hz)
  * @note TIM_CLK = PCLK2 / (Prescaler + 1)
@@ -16,10 +15,8 @@
  *       TIM_CLK = 36,000,000 / (35 + 1) = 1000,000 Hz
  */
 #define BUZZER_TIM_CLK_HZ 1000000.0f
-#define HRTIM_PERIOD 16000u // defined on stm32cubemx
 
-extern HRTIM_HandleTypeDef hhrtim1; // master
-extern TIM_HandleTypeDef htim3;     // buzzer
+extern TIM_HandleTypeDef htim3; // buzzer
 
 typedef struct {
   void *tim;
@@ -27,65 +24,7 @@ typedef struct {
 } bsp_pwm_config_t;
 
 static bsp_pwm_config_t bsp_pwm_map[BSP_PWM_NUM] = {
-    [BSP_PWM_A] = {&hhrtim1, HRTIM_TIMERID_TIMER_A},
-    [BSP_PWM_B] = {&hhrtim1, HRTIM_TIMERID_TIMER_B},
     [BSP_PWM_BUZZER] = {&htim3, TIM_CHANNEL_3}};
-
-/* 兼容妥协部分(only this file reachable)
- * ====================================================================================================
- */
-static bsp_status_t hrtim_pwm_start(uint32_t OutputChannel) {
-  if (OutputChannel == HRTIM_TIMERID_TIMER_A) {
-    HAL_HRTIM_WaveformCountStart(&hhrtim1, HRTIM_TIMERID_TIMER_A);
-    HAL_HRTIM_WaveformOutputStart(&hhrtim1, HRTIM_OUTPUT_TA1);
-    HAL_HRTIM_WaveformOutputStart(&hhrtim1, HRTIM_OUTPUT_TA2);
-  } else if (OutputChannel == HRTIM_TIMERID_TIMER_B) {
-    HAL_HRTIM_WaveformCountStart(&hhrtim1, HRTIM_TIMERID_TIMER_B);
-    HAL_HRTIM_WaveformOutputStart(&hhrtim1, HRTIM_OUTPUT_TB1);
-    HAL_HRTIM_WaveformOutputStart(&hhrtim1, HRTIM_OUTPUT_TB2);
-  } else {
-    return BSP_ERR;
-  }
-  return BSP_OK;
-}
-/**
- * @brief set hrtim CMP register
- *
- * @param OutputChannel timerid
- *                      This parameter can be one of the following values:
- *                      HRTIM_TIMERID_TIMER_A/HRTIM_TIMERID_TIMER_B
- * @param duty_cycle To caculate the CMP value:
- *                    xCMP1 = Period/2 * (1 – dutyA);
- *                    xCMP2 = Period/2 * (1 + dutyA)
- * @return bsp_status_t
- */
-static bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel,
-                                         float duty_cycle) {
-  HRTIM_CompareCfgTypeDef compare_config = {0};
-  if (OutputChannel == HRTIM_TIMERID_TIMER_A) {
-
-    compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 - duty_cycle);
-    HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-                                    HRTIM_COMPAREUNIT_1, &compare_config);
-    compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 + duty_cycle);
-    HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-                                    HRTIM_COMPAREUNIT_3, &compare_config);
-  } else if (OutputChannel == HRTIM_TIMERID_TIMER_B) {
-    compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 - duty_cycle);
-    HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-                                    HRTIM_COMPAREUNIT_1, &compare_config);
-    compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 + duty_cycle);
-    HAL_HRTIM_WaveformCompareConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-                                    HRTIM_COMPAREUNIT_3, &compare_config);
-  } else {
-    return BSP_ERR;
-  }
-  return BSP_OK;
-}
-
-/* 兼容妥协部分
- * ====================================================================================================
- */
 
 /**
  * @brief Start PWM output on a specific channel.
@@ -94,13 +33,7 @@ static bsp_status_t hrtim_pwm_setcompare(uint32_t OutputChannel,
  * two mode reguler/multi(hrtim)
  */
 bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim3) {
-    HAL_TIM_PWM_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
-  } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
-    hrtim_pwm_start(bsp_pwm_map[ch].channel);
-  } else {
-    return BSP_ERR;
-  }
+  HAL_TIM_PWM_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   return BSP_OK;
 }
 
@@ -110,11 +43,7 @@ bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch) {
  * @return bsp_status_t Status of the operation.
  */
 bsp_status_t bsp_pwmn_start(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim3) {
-    HAL_TIMEx_PWMN_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
-  } else {
-    return BSP_ERR;
-  }
+  HAL_TIMEx_PWMN_Start(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   return BSP_OK;
 }
 
@@ -126,24 +55,17 @@ bsp_status_t bsp_pwmn_start(bsp_pwm_channel_t ch) {
  */
 bsp_status_t bsp_pwm_set_comp(bsp_pwm_channel_t ch, float duty_cycle) {
   if (duty_cycle > 1.0f) {
-    return BSP_ERR;
+    duty_cycle = 1.0f;
   }
   if (duty_cycle < 0.0f) {
     duty_cycle = 0.f;
   }
 
-  if (bsp_pwm_map[ch].tim == &htim3) {
-
-    uint16_t pulse =
-        (uint16_t)(duty_cycle * (float)__HAL_TIM_GET_AUTORELOAD(
-                                    (TIM_HandleTypeDef *)bsp_pwm_map[ch].tim));
-    __HAL_TIM_SET_COMPARE((TIM_HandleTypeDef *)bsp_pwm_map[ch].tim,
-                          bsp_pwm_map[ch].channel, pulse);
-  } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
-    hrtim_pwm_setcompare(bsp_pwm_map[ch].channel, duty_cycle);
-  } else {
-    return BSP_ERR;
-  }
+  uint16_t pulse =
+      (uint16_t)(duty_cycle * (float)__HAL_TIM_GET_AUTORELOAD(
+                                  (TIM_HandleTypeDef *)bsp_pwm_map[ch].tim));
+  __HAL_TIM_SET_COMPARE((TIM_HandleTypeDef *)bsp_pwm_map[ch].tim,
+                        bsp_pwm_map[ch].channel, pulse);
   return BSP_OK;
 }
 
@@ -161,24 +83,21 @@ bsp_status_t bsp_pwm_set_freq(bsp_pwm_channel_t ch, float freq) {
   } else {
     return BSP_ERR;
   }
-  // never change the frec of hrtim here if its a supercap project
   return BSP_OK;
 }
 
+/**
+ * @brief shutdown specific pwm channel
+ *
+ * @param ch pwm_channel
+ * @return bsp_status_t
+ */
 bsp_status_t bsp_pwm_stop(bsp_pwm_channel_t ch) {
-  if (bsp_pwm_map[ch].tim == &htim3) {
-    HAL_TIM_PWM_Stop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
-  } else if (bsp_pwm_map[ch].tim == &hhrtim1) {
-    HAL_HRTIM_WaveformOutputStop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
-  } else {
-    return BSP_ERR;
-  }
+  HAL_TIM_PWM_Stop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
   return BSP_OK;
 }
 
 bsp_status_t bsp_pwmn_stop(bsp_pwm_channel_t ch) {
-
   HAL_TIMEx_PWMN_Stop(bsp_pwm_map[ch].tim, bsp_pwm_map[ch].channel);
-
   return BSP_OK;
 }

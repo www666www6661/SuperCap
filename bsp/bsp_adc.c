@@ -74,6 +74,7 @@ bsp_status_t bsp_adc_start(bsp_adc_channel_t ch) {
 
   return BSP_OK;
 }
+
 /**
  * @brief Update ADC sum buffer with accumulated sample values
  *
@@ -93,4 +94,14 @@ bsp_status_t bsp_adc_updatesumbuf(bsp_adc_channel_t ch) {
   }
 
   return BSP_OK;
+}
+
+/**
+ * @brief dump buffer data into a specific buffer
+ *
+ * @param ch adc_channel
+ * @param buf a pointer to target buffer
+ */
+inline void bsp_adc_dumpdata(bsp_adc_channel_t ch, uint16_t *buf) {
+  *buf = bsp_adc_sumBuf[ch];
 }

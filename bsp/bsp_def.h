@@ -41,15 +41,3 @@ __attribute__((unused)) static void xb_verify_failed(const char *file,
     const typeof(((type *)0)->member) *__mptr = (ptr);                         \
     (type *)((char *)__mptr - ms_offset_of(type, member));                     \
   })
-
-typedef enum {
-  BSP_OK,
-  BSP_ERR,
-  BSP_ERR_NULL,
-  BSP_ERR_INITED,
-  BSP_ERR_NO_DEV,
-  BSP_ERR_BUSY,
-  BSP_ERR_TIMEOUT,
-  BSP_ERR_FULL,
-  BSP_ERR_EMPTY,
-} bsp_status_t;

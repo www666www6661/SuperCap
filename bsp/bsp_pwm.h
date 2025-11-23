@@ -1,13 +1,8 @@
 #pragma once
 
 #include "bsp.h"
-/* PWM通道 */
-typedef enum {
-  BSP_PWM_A,
-  BSP_PWM_B,
-  BSP_PWM_BUZZER,
-  BSP_PWM_NUM
-} bsp_pwm_channel_t;
+// PWM通道
+typedef enum { BSP_PWM_BUZZER, BSP_PWM_NUM } bsp_pwm_channel_t;
 
 bsp_status_t bsp_pwm_start(bsp_pwm_channel_t ch);
 bsp_status_t bsp_pwm_set_comp(bsp_pwm_channel_t ch, float duty_cycle);

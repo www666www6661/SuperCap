@@ -12,6 +12,6 @@ typedef enum {
   BSP_ADC_NUM
 } bsp_adc_channel_t;
 
-bsp_status_t bsp_adc_cal(bsp_adc_channel_t ch);
 bsp_status_t bsp_adc_start(bsp_adc_channel_t ch);
 bsp_status_t bsp_adc_updatesumbuf(bsp_adc_channel_t ch);
+void bsp_adc_dumpdata(bsp_adc_channel_t ch, uint16_t *buf);

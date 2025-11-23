@@ -52,6 +52,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ${BSP_Dirs}/bsp_pwm.c
+    ${BSP_Dirs}/bsp_hrtim.c
     ${DEV_Dirs}/dev_buzzer.c
     ${APP_Dirs}/SuperCap.c
     ${BSP_Dirs}/bsp_adc.c
