@@ -23,10 +23,10 @@ void Device_Buzzer_Play(float freq, uint32_t duration_ms) {
 }
 
 void Device_Buzzer_PowerOn() {
-  bsp_hrtim_start(BSP_HRTIM_A);
-  bsp_hrtim_set_comp(BSP_HRTIM_A, 0.99f);
-  bsp_hrtim_start(BSP_HRTIM_B);
-  bsp_hrtim_set_comp(BSP_HRTIM_B, 0.89f);
+  // bsp_hrtim_start(BSP_HRTIM_A);
+  // bsp_hrtim_set_comp(BSP_HRTIM_A, 0.99f);
+  // bsp_hrtim_start(BSP_HRTIM_B);
+  // bsp_hrtim_set_comp(BSP_HRTIM_B, 0.89f);
 
   Device_Buzzer_Start();
   HAL_Delay(100);

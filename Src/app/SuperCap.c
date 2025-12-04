@@ -1,3 +1,3 @@
 #include "SuperCap.h"
 
-void SuperCap_Start() { Buzzer_PowerOn(); }
+void SuperCap_Start() { Device_Buzzer_PowerOn(); }

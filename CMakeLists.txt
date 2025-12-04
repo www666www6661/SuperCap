@@ -42,6 +42,7 @@ set(BSP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/bsp)
 set(DEV_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/dev)
 set(APP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/app)
 set(COMP_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp)
+set(MOD_Dirs ${CMAKE_CURRENT_SOURCE_DIR}/Src/module)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -52,17 +53,17 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ${BSP_Dirs}/bsp_pwm.c
-    ${BSP_Dirs}/bsp_hrtim.c
     ${DEV_Dirs}/dev_buzzer.c
     ${APP_Dirs}/SuperCap.c
     ${BSP_Dirs}/bsp_adc.c
     ${BSP_Dirs}/bsp_can.c
-   # ${DEV_Dirs}/dev_led.c
     ${BSP_Dirs}/bsp_gpio.c
     ${COMP_Dirs}/comp_pid.c
     ${COMP_Dirs}/comp_utils.c
     ${COMP_Dirs}/comp_filter.c
-    ${DEV_Dirs}/dev_sampler.c
+    ${MOD_Dirs}/mod_errchecker.c
+    ${MOD_Dirs}/mod_status.c
+    ${MOD_Dirs}/mod_powerctrl.c
 )
 
 # Add include paths
@@ -72,6 +73,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${DEV_Dirs}
     ${APP_Dirs}
     ${COMP_Dirs}
+    ${MOD_Dirs}
 )
 
 # Add project symbols (macros)

@@ -4,7 +4,7 @@
 #include "component.h"
 
 /* PID参数 */
-typedef struct Param {
+typedef struct PID_Param {
   float k;             /* 控制器增益，设置为1用于并行模式 */
   float p;             /* 比例项增益，设置为1用于标准形式 */
   float i;             /* 积分项增益 */
