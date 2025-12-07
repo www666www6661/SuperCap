@@ -62,7 +62,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${COMP_Dirs}/comp_utils.c
     ${COMP_Dirs}/comp_filter.c
     ${MOD_Dirs}/mod_errchecker.c
-    ${MOD_Dirs}/mod_status.c
     ${MOD_Dirs}/mod_powerctrl.c
 )
 

@@ -1,7 +1,32 @@
 #pragma once
 #include "bsp_hrtim.h"
 #include "comp_utils.h"
-#include <stdbool.h>
+
+typedef struct {
+  float CAP_IOUT_MAX;
+  float CAP_CUTOFF_VOLTAGE;
+  float CAP_IOUT_MIN;
+  float CAP_NORMAL_VOLTAGE;
+  float CAP_MAX_VOLTAGE;
+  float I_LIMIT;
+} Device_BuckBoost_Param;
+
+typedef struct {
+  const float CAP_IOUT_MAX;
+  const float CAP_IOUT_MIN;
+  const float CAP_CUTOFF_VOLTAGE;
+  const float CAP_NORMAL_VOLTAGE;
+  const float CAP_MAX_VOLTAGE;
+  const float I_LIMIT;
+} Device_BuckBoost;
+
+static inline void Device_BuckBoost_Init(Device_BuckBoost *this,
+                                         Device_BuckBoost_Param param) {
+  *(float *)&this->CAP_IOUT_MIN = param.CAP_IOUT_MIN;
+  *(float *)&this->CAP_IOUT_MAX = param.CAP_IOUT_MAX;
+  *(float *)&this->CAP_CUTOFF_VOLTAGE = param.CAP_CUTOFF_VOLTAGE;
+  *(float *)&this->CAP_NORMAL_VOLTAGE = param.CAP_NORMAL_VOLTAGE;
+}
 
 static inline void Device_BuckBoost_Disable() {
   bsp_hrtim_muti_stop(BSP_HRTIM_A, BSP_HRTIM_B);

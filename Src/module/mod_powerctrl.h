@@ -1,56 +1,53 @@
 #pragma once
 
 #include "comp_pid.h"
+#include "dev_buckboost.h"
 #include "mod_samplemanager.h"
 #include "mod_status.h"
-#include <stdbool.h>
-
-#define I_LIMIT 10.0f
-#define MAX_CAP_VOLTAGE 25.0f
 
 typedef struct {
-  float min_cap_iout;
-  float max_cap_iout;
-  float cap_v_cutoff;
-  float cap_v_normal;
+
+  float default_energy;
+  float default_output_duty;
+  float default_base_referee_power;
 
   Component_PID_Param vbside;
   Component_PID_Param iaside;
   Component_PID_Param preferee;
   Component_PID_Param energy;
 
-  float init_referee_power_limit;
-  float init_energy_remain;
-  float init_output_duty;
-  float init_base_referee_power;
+  Device_BuckBoost_Param buckboost;
+
+  Module_Status *status;
+
 } Module_PowerCtrl_Param;
 
 typedef struct {
-  float refereePowerLimit;
-  float energyRemain;
-  bool enableOutput;
-} Module_PowerCtrl_ControlData;
+  float last_wakeup_;
+  float now_;
 
-typedef struct {
-  float outputDuty;
-  float baseRefereePower;
-  float targetRefereePower;
-  float lastRefereePowerLimit;
-  float targetAPower;
-  float targetIA;
-} Module_PowerCtrl_TempData;
+  // State variables from C++ tempData
+  float output_duty_;
+  float base_referee_power_;
+  float pRefree_setpoint_;
+  float last_referee_power_limit_;
+  float paside_setpoint_;
+  float iaside_setpoint_;
+  uint16_t led_blink_cnt_;
+  uint32_t communication_timeout_cnt_;
 
-typedef struct {
-  Component_PID Component_PID_vbside_;
-  Component_PID Component_PID_iaside_;
-  Component_PID Component_PID_prefree_;
-  Component_PID Component_PID_energy_;
+  Component_PID PID_vbside_;
+  Component_PID PID_iaside_;
+  Component_PID PID_pRefree_;
+  Component_PID PID_energy_;
+  Device_BuckBoost buckboost_;
 
-  Module_PowerCtrl_ControlData control_data_;
-  Module_PowerCtrl_TempData temp_data_;
   Module_PowerCtrl_Param param_;
+
+  Module_Status *status_;
+  Module_SampleManager *sampler_;
 } Module_PowerCtrl;
 
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param);
-void Module_PowerCtrl_Update(Module_PowerCtrl *this);
+void Module_PowerCtrl_Cal(Module_PowerCtrl *this);

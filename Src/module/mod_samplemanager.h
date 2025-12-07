@@ -20,8 +20,6 @@ typedef struct Sampler {
   Module_SampleManager_Param param_;
 } Module_SampleManager;
 
-static Module_SampleManager Module_SampleManager_;
-
 static inline void Module_Sampler_Init(Module_SampleManager *this,
                                        Module_SampleManager_Param param) {
   this->param_ = param;

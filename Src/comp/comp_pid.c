@@ -7,10 +7,10 @@
 #define SIGMA 0.000001f
 
 void Component_PID_Init(Component_PID *pid, Component_PID_Param param) {
-  memset(&pid->dfilter_, 0, sizeof(pid->dfilter_));
-  memset(&pid->last_, 0, sizeof(pid->last_));
-  memset(&pid->dt_min_, 0, sizeof(pid->dt_min_));
-  memset(&pid->i_, 0, sizeof(pid->i_));
+  memset(&(pid->dfilter_), 0, sizeof(pid->dfilter_));
+  memset(&(pid->last_), 0, sizeof(pid->last_));
+  memset(&(pid->dt_min_), 0, sizeof(pid->dt_min_));
+  memset(&(pid->i_), 0, sizeof(pid->i_));
 
   pid->param_ = param;
 
