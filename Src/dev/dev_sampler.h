@@ -62,7 +62,7 @@ static inline void Device_Current_Sampler_Init(Device_Current_Sampler *this,
  * @param this Pointer to the Device_Volt_Sampler instance.
  * @return The calculated voltage value.
  */
-static inline float Device_GetVoltage(Device_Volt_Sampler *this) {
+static inline float Device_Sampler_GetVoltage(Device_Volt_Sampler *this) {
   bsp_adc_updatesumbuf(this->param_.adc_channel);
   bsp_adc_dumpdata(this->param_.adc_channel, &(this->adc_val_));
   return this->voltage_ = this->param_.k * this->adc_val_ + this->param_.b;
@@ -73,7 +73,7 @@ static inline float Device_GetVoltage(Device_Volt_Sampler *this) {
  * @param this Pointer to the Device_Current_Sampler instance.
  * @return The calculated current value.
  */
-static inline float Device_GetCurrrent(Device_Current_Sampler *this) {
+static inline float Device_Sampler_GetCurrrent(Device_Current_Sampler *this) {
   bsp_adc_updatesumbuf(this->param_.adc_channel);
   bsp_adc_dumpdata(this->param_.adc_channel, &(this->adc_val_));
   return this->current_ = this->param_.k * this->adc_val_ + this->param_.b;

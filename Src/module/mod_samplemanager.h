@@ -7,7 +7,6 @@ typedef struct Sampler_Param {
   Device_Sampler_Param iaside;
   Device_Sampler_Param ibside;
   Device_Sampler_Param iRefree;
-  Device_Sampler_Param iChassis;
 } Module_SampleManager_Param;
 
 typedef struct Sampler {
@@ -16,7 +15,6 @@ typedef struct Sampler {
   Device_Current_Sampler iaside_;
   Device_Current_Sampler ibside_;
   Device_Current_Sampler iRefree_;
-  Device_Current_Sampler iChassis_;
   Module_SampleManager_Param param_;
 } Module_SampleManager;
 
@@ -28,5 +26,18 @@ static inline void Module_Sampler_Init(Module_SampleManager *this,
   Device_Current_Sampler_Init(&this->iaside_, this->param_.iaside);
   Device_Current_Sampler_Init(&this->ibside_, this->param_.ibside);
   Device_Current_Sampler_Init(&this->iRefree_, this->param_.iRefree);
-  Device_Current_Sampler_Init(&this->iChassis_, this->param_.iChassis);
+}
+
+/**
+ * @brief This function can only read correct data when the ADC sampling cycle
+ * is started.
+ *
+ * @param this
+ */
+static inline void Module_Sampler_Update(Module_SampleManager *this) {
+  Device_Sampler_GetVoltage(&(this->vaside_));
+  Device_Sampler_GetVoltage(&(this->vbside_));
+  Device_Sampler_GetCurrrent(&(this->iaside_));
+  Device_Sampler_GetCurrrent(&(this->ibside_));
+  Device_Sampler_GetCurrrent(&(this->iRefree_));
 }

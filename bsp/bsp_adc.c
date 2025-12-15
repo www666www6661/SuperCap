@@ -23,11 +23,11 @@ typedef struct {
 } bsp_adc_config_t;
 
 bsp_adc_config_t bsp_adc_map[BSP_ADC_NUM] = {
-    [BSP_ADC_VA] = {ADC_DEV_(1), 1 - 1},
-    [BSP_ADC_IA] = {ADC_DEV_(1), 2 - 1},
-    [BSP_ADC_IREF] = {ADC_DEV_(1), 3 - 1},
-    [BSP_ADC_VB] = {ADC_DEV_(2), 1 - 1},
-    [BSP_ADC_IB] = {ADC_DEV_(2), 2 - 1},
+    [BSP_ADC_VA] = {ADC_DEV_(1), 3 - 1},
+    [BSP_ADC_IA] = {ADC_DEV_(1), 1 - 1},
+    [BSP_ADC_IREF] = {ADC_DEV_(1), 2 - 1},
+    [BSP_ADC_VB] = {ADC_DEV_(2), 2 - 1},
+    [BSP_ADC_IB] = {ADC_DEV_(2), 1 - 1},
     [BSP_ADC_NTC] = {ADC_DEV_(2), 3 - 1}};
 
 uint16_t bsp_adc_sumBuf[BSP_ADC_NUM] = {}; // SUM Buffer of adcValue

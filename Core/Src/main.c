@@ -28,9 +28,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "SuperCap.h"
 #include "bsp_adc.h"
 #include "bsp_can.h"
 #include <stdint.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,7 +59,6 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-extern void SuperCap_Start();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -103,7 +104,6 @@ int main(void) {
   MX_TIM16_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
   SuperCap_Start();
   /* USER CODE END 2 */
 
@@ -111,8 +111,6 @@ int main(void) {
   /* USER CODE BEGIN WHILE */
 
   while (1) {
-
-    HAL_Delay(10);
 
     /* USER CODE END WHILE */
 

@@ -18,8 +18,6 @@ typedef struct {
 
   Device_BuckBoost_Param buckboost;
 
-  Module_Status *status;
-
 } Module_PowerCtrl_Param;
 
 typedef struct {
@@ -50,4 +48,4 @@ typedef struct {
 
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param);
-void Module_PowerCtrl_Cal(Module_PowerCtrl *this);
+void Module_PowerCtrl_Calculate(Module_PowerCtrl *this);

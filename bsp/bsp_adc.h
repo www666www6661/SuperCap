@@ -3,12 +3,12 @@
 #include "bsp.h"
 
 typedef enum {
-  BSP_ADC_IA,
-  BSP_ADC_IREF,
   BSP_ADC_VA,
-  BSP_ADC_IB,
-  BSP_ADC_VB,
+  BSP_ADC_IREF,
+  BSP_ADC_IA,
   BSP_ADC_NTC,
+  BSP_ADC_VB,
+  BSP_ADC_IB,
   BSP_ADC_NUM
 } bsp_adc_channel_t;
 
