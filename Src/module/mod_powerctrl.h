@@ -7,6 +7,9 @@
 
 typedef struct {
 
+  Module_Status *status_;
+  Module_SampleManager *sampler_;
+
   float default_energy;
   float default_output_duty;
   float default_base_referee_power;
@@ -24,7 +27,6 @@ typedef struct {
   float last_wakeup_;
   float now_;
 
-  // State variables from C++ tempData
   float output_duty_;
   float base_referee_power_;
   float pRefree_setpoint_;

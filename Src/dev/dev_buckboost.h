@@ -37,7 +37,7 @@ static inline void Device_BuckBoost_Enable() {
 }
 
 static inline void Device_BuckBoost_UpdatePWM(float VBToVA) {
-  // Ported from updatePWM() in PowerManager.cpp
+
   static bool buckBoostMode = false;
   float dutyA = 0.0f;
   float dutyB = 0.0f;

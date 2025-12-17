@@ -46,7 +46,8 @@ static inline bsp_status_t bsp_hrtim_start(bsp_hrtim_channel_t ch) {
  */
 static inline bsp_status_t bsp_hrtim_muti_start(bsp_hrtim_channel_t ch1,
                                                 bsp_hrtim_channel_t ch2) {
-  HAL_HRTIM_WaveformCountStart(&hhrtim1, bsp_hrtim_map[ch1].timer_id);
+  HAL_HRTIM_WaveformCountStart(&hhrtim1, bsp_hrtim_map[ch1].timer_id |
+                                             bsp_hrtim_map[ch2].timer_id);
   HAL_Delay(1); // 等待波形对齐（可能有效吧）
   HAL_HRTIM_WaveformOutputStart(
       &hhrtim1, bsp_hrtim_map[ch1].output_1 | bsp_hrtim_map[ch1].output_2 |

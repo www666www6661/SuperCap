@@ -10,16 +10,20 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
 
   this->param_ = param;
 
+  this->sampler_ = param.sampler_;
+  this->status_ = param.status_;
   Component_PID_Init(&(this->PID_vbside_), this->param_.vbside);
   Component_PID_Init(&(this->PID_iaside_), this->param_.iaside);
   Component_PID_Init(&(this->PID_pRefree_), this->param_.preferee);
   Component_PID_Init(&(this->PID_energy_), this->param_.energy);
   Device_BuckBoost_Init(&(this->buckboost_), this->param_.buckboost);
+  Device_BuckBoost_Enable();
 }
 
 void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
   if (this->status_->outputEnabled) {
-
+    // TODO: 把这个完善
+    // Device_BuckBoost_Enable();
     float actual_ia_to_ib =
         (fminf(fabsf(this->sampler_->iaside_.current_), 0.1f)) /
         (fminf(fabsf(this->sampler_->ibside_.current_), 0.1f));
@@ -114,5 +118,5 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     Component_PID_Reset(&(this->PID_vbside_));
     Component_PID_Reset(&(this->PID_pRefree_));
   }
-  Device_BuckBoost_UpdatePWM(this->output_duty_);
+  Device_BuckBoost_UpdatePWM(0.5f);
 }

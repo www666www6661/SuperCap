@@ -24,7 +24,7 @@
 #include "gpio.h"
 #include "hrtim.h"
 #include "tim.h"
-#include "usart.h"
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -98,7 +98,6 @@ int main(void) {
   MX_CAN_Init();
   MX_HRTIM1_Init();
   MX_ADC1_Init();
-  MX_USART2_UART_Init();
   MX_ADC2_Init();
   MX_TIM2_Init();
   MX_TIM16_Init();
