@@ -8,8 +8,7 @@
 
 #define ADC_COUNT 2         // adc count
 #define ADC_CHANNEL_COUNT 3 // Channel count （采样通道数 per adc）
-#define ADC_SAMPLE_COUNT 8  // Sample count （采样次数，保证精度）
-#define ADC_BUFFER_SIZE (ADC_CHANNEL_COUNT * ADC_SAMPLE_COUNT)
+#define ADC_BUFFER_SIZE ADC_CHANNEL_COUNT
 #define ADC_DEV_(arg) &hadc##arg, (arg - 1) // adc设备映射
 
 // ADC Buffer
@@ -29,7 +28,7 @@ bsp_adc_config_t bsp_adc_map[BSP_ADC_NUM] = {
     [BSP_ADC_IB] = {ADC_DEV_(2), 1 - 1},
     [BSP_ADC_NTC] = {ADC_DEV_(2), 3 - 1}};
 
-uint16_t bsp_adc_sumBuf[BSP_ADC_NUM] = {0}; // SUM Buffer of adcValue
+uint32_t bsp_adc_Buf[BSP_ADC_NUM] = {0}; // SUM Buffer of adcValue
 
 /**
  * @brief ADC Calibration
@@ -64,7 +63,7 @@ bsp_status_t bsp_adc_start(bsp_adc_channel_t ch) {
   if (adc_running[bsp_adc_map[ch].dev] == 0) {
     adc_running[bsp_adc_map[ch].dev] = 1;
     bsp_adc_cal(ch);
-    HAL_Delay(1000);
+    HAL_Delay(500);
     HAL_ADC_Start_DMA(bsp_adc_map[ch].adc, adcBuf[bsp_adc_map[ch].dev],
                       ADC_BUFFER_SIZE);
   } else {
@@ -75,34 +74,21 @@ bsp_status_t bsp_adc_start(bsp_adc_channel_t ch) {
 }
 
 /**
- * @brief Update ADC sum buffer with accumulated sample values
+ * @brief Update ADC sum buffer with accumulated sample values,and  dump buffer
+ * data into a specific buffer
  *
  * @param ch ADC channel to process
  * @return bsp_status_t BSP_OK on success, BSP_ERR on channel error
  *         the result will be stored in bsp_adc_sumBuf[ch]
  */
-bsp_status_t bsp_adc_updatesumbuf(bsp_adc_channel_t ch) {
+bsp_status_t bsp_adc_update(bsp_adc_channel_t ch, uint32_t *buf) {
 
   if (ch >= BSP_ADC_NUM) {
     return BSP_ERR; // Channel error
   }
 
-  bsp_adc_sumBuf[ch] = 0; // Clear sum buffer before accumulation
-
-  for (uint32_t i = bsp_adc_map[ch].offset; i < ADC_BUFFER_SIZE;
-       i += ADC_CHANNEL_COUNT) {
-    bsp_adc_sumBuf[ch] += adcBuf[bsp_adc_map[ch].dev][i];
-  }
+  bsp_adc_Buf[ch] = adcBuf[bsp_adc_map[ch].dev][bsp_adc_map[ch].offset];
+  *buf = bsp_adc_Buf[ch];
 
   return BSP_OK;
-}
-
-/**
- * @brief dump buffer data into a specific buffer
- *
- * @param ch adc_channel
- * @param buf a pointer to target buffer
- */
-inline void bsp_adc_dumpdata(bsp_adc_channel_t ch, uint16_t *buf) {
-  *buf = bsp_adc_sumBuf[ch] / ADC_SAMPLE_COUNT;
 }
