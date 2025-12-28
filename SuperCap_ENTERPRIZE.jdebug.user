@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 GraphedExpression="(processedData).iReferee", DisplayFormat=DISPLAY_FORMAT_DEC, Color=#e56a6f, Show=0
 GraphedExpression="(adcIReferee).sum", Color=#35792b, Show=0
 GraphedExpression="(adcVA).sum", Color=#769dda, Show=0
@@ -39,3 +40,26 @@ WatchedExpression="(pwmDutyVariable).buckBoostMode", RefreshRate=5, Window=Watch
 WatchedExpression="tempData", RefreshRate=5, Window=Watched Data 1
 WatchedExpression="adcIReferee", RefreshRate=5, Window=Watched Data 1
 WatchedExpression="adcVA", Window=Watched Data 1
+=======
+
+Breakpoint=/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/hrtim.c:60, State=BP_STATE_ON
+OpenDocument="hrtim.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/hrtim.c", Line=31
+OpenDocument="startup_stm32f334x8_SuperCap.s", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/startup_stm32f334x8_SuperCap.s", Line=49
+OpenDocument="main.c", FilePath="/home/concon/Documents/SuperCap_ENTERPRIZE/Core/Src/main.c", Line=64
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=0, w=521, h=1007, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=388, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x48
+OpenWindow="Global Data", DockArea=LEFT, x=0, y=0, w=415, h=561, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=415, h=445, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=954, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=1216, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="1 ns / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="714;187", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="1115;1", CodeGraphLegendShown=0, CodeGraphLegendPosition="1131;0"
+SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[226;197;100;100;100;0;308]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[270;129;160;122;345;100]
+TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
+TableHeader="Data Sampling Setup", SortCol="Min. Change", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[100;100;100;100;100;100;100;100;154]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[175;176;100;100;100]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[27;27;27;27]
+>>>>>>> dd64be6 (我们修复了一些已知问题)

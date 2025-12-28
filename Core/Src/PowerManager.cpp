@@ -445,7 +445,7 @@ static void handleErrorState()
             Status::status.errorCode &= ~ERROR_HIGH_TEMPERATURE;
         }
     }
-    else
+    elseupdate
     {
         if (SampleManager::ProcessedData::processedData.temperature < OVER_TEMP_TRIGGER_THRESHOLD)
         {
