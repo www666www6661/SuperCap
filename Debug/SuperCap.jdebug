@@ -22,8 +22,8 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.AddPathSubstitute ("/home/concon/Documents/SuperCap/Debug", "$(ProjectDir)");
-  Project.AddPathSubstitute ("/home/concon/documents/supercap/debug", "$(ProjectDir)");
+  Project.AddPathSubstitute ("/home/concon/Documents/SuperCap/Release", "$(ProjectDir)");
+  Project.AddPathSubstitute ("/home/concon/documents/supercap/release", "$(ProjectDir)");
   Project.SetDevice ("STM32F334R8");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");

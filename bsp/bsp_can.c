@@ -1,4 +1,5 @@
 #include "bsp_can.h"
+#include "bsp.h"
 #include "stm32f3xx_hal.h"
 #include "stm32f3xx_hal_can.h"
 #include <string.h>
@@ -49,6 +50,9 @@ void bsp_can_init(void) {
  */
 bsp_status_t bsp_can_trans_packet(bsp_can_t can, uint8_t *data) {
 
+  if (can != BSP_CAN_1) {
+    return BSP_ERR;
+  }
   CAN_TxHeaderTypeDef header;
   header.StdId = 0x051;
   header.ExtId = 0;

@@ -1,27 +1,34 @@
 
 
-OpenDocument="bsp_adc.c", FilePath="/home/concon/Documents/SuperCap/bsp/bsp_adc.c", Line=57
-OpenDocument="startup_stm32f334x8.s", FilePath="/home/concon/Documents/SuperCap/startup_stm32f334x8.s", Line=48
-OpenDocument="main.c", FilePath="/home/concon/Documents/SuperCap/Core/Src/main.c", Line=58
+OpenDocument="SuperCap.jdebug", FilePath="/home/concon/Documents/SuperCap/Debug/SuperCap.jdebug", Line=0
+OpenDocument="stm32f3xx_hal.c", FilePath="/home/concon/Documents/SuperCap/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c", Line=339
+OpenDocument="mod_powerctrl.c", FilePath="/home/concon/Documents/SuperCap/Src/module/mod_powerctrl.c", Line=0
+OpenDocument="stm32f3xx_it.c", FilePath="/home/concon/Documents/SuperCap/Core/Src/stm32f3xx_it.c", Line=72
+OpenDocument="bsp_hrtim.h", FilePath="/home/concon/Documents/SuperCap/bsp/bsp_hrtim.h", Line=31
+OpenDocument="SuperCap.c", FilePath="/home/concon/Documents/SuperCap/Src/app/SuperCap.c", Line=82
+OpenDocument="bsp_adc.c", FilePath="/home/concon/Documents/SuperCap/bsp/bsp_adc.c", Line=0
+OpenDocument="startup_stm32f334x8.s", FilePath="/home/concon/Documents/SuperCap/startup_stm32f334x8.s", Line=47
+OpenDocument="main.c", FilePath="/home/concon/Documents/SuperCap/Core/Src/main.c", Line=56
 OpenToolbar="Debug", Floating=0, x=0, y=0
-OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=0, w=474, h=612, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=474, h=408, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
-OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=597, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, EditorAddress=0x50000100
-OpenWindow="Local Data", DockArea=LEFT, x=0, y=0, w=476, h=424, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=476, h=596, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=596, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
-OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=1093, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=1, CodePaneShown=1, PinCursor="Cursor Movable", TimePerDiv="1 ns / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="907;0", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=1, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="914;1", CodeGraphLegendShown=1, CodeGraphLegendPosition="884;0"
-OpenWindow="Console", DockArea=BOTTOM, x=2, y=0, w=271, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=1, w=662, h=286, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=2, w=662, h=340, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=662, h=458, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=943, h=253, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, EditorAddress=0xFFFFF44
+OpenWindow="Global Data", DockArea=LEFT, x=0, y=0, w=476, h=442, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=476, h=643, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=234, h=253, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=466, h=253, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="1 ns / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="280;108", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="290;-22", CodeGraphLegendShown=0, CodeGraphLegendPosition="306;0"
+OpenWindow="Console", DockArea=BOTTOM, x=2, y=0, w=914, h=253, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
-TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[270;129;160;122;345;100]
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[100;100;100;100;100;182]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[199;129;160;122;345;100]
 TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
 TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[100;100;100;100;100;100;100;100;100]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
-TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[137;100;259]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[137;100;409]
 TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Location";"Value";"Refresh"], ColWidths=[100;103;264;100]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
-TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[27;27;27;26]
-TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[100;100;100;100;100;231]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[231;132;96;1203]
 WatchedExpression="supercap", RefreshRate=5, Window=Watched Data 1
 WatchedExpression="adcBuf", RefreshRate=5, Window=Watched Data 1
-WatchedExpression="adcBuf1", RefreshRate=5, Window=Watched Data 1
+WatchedExpression="load", RefreshRate=5, Window=Watched Data 1

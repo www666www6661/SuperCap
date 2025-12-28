@@ -17,5 +17,6 @@ typedef struct {
 
 // extern SuperCap supercap;
 
-void SuperCap_Start();
-void SuperCap_control();
+void SuperCap_Start(void);
+void SuperCap_control(void);
+void HRTIM1_Master_IRQHandler(void);

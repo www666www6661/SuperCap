@@ -4,14 +4,17 @@
 #include "dev_buckboost.h"
 #include "mod_status.h"
 #include <math.h>
-
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param) {
 
   this->param_ = param;
 
-  this->sampler_ = param.sampler_;
-  this->status_ = param.status_;
+  this->dt = this->param_.dt;
+  this->base_referee_power_ = this->param_.default_base_referee_power;
+
+  this->sampler_ = this->param_.sampler_;
+  this->status_ = this->param_.status_;
+
   Component_PID_Init(&(this->PID_vbside_), this->param_.vbside);
   Component_PID_Init(&(this->PID_iaside_), this->param_.iaside);
   Component_PID_Init(&(this->PID_pRefree_), this->param_.preferee);
@@ -23,7 +26,6 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
 void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
   if (this->status_->outputEnabled) {
     // TODO: 把这个完善
-    // Device_BuckBoost_Enable();
     float actual_ia_to_ib =
         (fminf(fabsf(this->sampler_->iaside_.current_), 0.1f)) /
         (fminf(fabsf(this->sampler_->ibside_.current_), 0.1f));
@@ -31,7 +33,7 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     this->paside_setpoint_ = Component_PID_Calculate(
         &(this->PID_pRefree_), this->pRefree_setpoint_,
         this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_,
-        TIME_DIFF(this->last_wakeup_, this->now_));
+        this->dt);
 
     float temp_cap_out_ilimit;
     float temp_cap_in_ilimit = this->buckboost_.I_LIMIT;
@@ -78,15 +80,13 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
 
     float ia_duty =
         Component_PID_Calculate(&(this->PID_iaside_), this->iaside_setpoint_,
-                                this->sampler_->iaside_.current_,
-                                TIME_DIFF(this->last_wakeup_, this->now_));
+                                this->sampler_->iaside_.current_, this->dt);
 
     if (this->sampler_->vbside_.voltage_ >
         this->buckboost_.CAP_MAX_VOLTAGE * 0.9f) {
       float vb_duty = Component_PID_Calculate(
           &(this->PID_vbside_), this->buckboost_.CAP_MAX_VOLTAGE,
-          this->sampler_->vbside_.voltage_,
-          TIME_DIFF(this->last_wakeup_, this->now_));
+          this->sampler_->vbside_.voltage_, this->dt);
 
       if (vb_duty < ia_duty) {
         this->output_duty_ = vb_duty;
@@ -118,5 +118,5 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     Component_PID_Reset(&(this->PID_vbside_));
     Component_PID_Reset(&(this->PID_pRefree_));
   }
-  Device_BuckBoost_UpdatePWM(0.5f);
+  Device_BuckBoost_UpdatePWM(0.001f);
 }

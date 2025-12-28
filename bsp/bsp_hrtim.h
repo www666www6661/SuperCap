@@ -31,7 +31,8 @@ static const bsp_hrtim_config_t bsp_hrtim_map[BSP_HRTIM_NUM] = {
  * @param ch The HRTIM channel to start.
  * @return bsp_status_t Status of the operation.
  */
-static inline bsp_status_t bsp_hrtim_start(bsp_hrtim_channel_t ch) {
+static inline bsp_status_t __attribute__((always_inline))
+bsp_hrtim_start(bsp_hrtim_channel_t ch) {
   HAL_HRTIM_WaveformCountStart(&hhrtim1, bsp_hrtim_map[ch].timer_id);
   HAL_Delay(1); // 等待波形对齐（可能有效吧）
   HAL_HRTIM_WaveformOutputStart(&hhrtim1, bsp_hrtim_map[ch].output_1 |
@@ -44,8 +45,8 @@ static inline bsp_status_t bsp_hrtim_start(bsp_hrtim_channel_t ch) {
  * @param ch The HRTIM channel to start.
  * @return bsp_status_t Status of the operation.
  */
-static inline bsp_status_t bsp_hrtim_muti_start(bsp_hrtim_channel_t ch1,
-                                                bsp_hrtim_channel_t ch2) {
+static inline bsp_status_t __attribute__((always_inline))
+bsp_hrtim_muti_start(bsp_hrtim_channel_t ch1, bsp_hrtim_channel_t ch2) {
   HAL_HRTIM_WaveformCountStart(&hhrtim1, HRTIM_TIMERID_MASTER |
                                              bsp_hrtim_map[ch1].timer_id |
                                              bsp_hrtim_map[ch2].timer_id);
@@ -61,7 +62,8 @@ static inline bsp_status_t bsp_hrtim_muti_start(bsp_hrtim_channel_t ch1,
  * @param ch The HRTIM channel to stop.
  * @return bsp_status_t Status of the operation.
  */
-static inline bsp_status_t bsp_hrtim_stop(bsp_hrtim_channel_t ch) {
+static inline bsp_status_t __attribute__((always_inline))
+bsp_hrtim_stop(bsp_hrtim_channel_t ch) {
   HAL_HRTIM_WaveformOutputStop(&hhrtim1, bsp_hrtim_map[ch].output_1 |
                                              bsp_hrtim_map[ch].output_2);
   return BSP_OK;
@@ -74,8 +76,8 @@ static inline bsp_status_t bsp_hrtim_stop(bsp_hrtim_channel_t ch) {
  * @param ch2
  * @return bsp_status_t
  */
-static inline bsp_status_t bsp_hrtim_muti_stop(bsp_hrtim_channel_t ch1,
-                                               bsp_hrtim_channel_t ch2) {
+static inline bsp_status_t __attribute__((always_inline))
+bsp_hrtim_muti_stop(bsp_hrtim_channel_t ch1, bsp_hrtim_channel_t ch2) {
   HAL_HRTIM_WaveformOutputStop(
       &hhrtim1, bsp_hrtim_map[ch1].output_1 | bsp_hrtim_map[ch1].output_2 |
                     bsp_hrtim_map[ch2].output_1 | bsp_hrtim_map[ch2].output_2);
@@ -88,8 +90,8 @@ static inline bsp_status_t bsp_hrtim_muti_stop(bsp_hrtim_channel_t ch1,
  * @param duty_cycle The duty cycle to set (from 0.0000～01f to 0.9999～f).
  * @return bsp_status_t Status of the operation.
  */
-static inline bsp_status_t bsp_hrtim_set_comp(bsp_hrtim_channel_t ch,
-                                              float duty_cycle) {
+static inline bsp_status_t __attribute__((always_inline))
+bsp_hrtim_set_comp(bsp_hrtim_channel_t ch, float duty_cycle) {
   static HRTIM_CompareCfgTypeDef compare_config = {0};
 
   compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 - duty_cycle);

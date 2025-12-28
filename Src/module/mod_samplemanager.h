@@ -1,7 +1,9 @@
 #pragma once
+#include "comp_utils.h"
 #include "dev_sampler.h"
 
 typedef struct Sampler_Param {
+  float dt;
   Device_Sampler_Param vaside;
   Device_Sampler_Param vbside;
   Device_Sampler_Param iaside;
@@ -10,6 +12,7 @@ typedef struct Sampler_Param {
 } Module_SampleManager_Param;
 
 typedef struct Sampler {
+  float dt;
   Device_Volt_Sampler vaside_;
   Device_Volt_Sampler vbside_;
   Device_Current_Sampler iaside_;
@@ -21,6 +24,9 @@ typedef struct Sampler {
 static inline void Module_Sampler_Init(Module_SampleManager *this,
                                        Module_SampleManager_Param param) {
   this->param_ = param;
+
+  this->dt = this->param_.dt;
+
   Device_Volt_Sampler_Init(&this->vaside_, this->param_.vaside);
   Device_Volt_Sampler_Init(&this->vbside_, this->param_.vbside);
   Device_Current_Sampler_Init(&this->iaside_, this->param_.iaside);
@@ -34,10 +40,12 @@ static inline void Module_Sampler_Init(Module_SampleManager *this,
  *
  * @param this
  */
-static inline void Module_Sampler_Update(Module_SampleManager *this) {
-  Device_Sampler_GetVoltage(&(this->vaside_));
-  Device_Sampler_GetVoltage(&(this->vbside_));
-  Device_Sampler_GetCurrrent(&(this->iaside_));
-  Device_Sampler_GetCurrrent(&(this->ibside_));
-  Device_Sampler_GetCurrrent(&(this->iRefree_));
+static inline void __attribute__((always_inline))
+Module_Sampler_Update(Module_SampleManager *this) {
+
+  Device_Sampler_GetVoltage(&(this->vaside_), this->dt);
+  Device_Sampler_GetVoltage(&(this->vbside_), this->dt);
+  Device_Sampler_GetCurrrent(&(this->iaside_), this->dt);
+  Device_Sampler_GetCurrrent(&(this->ibside_), this->dt);
+  Device_Sampler_GetCurrrent(&(this->iRefree_), this->dt);
 }

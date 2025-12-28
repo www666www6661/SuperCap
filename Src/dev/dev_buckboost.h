@@ -28,15 +28,18 @@ static inline void Device_BuckBoost_Init(Device_BuckBoost *this,
   *(float *)&this->CAP_NORMAL_VOLTAGE = param.CAP_NORMAL_VOLTAGE;
 }
 
-static inline void Device_BuckBoost_Disable() {
+static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() {
   bsp_hrtim_muti_stop(BSP_HRTIM_A, BSP_HRTIM_B);
 }
 
-static inline void Device_BuckBoost_Enable() {
+static inline void __attribute__((always_inline)) Device_BuckBoost_Enable() {
+  // TODO:
+
   bsp_hrtim_muti_start(BSP_HRTIM_A, BSP_HRTIM_B);
 }
 
-static inline void Device_BuckBoost_UpdatePWM(float VBToVA) {
+static inline void __attribute__((always_inline))
+Device_BuckBoost_UpdatePWM(float VBToVA) {
 
   static bool buckBoostMode = false;
   float dutyA = 0.0f;

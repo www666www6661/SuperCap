@@ -1,9 +1,21 @@
+/**
+ * @file mod_time.h
+ * @brief 一个与底层硬件配置极度耦合的mod,安排中断的启动和调整
+ *
+ *
+ */
 #pragma once
+#include "hrtim.h"
+#include "stm32f334x8.h"
+#include "stm32f3xx.h"
+#include "tim.h"
 
-#include <stdint.h>
+static inline void __attribute__((always_inline)) bsp_time_hs_start() {
+  if (!(hhrtim1.Instance->sMasterRegs.MDIER & HRTIM_MDIER_MREPIE))
+    __HAL_HRTIM_MASTER_ENABLE_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
+}
 
-void bsp_time_init(void);
-
-uint32_t bsp_time_get_ms(void);
-uint64_t bsp_time_get_us(void);
-uint64_t bsp_time_get(void);
+static inline void __attribute__((always_inline)) bsp_time_ls_start() {
+  if (!(htim2.Instance->DIER & TIM_DIER_UIE))
+    HAL_TIM_Base_Start_IT(&htim2);
+}

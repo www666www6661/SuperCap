@@ -18,12 +18,12 @@ typedef struct {
   uint32_t SHORT_CIRCUIT_VOLTAGE;
   uint32_t SHORT_CIRCUIT_CURRENT;
 
+  Module_Status *status_;
+  Module_SampleManager *sampler_;
+
 } Module_ErrChecker_Param;
 
 typedef struct {
-  const uint32_t SHORT_CIRCUIT_VOLTAGE;
-  const uint32_t SHORT_CIRCUIT_CURRENT;
-
   uint32_t short_circuit_cnt_;
   uint32_t restart_cooldown_cnt_;
   uint32_t error_cooldown_cnt_;

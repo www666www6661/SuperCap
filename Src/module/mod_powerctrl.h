@@ -6,6 +6,7 @@
 #include "mod_status.h"
 
 typedef struct {
+  float dt;
 
   Module_Status *status_;
   Module_SampleManager *sampler_;
@@ -24,16 +25,14 @@ typedef struct {
 } Module_PowerCtrl_Param;
 
 typedef struct {
-  float last_wakeup_;
-  float now_;
+  float dt;
+  float base_referee_power_;
 
   float output_duty_;
-  float base_referee_power_;
   float pRefree_setpoint_;
   float last_referee_power_limit_;
   float paside_setpoint_;
   float iaside_setpoint_;
-  uint16_t led_blink_cnt_;
   uint32_t communication_timeout_cnt_;
 
   Component_PID PID_vbside_;

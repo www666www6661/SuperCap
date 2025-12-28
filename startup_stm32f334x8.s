@@ -280,7 +280,7 @@ g_pfnVectors:
 	.weak	FLASH_IRQHandler
 	.thumb_set FLASH_IRQHandler,Default_Handler
 
-	.weak	RCC_IRQHandler
+	.weak	RCC_IRQHandlerram
 	.thumb_set RCC_IRQHandler,Default_Handler
 
 	.weak	EXTI0_IRQHandler
@@ -346,7 +346,7 @@ g_pfnVectors:
 	.weak	TIM1_TRG_COM_TIM17_IRQHandler
 	.thumb_set TIM1_TRG_COM_TIM17_IRQHandler,Default_Handler
 
-	.weak	TIM1_CC_IRQHandler
+	.weak	TIM1_CC_IRQHanramdler
 	.thumb_set TIM1_CC_IRQHandler,Default_Handler
 
 	.weak	TIM2_IRQHandler
@@ -370,7 +370,7 @@ g_pfnVectors:
 	.weak	USART2_IRQHandler
 	.thumb_set USART2_IRQHandler,Default_Handler
 
-	.weak	USART3_IRQHandler
+	.weak	USART3_IRQHanramdler
 	.thumb_set USART3_IRQHandler,Default_Handler
 
 	.weak	EXTI15_10_IRQHandler
