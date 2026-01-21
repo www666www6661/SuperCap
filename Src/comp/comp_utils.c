@@ -7,7 +7,7 @@
 #include "bsp_def.h"
 
 #ifndef M_2PI
-#define M_2PI 6.28318530717958647692f
+#define M_2PI 6.283185f
 #endif
 
 /**
@@ -66,43 +66,6 @@ float signf(float x) {
   } else {
     return (x > 0) ? 1.0f : 0.0f;
   }
-}
-
-/**
- * @brief 根据目标弹丸速度计算摩擦轮转速
- *
- * @param bullet_speed 弹丸速度
- * @param fric_radius 摩擦轮半径
- * @param is17mm 是否为17mm
- * @return 摩擦轮转速
- */
-float bullet_speed_to_fric_rpm(float bullet_speed, float fric_radius,
-                               bool is17mm) {
-  if (bullet_speed == 0.0f) {
-    return 0.f;
-  }
-  if (is17mm) {
-    if (bullet_speed == 15.0f) {
-      return 4670.f;
-    }
-    if (bullet_speed == 18.0f) {
-      return 5200.f;
-    }
-    if (bullet_speed == 25.0f) {
-      return 7400.f;
-    }
-  } else {
-    if (bullet_speed == 10.0f) {
-      return 4450.f;
-    }
-    if (bullet_speed == 16.0f) {
-      return 5700.f;
-    }
-  }
-
-  // TODO:
-  /* 不为裁判系统设定值时,计算转速 */
-  return 60.0f * bullet_speed / (M_2PI * fric_radius);
 }
 
 int float_to_uint(float x, float x_min, float x_max, int bits) {

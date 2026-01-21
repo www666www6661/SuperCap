@@ -49,4 +49,4 @@ typedef struct {
 
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param);
-void Module_PowerCtrl_Calculate(Module_PowerCtrl *this);
+void Module_PowerCtrl_Control(Module_PowerCtrl *this);

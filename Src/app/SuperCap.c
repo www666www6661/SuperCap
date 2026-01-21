@@ -13,6 +13,14 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param) {
   bsp_time_hs_start();
   bsp_time_ls_start();
   Device_BuckBoost_Enable();
+  // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+
+  // 2. 将 DWT 计数器清零
+  DWT->CYCCNT = 0;
+
+  // 3. 开启 DWT 控制寄存器中的 CYCCNTENA 位，开始计数
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
 #define DT 1.0f / 64000.0f
@@ -65,7 +73,6 @@ SuperCap_Param param_ = {
             .k = 0.00001f,
             .p = 0.00001f,
             .i = 0.0f,
-            .d = 0.0f,
             .i_limit = 0.0f,
             .out_limit = 0.0f,
             .d_cutoff_freq = 0.0f
@@ -74,7 +81,6 @@ SuperCap_Param param_ = {
             .k = 0.00001f,
             .p = 0.00001f,
             .i = 0.0f,
-            .d = 0.0f,
             .i_limit = 0.0f,
             .out_limit = 0.0f,
             .d_cutoff_freq = 0.0f
@@ -83,7 +89,6 @@ SuperCap_Param param_ = {
             .k = 0.0001f,
             .p = 0.0001f,
             .i = 0.0f,
-            .d = 0.0f,
             .i_limit = 0.0f,
             .out_limit = 0.0f,
             .d_cutoff_freq = 0.0f
@@ -92,7 +97,6 @@ SuperCap_Param param_ = {
             .k = 0.0001f,
             .p = 0.0001f,
             .i = 0.0f,
-            .d = 0.0f,
             .i_limit = 0.0f,
             .out_limit = 0.0f,
             .d_cutoff_freq = 0.0f
@@ -113,10 +117,16 @@ SuperCap_Param param_ = {
     SuperCap_Init(&supercap,param_);
     Device_Buzzer_PowerOn();
 }
+
 inline void __attribute__((always_inline))  SuperCap_control(){
+  
     Module_Sampler_Update(&(supercap.sampler_));
-    Module_PowerCtrl_Calculate(&(supercap.powerctrl_));
+
+    Module_PowerCtrl_Control(&(supercap.powerctrl_));
+
 }
+
+volatile bool blocking;
 
 
 /**
@@ -125,17 +135,19 @@ inline void __attribute__((always_inline))  SuperCap_control(){
  */
 void HRTIM1_Master_IRQHandler(void) {
 
-  __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
+    __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
+
     SuperCap_control();
+
 
 
   if (__HAL_HRTIM_MASTER_GET_FLAG(&hhrtim1, HRTIM_MASTER_FLAG_MREP) !=
       RESET) // blocking detected
   {
-    // TODO:blocking = true;
+    blocking = true;
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1,
-                                HRTIM_MASTER_IT_MREP); // stall the loop
-  }
+                                HRTIM_MASTER_IT_MREP); // stall the loop 
+  }else{blocking = false;}
 }
 
 /**

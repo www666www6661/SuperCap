@@ -54,6 +54,22 @@
 
 #endif
 
+#ifndef ABS
+/**
+ * @brief 取绝对值
+ *
+ */
+#define ABS(a) ((a) < 0 ? -(a) : (a))
+#endif
+
+#ifndef CLAMP
+/**
+ * @brief 限幅
+ *
+ */
+#define CLAMP (a, min, max)(MIN((max), MAX((min), (a))))
+#endif
+
 /**
  * @brief 计算平方根倒数
  *

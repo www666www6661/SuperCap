@@ -67,7 +67,6 @@ Device_BuckBoost_UpdatePWM(float VBToVA) {
       dutyB = 0.9f / VBToVA;
     }
   }
-
   bsp_hrtim_set_comp(BSP_HRTIM_A, dutyA);
   bsp_hrtim_set_comp(BSP_HRTIM_B, dutyB);
 }

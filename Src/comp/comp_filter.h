@@ -7,7 +7,7 @@
 #include "component.h"
 
 #ifndef M_2PI
-#define M_2PI 6.28318530717958647692f
+#define M_2PI 6.283185f
 #endif
 
 /* 一阶数字低通滤波器 */

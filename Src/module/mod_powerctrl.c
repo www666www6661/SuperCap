@@ -4,6 +4,7 @@
 #include "dev_buckboost.h"
 #include "mod_status.h"
 #include <math.h>
+
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param) {
 
@@ -23,12 +24,12 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
   Device_BuckBoost_Enable();
 }
 
-void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
-  if (this->status_->outputEnabled) {
+void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
+  if (1) {
+
     // TODO: 把这个完善
-    float actual_ia_to_ib =
-        (fminf(fabsf(this->sampler_->iaside_.current_), 0.1f)) /
-        (fminf(fabsf(this->sampler_->ibside_.current_), 0.1f));
+    float actual_ia_to_ib = (MIN(ABS(this->sampler_->iaside_.current_), 0.1f)) /
+                            (MIN(ABS(this->sampler_->ibside_.current_), 0.1f));
 
     this->paside_setpoint_ = Component_PID_Calculate(
         &(this->PID_pRefree_), this->pRefree_setpoint_,
@@ -57,13 +58,13 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     }
 
     float power_limit_a_to_b =
-        fminf(this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
-              temp_cap_in_ilimit * this->sampler_->vaside_.voltage_ *
-                  actual_ia_to_ib);
+        MIN(this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
+            temp_cap_in_ilimit * this->sampler_->vaside_.voltage_ *
+                actual_ia_to_ib);
     float power_limit_b_to_a =
-        fmaxf(-1 * this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
-              -1 * temp_cap_out_ilimit * this->sampler_->vaside_.voltage_ *
-                  actual_ia_to_ib);
+        MAX(-1 * this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
+            -1 * temp_cap_out_ilimit * this->sampler_->vaside_.voltage_ *
+                actual_ia_to_ib);
 
     if (this->paside_setpoint_ < power_limit_b_to_a) {
       this->paside_setpoint_ = power_limit_b_to_a;
@@ -107,6 +108,7 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     }
 
     clampf(&(this->output_duty_), 0.05f, 10.0f);
+
   } else {
     this->output_duty_ =
         this->sampler_->vbside_.voltage_ / this->sampler_->vaside_.voltage_;
@@ -118,5 +120,6 @@ void Module_PowerCtrl_Calculate(Module_PowerCtrl *this) {
     Component_PID_Reset(&(this->PID_vbside_));
     Component_PID_Reset(&(this->PID_pRefree_));
   }
-  Device_BuckBoost_UpdatePWM(0.001f);
+
+  Device_BuckBoost_UpdatePWM(this->output_duty_);
 }
