@@ -8,7 +8,6 @@
 
 void Component_PID_Init(Component_PID *pid, Component_PID_Param param) {
   memset(&(pid->last_), 0, sizeof(pid->last_));
-  memset(&(pid->dt_min_), 0, sizeof(pid->dt_min_));
   memset(&(pid->i_), 0, sizeof(pid->i_));
 
   pid->param_ = param;
@@ -36,17 +35,12 @@ float Component_PID_Calculate(Component_PID *this, float sp, float fb,
 
   /* 计算P项 */
   float k_err = err * this->param_.k;
-
-  /* 计算D项 */
   const float K_FB = this->param_.k * fb;
-
-  /* 通过fb计算D，避免了由于sp变化导致err突变的问题 */
-  /* 当sp不变时，err的微分等于负的fb的微分 */
 
   this->last_.err = err;
   this->last_.k_fb = K_FB;
 
-  /* 计算PD输出 */
+  /* 计算P输出 */
   float output = (k_err * this->param_.p);
 
   /* 计算I项 */
@@ -55,25 +49,25 @@ float Component_PID_Calculate(Component_PID *this, float sp, float fb,
 
   if (this->param_.i > SIGMA) {
     /* 检查是否饱和 */
-    if (isfinite(I)) {
-      if ((fabsf(output + I_OUT) <= this->param_.out_limit) &&
-          (fabsf(I) <= this->param_.i_limit)) {
-        /* 未饱和，使用新积分 */
-        this->i_ = I;
-      }
+    // if (isfinite(I)) {
+    if ((ABS(output + I_OUT) <= this->param_.out_limit) &&
+        (ABS(I_OUT) <= this->param_.i_limit)) {
+      /* 未饱和，使用新积分 */
+      this->i_ = I;
     }
+    // }
   }
 
   /* 计算PID输出 */
   output += I_OUT;
 
   /* 限制输出 */
-  if (isfinite(output)) {
-    if (this->param_.out_limit > SIGMA) {
-      output = abs_clampf(output, this->param_.out_limit);
-    }
-    this->last_.out = output;
+  // if (isfinite(output)) {
+  if (this->param_.out_limit > SIGMA) {
+    output = abs_clampf(output, this->param_.out_limit);
   }
+  this->last_.out = output;
+  //}
   return this->last_.out;
 }
 

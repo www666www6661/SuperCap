@@ -30,7 +30,6 @@ typedef struct {
 
   float output_duty_;
   float pRefree_setpoint_;
-  float last_referee_power_limit_;
   float paside_setpoint_;
   float iaside_setpoint_;
   uint32_t communication_timeout_cnt_;

@@ -26,6 +26,8 @@ static inline void Device_BuckBoost_Init(Device_BuckBoost *this,
   *(float *)&this->CAP_IOUT_MAX = param.CAP_IOUT_MAX;
   *(float *)&this->CAP_CUTOFF_VOLTAGE = param.CAP_CUTOFF_VOLTAGE;
   *(float *)&this->CAP_NORMAL_VOLTAGE = param.CAP_NORMAL_VOLTAGE;
+  *(float *)&this->CAP_MAX_VOLTAGE = param.CAP_MAX_VOLTAGE;
+  *(float *)&this->I_LIMIT = param.I_LIMIT;
 }
 
 static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() {

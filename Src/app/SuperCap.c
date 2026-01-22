@@ -2,23 +2,24 @@
 #include "bsp_time.h"
 #include "dev_buckboost.h"
 #include "dev_buzzer.h"
+#include "mod_errchecker.h"
 #include "mod_powerctrl.h"
 #include "mod_status.h"
+#include <stdint.h>
 
 static SuperCap supercap;
 
 void SuperCap_Init(SuperCap *this, SuperCap_Param param) {
   Module_Sampler_Init(&supercap.sampler_, param.sampler);
+  Module_ErrChecker_Init(&supercap.errchk_, param.errchk);
   Module_PowerCtrl_Init(&this->powerctrl_, param.powerctrl);
   bsp_time_hs_start();
   bsp_time_ls_start();
   Device_BuckBoost_Enable();
   // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-
   // 2. 将 DWT 计数器清零
   DWT->CYCCNT = 0;
-
   // 3. 开启 DWT 控制寄存器中的 CYCCNTENA 位，开始计数
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
@@ -70,36 +71,32 @@ SuperCap_Param param_ = {
         .default_output_duty = 0.001f,
         .default_base_referee_power = 60.0f,
         .vbside = {
-            .k = 0.00001f,
-            .p = 0.00001f,
-            .i = 0.0f,
-            .i_limit = 0.0f,
-            .out_limit = 0.0f,
-            .d_cutoff_freq = 0.0f
+            .k = 0.01f,
+            .p = 0.01f,
+            .i = 0.01f,
+            .i_limit = 10.0f,
+            .out_limit = 30.0f
         },
         .iaside = {
-            .k = 0.00001f,
-            .p = 0.00001f,
-            .i = 0.0f,
-            .i_limit = 0.0f,
-            .out_limit = 0.0f,
-            .d_cutoff_freq = 0.0f
+            .k = 0.63f,
+            .p = 0.45f,
+            .i = 0.0043f,
+            .i_limit = 10.0f,
+            .out_limit = 30.0f
         },
         .preferee = {
-            .k = 0.0001f,
-            .p = 0.0001f,
-            .i = 0.0f,
-            .i_limit = 0.0f,
-            .out_limit = 0.0f,
-            .d_cutoff_freq = 0.0f
+            .k = 0.1f,
+            .p = 2.5f,
+            .i = 1.32f,
+            .i_limit = 10.0f,
+            .out_limit = 30.0f
         },
         .energy = {
-            .k = 0.0001f,
-            .p = 0.0001f,
-            .i = 0.0f,
-            .i_limit = 0.0f,
-            .out_limit = 0.0f,
-            .d_cutoff_freq = 0.0f
+            .k = 0.01f,
+            .p = 0.01f,
+            .i = 10.0f,
+            .i_limit = 10.0f,
+            .out_limit = 30.0f
         },
         .buckboost = {
             .CAP_CUTOFF_VOLTAGE = 5.0f,
@@ -109,7 +106,12 @@ SuperCap_Param param_ = {
             .CAP_IOUT_MIN = 0.1f,
             .I_LIMIT = 22.5f
         }
-
+    },
+    .errchk = {
+        .SHORT_CIRCUIT_VOLTAGE = 4.0f,
+        .SHORT_CIRCUIT_CURRENT = 20.0f,
+        .sampler_ = &(supercap.sampler_),
+        .status_ = &(supercap.status_),
     }
 };
 /*clang-format on*/
@@ -121,14 +123,17 @@ SuperCap_Param param_ = {
 inline void __attribute__((always_inline))  SuperCap_control(){
   
     Module_Sampler_Update(&(supercap.sampler_));
-
+    Module_ErrChecker_ShortChk(&(supercap.errchk_));
     Module_PowerCtrl_Control(&(supercap.powerctrl_));
 
 }
 
 volatile bool blocking;
 
-
+volatile uint32_t at;
+volatile uint32_t bt;
+volatile uint32_t t;
+volatile uint32_t ALLt = 0;
 /**
  * @brief 64khz control cycle ,pid\pwm update\short check
  *
@@ -136,18 +141,21 @@ volatile bool blocking;
 void HRTIM1_Master_IRQHandler(void) {
 
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
-
+    at = DWT -> CYCCNT;
     SuperCap_control();
-
-
+    bt = DWT -> CYCCNT;
+    t = bt - at;
 
   if (__HAL_HRTIM_MASTER_GET_FLAG(&hhrtim1, HRTIM_MASTER_FLAG_MREP) !=
       RESET) // blocking detected
   {
     blocking = true;
-    __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1,
-                                HRTIM_MASTER_IT_MREP); // stall the loop 
-  }else{blocking = false;}
+    ALLt++;
+    Device_Buzzer_Play(1800 * 0.65f, 1.0f);
+    __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1,HRTIM_MASTER_IT_MREP); // stall the loop 
+  }else{
+    blocking = false;
+  }
 }
 
 /**

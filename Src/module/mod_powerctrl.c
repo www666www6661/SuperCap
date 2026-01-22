@@ -5,6 +5,8 @@
 #include "mod_status.h"
 #include <math.h>
 
+volatile float temp;
+
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param) {
 
@@ -15,6 +17,10 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
 
   this->sampler_ = this->param_.sampler_;
   this->status_ = this->param_.status_;
+
+  // TODO:连接C板，获取上位机参数
+  this->pRefree_setpoint_ = this->param_.default_base_referee_power;
+  this->status_->chassisPowerLimit = this->pRefree_setpoint_;
 
   Component_PID_Init(&(this->PID_vbside_), this->param_.vbside);
   Component_PID_Init(&(this->PID_iaside_), this->param_.iaside);
@@ -28,22 +34,36 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
   if (1) {
 
     // TODO: 把这个完善
-    float actual_ia_to_ib = (MIN(ABS(this->sampler_->iaside_.current_), 0.1f)) /
-                            (MIN(ABS(this->sampler_->ibside_.current_), 0.1f));
+    float actual_ia_to_ib = (MAX(ABS(this->sampler_->iaside_.current_), 0.1f)) /
+                            (MAX(ABS(this->sampler_->ibside_.current_), 0.1f));
 
     this->paside_setpoint_ = Component_PID_Calculate(
         &(this->PID_pRefree_), this->pRefree_setpoint_,
         this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_,
         this->dt);
+    ;
 
+    /**
+     * @brief 电流limit目标控制
+     * 电压偏大(only out):等于CAP_IOUT_MAX
+     * 偏小(out and in):等于CAP_IOUT_MIN
+     * 电容组电压在NORMAL-MIN区间(only out)内等于:
+     * 一个偏置为CAP_IOUT_MIN，斜率为CAP_IOUT_MAX-CAP_IOUT_MIN,
+     * 变量为电容(voltage - CAP_CUTOFF_VOLTAGE)/
+     * (CAP_NORMAL_VOLTAGE-CAP_CUTOFF_VOLTAGE)的直线
+     *
+     */
+    /*====================================================================================*/
     float temp_cap_out_ilimit;
     float temp_cap_in_ilimit = this->buckboost_.I_LIMIT;
     if (this->sampler_->vbside_.voltage_ <
-        this->buckboost_.CAP_CUTOFF_VOLTAGE) {
+        this->buckboost_.CAP_CUTOFF_VOLTAGE) // 电容组电压偏小
+    {
       temp_cap_out_ilimit = this->buckboost_.CAP_IOUT_MIN;
       temp_cap_in_ilimit = 4.0f;
     } else if (this->sampler_->vbside_.voltage_ >
-               this->buckboost_.CAP_NORMAL_VOLTAGE) {
+               this->buckboost_.CAP_NORMAL_VOLTAGE) // 电容组电压大于NORMAL
+    {
       temp_cap_out_ilimit = this->buckboost_.CAP_IOUT_MAX;
     } else {
       temp_cap_out_ilimit =
@@ -56,7 +76,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
       clampf(&temp_cap_out_ilimit, this->buckboost_.CAP_IOUT_MIN,
              this->buckboost_.CAP_IOUT_MAX);
     }
-
+    /*====================================================================================*/
     float power_limit_a_to_b =
         MIN(this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
             temp_cap_in_ilimit * this->sampler_->vaside_.voltage_ *
@@ -65,7 +85,6 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
         MAX(-1 * this->buckboost_.I_LIMIT * this->sampler_->vaside_.voltage_,
             -1 * temp_cap_out_ilimit * this->sampler_->vaside_.voltage_ *
                 actual_ia_to_ib);
-
     if (this->paside_setpoint_ < power_limit_b_to_a) {
       this->paside_setpoint_ = power_limit_b_to_a;
       if (this->base_referee_power_ > this->status_->chassisPowerLimit + 3.0f)
@@ -88,6 +107,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
       float vb_duty = Component_PID_Calculate(
           &(this->PID_vbside_), this->buckboost_.CAP_MAX_VOLTAGE,
           this->sampler_->vbside_.voltage_, this->dt);
+      temp = vb_duty;
 
       if (vb_duty < ia_duty) {
         this->output_duty_ = vb_duty;
@@ -106,6 +126,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
       Component_PID_Reset(&(this->PID_vbside_));
       this->output_duty_ = ia_duty;
     }
+    this->status_->outputduty = this->output_duty_;
 
     clampf(&(this->output_duty_), 0.05f, 10.0f);
 
