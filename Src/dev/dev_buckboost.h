@@ -9,6 +9,7 @@ typedef struct {
   float CAP_NORMAL_VOLTAGE;
   float CAP_MAX_VOLTAGE;
   float I_LIMIT;
+  float BAT_VOLTAGE_MIN;
 } Device_BuckBoost_Param;
 
 typedef struct {
@@ -18,6 +19,7 @@ typedef struct {
   const float CAP_NORMAL_VOLTAGE;
   const float CAP_MAX_VOLTAGE;
   const float I_LIMIT;
+  const float BAT_VOLTAGE_MIN;
 } Device_BuckBoost;
 
 static inline void Device_BuckBoost_Init(Device_BuckBoost *this,
@@ -28,6 +30,7 @@ static inline void Device_BuckBoost_Init(Device_BuckBoost *this,
   *(float *)&this->CAP_NORMAL_VOLTAGE = param.CAP_NORMAL_VOLTAGE;
   *(float *)&this->CAP_MAX_VOLTAGE = param.CAP_MAX_VOLTAGE;
   *(float *)&this->I_LIMIT = param.I_LIMIT;
+  *(float *)&this->BAT_VOLTAGE_MIN = param.BAT_VOLTAGE_MIN;
 }
 
 static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() {

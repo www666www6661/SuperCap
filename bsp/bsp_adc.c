@@ -66,6 +66,7 @@ bsp_status_t bsp_adc_start(bsp_adc_channel_t ch) {
     HAL_Delay(500);
     HAL_ADC_Start_DMA(bsp_adc_map[ch].adc, adcBuf[bsp_adc_map[ch].dev],
                       ADC_BUFFER_SIZE);
+    HAL_Delay(50);
   } else {
     return BSP_ERR; // Repeatedly start error or Channel error
   }

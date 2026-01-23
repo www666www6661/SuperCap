@@ -11,6 +11,8 @@
 #include "bsp_adc.h"
 #include "comp_filter.h"
 #include "stm32f3xx.h"
+#include "stm32f3xx_hal.h"
+#include <stdint.h>
 
 typedef struct {
   bsp_adc_channel_t adc_channel;
@@ -43,8 +45,9 @@ static inline void Device_Volt_Sampler_Init(Device_Volt_Sampler *this,
   this->param_ = param;
   LowPassFilter_Init(&(this->lpf_), this->param_.cutoff_freq);
   bsp_adc_start(this->param_.adc_channel);
-  this->voltage_ = 0;
+
   this->adc_val_ = 0;
+  this->voltage_ = 0;
 }
 
 /**
@@ -57,8 +60,9 @@ static inline void Device_Current_Sampler_Init(Device_Current_Sampler *this,
   this->param_ = param;
   LowPassFilter_Init(&(this->lpf_), this->param_.cutoff_freq);
   bsp_adc_start(this->param_.adc_channel);
-  this->current_ = 0;
+
   this->adc_val_ = 0;
+  this->current_ = 0;
 }
 
 /**
@@ -71,11 +75,15 @@ static inline float __attribute__((always_inline))
 Device_Sampler_GetVoltage(Device_Volt_Sampler *this, float dt) {
   uint32_t raw_val = 0;
   bsp_adc_update(this->param_.adc_channel, &raw_val);
+
   this->adc_val_ = LowPassFilter_Apply(&(this->lpf_), (float)raw_val, dt);
 
   return this->voltage_ = this->param_.k * this->adc_val_ + this->param_.b;
 }
 
+static volatile uint32_t at;
+static volatile uint32_t bt;
+static volatile uint32_t tttt;
 /**
  * @brief Gets the latest current value.
  * @param this Pointer to the Device_Current_Sampler instance.
@@ -87,7 +95,9 @@ Device_Sampler_GetCurrrent(Device_Current_Sampler *this, float dt) {
   uint32_t raw_val = 0;
   bsp_adc_update(this->param_.adc_channel, &raw_val);
 
+  at = DWT->CYCCNT;
   this->adc_val_ = LowPassFilter_Apply(&(this->lpf_), (float)raw_val, dt);
-
+  bt = DWT->CYCCNT;
+  tttt = bt - at;
   return this->current_ = this->param_.k * this->adc_val_ + this->param_.b;
 }

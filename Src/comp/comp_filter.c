@@ -4,15 +4,39 @@
 
 #include "comp_filter.h"
 #include <math.h>
+#include <stdbool.h>
 
 void LowPassFilter_Init(LowPassFilter *lpf, float cut_freq) {
   lpf->cut_freq_ = cut_freq;
   lpf->last_out_ = 0;
+  lpf->last_k_ = 0;
+  lpf->last_t_ = 0;
+  lpf->initialized_ = false;
 }
 
 float LowPassFilter_Apply(LowPassFilter *lpf, float sample, float dt) {
+  if (lpf->initialized_ == false) {
+    lpf->last_out_ = sample;
+    lpf->initialized_ = true;
+    return sample; // 第一帧直接返回原值，不滤波
+  }
+
+#define DT_STATIC
+#ifdef DT_STATIC
+  float k = 0;
+  if (lpf->last_t_ == dt) { // 第一次时，last_t_是初始化值0
+    k = lpf->last_k_;       // 高速定dt系统规避除法
+  } else if (lpf->last_t_ != dt) {
+    k = 2 * M_2PI * lpf->cut_freq_ * dt;
+    k = k / (1 + k);
+    lpf->last_k_ = k;
+    lpf->last_t_ = dt;
+  }
+#else
   float k = 2 * M_2PI * lpf->cut_freq_ * dt;
   k = k / (1 + k);
+#endif
+
   float out = k * sample + (1 - k) * lpf->last_out_;
   lpf->last_out_ = out;
 

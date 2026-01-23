@@ -14,6 +14,9 @@
 typedef struct {
   float cut_freq_;
   float last_out_;
+  float last_k_;
+  float last_t_;
+  bool initialized_;
 } LowPassFilter;
 
 void LowPassFilter_Init(LowPassFilter *lpf, float cut_freq);

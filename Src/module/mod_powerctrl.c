@@ -5,8 +5,6 @@
 #include "mod_status.h"
 #include <math.h>
 
-volatile float temp;
-
 void Module_PowerCtrl_Init(Module_PowerCtrl *this,
                            Module_PowerCtrl_Param param) {
 
@@ -31,7 +29,7 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
 }
 
 void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
-  if (1) {
+  if (this->sampler_->vaside_.voltage_ > this->buckboost_.BAT_VOLTAGE_MIN) {
 
     // TODO: 把这个完善
     float actual_ia_to_ib = (MAX(ABS(this->sampler_->iaside_.current_), 0.1f)) /
@@ -41,7 +39,6 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
         &(this->PID_pRefree_), this->pRefree_setpoint_,
         this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_,
         this->dt);
-    ;
 
     /**
      * @brief 电流limit目标控制
@@ -95,8 +92,12 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
         this->base_referee_power_ = this->status_->chassisPowerLimit + 3.0f;
     }
 
-    this->iaside_setpoint_ =
-        this->paside_setpoint_ / this->sampler_->vaside_.voltage_;
+    if (this->sampler_->vaside_.voltage_ > this->buckboost_.BAT_VOLTAGE_MIN) {
+      this->iaside_setpoint_ =
+          this->paside_setpoint_ / this->sampler_->vaside_.voltage_;
+    } else {
+      this->iaside_setpoint_ = 0.0f; // 电压不足时，不拉电流
+    }
 
     float ia_duty =
         Component_PID_Calculate(&(this->PID_iaside_), this->iaside_setpoint_,
@@ -107,7 +108,6 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
       float vb_duty = Component_PID_Calculate(
           &(this->PID_vbside_), this->buckboost_.CAP_MAX_VOLTAGE,
           this->sampler_->vbside_.voltage_, this->dt);
-      temp = vb_duty;
 
       if (vb_duty < ia_duty) {
         this->output_duty_ = vb_duty;

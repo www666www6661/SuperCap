@@ -47,19 +47,19 @@ SuperCap_Param param_ = {
             .adc_channel = BSP_ADC_IA,
             .k = 0.020190366f,
             .b = (-41.28785694f),
-            .cutoff_freq = 3000.0f
+            .cutoff_freq = 260.0f
         },
         .ibside = {
             .adc_channel = BSP_ADC_IB,
             .k = (-0.020219526f),
             .b = 41.32986713f,
-            .cutoff_freq = 3000.0f
+            .cutoff_freq = 260.0f
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
             .k = 0.020207852f,
             .b = (-41.30051963f),
-            .cutoff_freq = 3000.0f
+            .cutoff_freq = 260.0f
         }
 
     },
@@ -78,16 +78,16 @@ SuperCap_Param param_ = {
             .out_limit = 30.0f
         },
         .iaside = {
-            .k = 0.63f,
-            .p = 0.45f,
-            .i = 0.0043f,
+            .k = 2.8f,
+            .p = 0.4f,
+            .i = 0.19f,
             .i_limit = 10.0f,
             .out_limit = 30.0f
         },
         .preferee = {
-            .k = 0.1f,
-            .p = 2.5f,
-            .i = 1.32f,
+            .k = 0.2f,
+            .p = 0.58f,
+            .i = 0.42f,
             .i_limit = 10.0f,
             .out_limit = 30.0f
         },
@@ -99,12 +99,13 @@ SuperCap_Param param_ = {
             .out_limit = 30.0f
         },
         .buckboost = {
-            .CAP_CUTOFF_VOLTAGE = 5.0f,
+            .CAP_CUTOFF_VOLTAGE = 0.1f,
             .CAP_MAX_VOLTAGE = 28.8f,
             .CAP_NORMAL_VOLTAGE = 12.0f,
             .CAP_IOUT_MAX = 22.5f,
             .CAP_IOUT_MIN = 0.1f,
-            .I_LIMIT = 22.5f
+            .I_LIMIT = 22.5f,
+            .BAT_VOLTAGE_MIN = 10.0f
         }
     },
     .errchk = {
@@ -130,9 +131,7 @@ inline void __attribute__((always_inline))  SuperCap_control(){
 
 volatile bool blocking;
 
-volatile uint32_t at;
-volatile uint32_t bt;
-volatile uint32_t t;
+
 volatile uint32_t ALLt = 0;
 /**
  * @brief 64khz control cycle ,pid\pwm update\short check
@@ -141,10 +140,8 @@ volatile uint32_t ALLt = 0;
 void HRTIM1_Master_IRQHandler(void) {
 
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
-    at = DWT -> CYCCNT;
     SuperCap_control();
-    bt = DWT -> CYCCNT;
-    t = bt - at;
+
 
   if (__HAL_HRTIM_MASTER_GET_FLAG(&hhrtim1, HRTIM_MASTER_FLAG_MREP) !=
       RESET) // blocking detected
