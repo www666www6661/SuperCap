@@ -50,8 +50,6 @@ Device_BuckBoost_UpdatePWM(float VBToVA) {
   float dutyA = 0.0f;
   float dutyB = 0.0f;
 
-  clampf(&VBToVA, 0.05f, 10.0f);
-
   if (buckBoostMode) {
     if (VBToVA < 0.8f || VBToVA > 1.25f)
       buckBoostMode = false;

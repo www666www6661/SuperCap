@@ -28,6 +28,8 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this,
   Device_BuckBoost_Enable();
 }
 
+volatile float temp;
+
 void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
   if (this->sampler_->vaside_.voltage_ > this->buckboost_.BAT_VOLTAGE_MIN) {
 
@@ -39,6 +41,8 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
         &(this->PID_pRefree_), this->pRefree_setpoint_,
         this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_,
         this->dt);
+
+    temp = this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_;
 
     /**
      * @brief 电流limit目标控制
@@ -92,23 +96,39 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this) {
         this->base_referee_power_ = this->status_->chassisPowerLimit + 3.0f;
     }
 
-    if (this->sampler_->vaside_.voltage_ > this->buckboost_.BAT_VOLTAGE_MIN) {
-      this->iaside_setpoint_ =
-          this->paside_setpoint_ / this->sampler_->vaside_.voltage_;
-    } else {
-      this->iaside_setpoint_ = 0.0f; // 电压不足时，不拉电流
-    }
+    // // TODO:在完整逻辑改出之后视情况删掉这里
+    // if (this->sampler_->vaside_.voltage_ > this->buckboost_.BAT_VOLTAGE_MIN)
+    // {
+    //   this->iaside_setpoint_ =
+    //       this->paside_setpoint_ / this->sampler_->vaside_.voltage_;
+    // } else {
+    //   this->iaside_setpoint_ = 0.0f; // 电压不足时，不拉电流
+    // }
+
+    this->iaside_setpoint_ = this->iaside_setpoint_ > 1.0f
+                                 ? 0.4f
+                                 : this->iaside_setpoint_ + 0.00005f;
+
+    /*电压前馈*/
+    float ff_voltage_ratio =
+        this->sampler_->vbside_.voltage_ / this->sampler_->vaside_.voltage_;
+
+    /* 伏秒平衡推导的电压前馈 + 电流前馈*/
+    float ff_ratio =
+        ff_voltage_ratio + this->param_.k_feedforward * this->iaside_setpoint_;
 
     float ia_duty =
         Component_PID_Calculate(&(this->PID_iaside_), this->iaside_setpoint_,
-                                this->sampler_->iaside_.current_, this->dt);
+                                this->sampler_->iaside_.current_, this->dt) +
+        ff_ratio; // 前馈加上pid
 
     if (this->sampler_->vbside_.voltage_ >
         this->buckboost_.CAP_MAX_VOLTAGE * 0.9f) {
-      float vb_duty = Component_PID_Calculate(
-          &(this->PID_vbside_), this->buckboost_.CAP_MAX_VOLTAGE,
-          this->sampler_->vbside_.voltage_, this->dt);
-
+      float vb_duty =
+          Component_PID_Calculate(&(this->PID_vbside_),
+                                  this->buckboost_.CAP_MAX_VOLTAGE,
+                                  this->sampler_->vbside_.voltage_, this->dt) +
+          ff_voltage_ratio;
       if (vb_duty < ia_duty) {
         this->output_duty_ = vb_duty;
         if (this->base_referee_power_ > this->status_->chassisPowerLimit + 3.0f)

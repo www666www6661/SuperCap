@@ -35,31 +35,31 @@ SuperCap_Param param_ = {
             .adc_channel = BSP_ADC_VA,
             .k = 0.00807537f,
             .b = 0.02422611f,
-            .cutoff_freq = 500.0f
+            .cutoff_freq = 100.0f
         },
         .vbside ={
             .adc_channel = BSP_ADC_VB,
             .k = 0.008096386f,
             .b = 0.041638554f,
-            .cutoff_freq = 500.0f
+            .cutoff_freq = 100.0f
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
             .k = 0.020190366f,
             .b = (-41.28785694f),
-            .cutoff_freq = 260.0f
+            .cutoff_freq = 100.0f
         },
         .ibside = {
             .adc_channel = BSP_ADC_IB,
             .k = (-0.020219526f),
             .b = 41.32986713f,
-            .cutoff_freq = 260.0f
+            .cutoff_freq = 100.0f
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
             .k = 0.020207852f,
             .b = (-41.30051963f),
-            .cutoff_freq = 260.0f
+            .cutoff_freq = 100.0f
         }
 
     },
@@ -70,6 +70,7 @@ SuperCap_Param param_ = {
         .default_energy = 60.0f,
         .default_output_duty = 0.001f,
         .default_base_referee_power = 60.0f,
+        .k_feedforward = 0.0f,
         .vbside = {
             .k = 0.01f,
             .p = 0.01f,
@@ -78,18 +79,18 @@ SuperCap_Param param_ = {
             .out_limit = 30.0f
         },
         .iaside = {
-            .k = 2.8f,
-            .p = 0.4f,
-            .i = 0.19f,
+            .k = 1.3f,
+            .p = 0.46f,
+            .i = 0.3f,
             .i_limit = 10.0f,
             .out_limit = 30.0f
         },
         .preferee = {
-            .k = 0.2f,
-            .p = 0.58f,
-            .i = 0.42f,
-            .i_limit = 10.0f,
-            .out_limit = 30.0f
+            .k = 1.1f,
+            .p = 0.53f,
+            .i = 1.1f,
+            .i_limit = 100.0f,
+            .out_limit = 130.0f
         },
         .energy = {
             .k = 0.01f,

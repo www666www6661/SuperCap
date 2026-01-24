@@ -15,6 +15,8 @@ typedef struct {
   float default_output_duty;
   float default_base_referee_power;
 
+  float k_feedforward;
+
   Component_PID_Param vbside;
   Component_PID_Param iaside;
   Component_PID_Param preferee;
