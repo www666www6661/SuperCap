@@ -60,7 +60,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${BSP_Dirs}/bsp_gpio.c
     ${COMP_Dirs}/comp_pid.c
     ${COMP_Dirs}/comp_utils.c
-    ${COMP_Dirs}/comp_filter.c
     ${MOD_Dirs}/mod_errchecker.c
     ${MOD_Dirs}/mod_powerctrl.c
 )
