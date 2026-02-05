@@ -1,0 +1,9 @@
+{
+    "clangd.arguments": [
+        // 不要只写 /usr/bin/gcc*，直接用 /**/* 允许任何路径的驱动
+        "--query-driver=/**/*",
+        "--compile-commands-dir=${workspaceFolder}",
+        "--background-index",
+        "--log=verbose" // 开启详细日志，方便排查
+    ]
+}

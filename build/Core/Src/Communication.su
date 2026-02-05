@@ -1,0 +1,6 @@
+Core/Src/Communication.cpp:106:23:FDCAN_TxHeaderTypeDef CANcomm::getTxHeader(uint16_t)	16	static
+Core/Src/Communication.cpp:127:6:void CANcomm::init()	40	static
+Core/Src/Communication.cpp:197:6:void CANcomm::sendSCData()	8	static
+Core/Src/Communication.cpp:224:6:void CANcomm::rxDataHandler(const RxData&)	16	static
+Core/Src/Communication.cpp:261:10:void FDCAN3_IT0_IRQHandler()	16	static
+Core/Src/Communication.cpp:286:1:cpp)	16	static

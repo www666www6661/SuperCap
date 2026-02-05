@@ -1,0 +1,1181 @@
+ARM GAS   			page 1
+
+
+   1              	 .cpu cortex-m4
+   2              	 .arch armv7e-m
+   3              	 .fpu fpv4-sp-d16
+   4              	 .eabi_attribute 27,1
+   5              	 .eabi_attribute 28,1
+   6              	 .eabi_attribute 23,1
+   7              	 .eabi_attribute 24,1
+   8              	 .eabi_attribute 25,1
+   9              	 .eabi_attribute 26,1
+  10              	 .eabi_attribute 30,2
+  11              	 .eabi_attribute 34,1
+  12              	 .eabi_attribute 18,4
+  13              	 .file "comp.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .file 1 "Core/Src/comp.c"
+  18              	 .section .text.MX_COMP2_Init,"ax",%progbits
+  19              	 .align 1
+  20              	 .p2align 2,,3
+  21              	 .global MX_COMP2_Init
+  22              	 .syntax unified
+  23              	 .thumb
+  24              	 .thumb_func
+  26              	MX_COMP2_Init:
+  27              	.LFB361:
+   1:Core/Src/comp.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/comp.c **** /**
+   3:Core/Src/comp.c ****   ******************************************************************************
+   4:Core/Src/comp.c ****   * @file    comp.c
+   5:Core/Src/comp.c ****   * @brief   This file provides code for the configuration
+   6:Core/Src/comp.c ****   *          of the COMP instances.
+   7:Core/Src/comp.c ****   ******************************************************************************
+   8:Core/Src/comp.c ****   * @attention
+   9:Core/Src/comp.c ****   *
+  10:Core/Src/comp.c ****   * Copyright (c) 2025 STMicroelectronics.
+  11:Core/Src/comp.c ****   * All rights reserved.
+  12:Core/Src/comp.c ****   *
+  13:Core/Src/comp.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  14:Core/Src/comp.c ****   * in the root directory of this software component.
+  15:Core/Src/comp.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  16:Core/Src/comp.c ****   *
+  17:Core/Src/comp.c ****   ******************************************************************************
+  18:Core/Src/comp.c ****   */
+  19:Core/Src/comp.c **** /* USER CODE END Header */
+  20:Core/Src/comp.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/comp.c **** #include "comp.h"
+  22:Core/Src/comp.c **** 
+  23:Core/Src/comp.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/comp.c **** 
+  25:Core/Src/comp.c **** /* USER CODE END 0 */
+  26:Core/Src/comp.c **** 
+  27:Core/Src/comp.c **** COMP_HandleTypeDef hcomp2;
+  28:Core/Src/comp.c **** COMP_HandleTypeDef hcomp3;
+  29:Core/Src/comp.c **** COMP_HandleTypeDef hcomp6;
+  30:Core/Src/comp.c **** 
+  31:Core/Src/comp.c **** /* COMP2 init function */
+ARM GAS   			page 2
+
+
+  32:Core/Src/comp.c **** void MX_COMP2_Init(void)
+  33:Core/Src/comp.c **** {
+  28              	 .loc 1 33 1 view-0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  34:Core/Src/comp.c **** 
+  35:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_Init 0 */
+  36:Core/Src/comp.c **** 
+  37:Core/Src/comp.c ****   /* USER CODE END COMP2_Init 0 */
+  38:Core/Src/comp.c **** 
+  39:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_Init 1 */
+  40:Core/Src/comp.c **** 
+  41:Core/Src/comp.c ****   /* USER CODE END COMP2_Init 1 */
+  42:Core/Src/comp.c ****   hcomp2.Instance = COMP2;
+  32              	 .loc 1 42 3 view .LVU1
+  43:Core/Src/comp.c ****   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+  44:Core/Src/comp.c ****   hcomp2.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH2;
+  45:Core/Src/comp.c ****   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  46:Core/Src/comp.c ****   hcomp2.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  47:Core/Src/comp.c ****   hcomp2.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+  48:Core/Src/comp.c ****   hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  49:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp2) != HAL_OK)
+  33              	 .loc 1 49 7 is_stmt 0 view .LVU2
+  34 0000 0948     	 ldr r0,.L6
+  42:Core/Src/comp.c ****   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+  35              	 .loc 1 42 19 view .LVU3
+  36 0002 0A49     	 ldr r1,.L6+4
+  33:Core/Src/comp.c **** 
+  37              	 .loc 1 33 1 view .LVU4
+  38 0004 10B5     	 push {r4,lr}
+  39              	 .cfi_def_cfa_offset 8
+  40              	 .cfi_offset 4,-8
+  41              	 .cfi_offset 14,-4
+  43:Core/Src/comp.c ****   hcomp2.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+  42              	 .loc 1 43 25 view .LVU5
+  43 0006 0023     	 movs r3,#0
+  44:Core/Src/comp.c ****   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  44              	 .loc 1 44 26 view .LVU6
+  45 0008 5022     	 movs r2,#80
+  43:Core/Src/comp.c ****   hcomp2.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH2;
+  46              	 .loc 1 43 25 view .LVU7
+  47 000a C0E90013 	 strd r1,r3,[r0]
+  44:Core/Src/comp.c ****   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  48              	 .loc 1 44 3 is_stmt 1 view .LVU8
+  46:Core/Src/comp.c ****   hcomp2.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+  49              	 .loc 1 46 26 is_stmt 0 view .LVU9
+  50 000e C0E90333 	 strd r3,r3,[r0,#12]
+  47:Core/Src/comp.c ****   hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  51              	 .loc 1 47 28 view .LVU10
+  52 0012 C0E90533 	 strd r3,r3,[r0,#20]
+  44:Core/Src/comp.c ****   hcomp2.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  53              	 .loc 1 44 26 view .LVU11
+  54 0016 8260     	 str r2,[r0,#8]
+  45:Core/Src/comp.c ****   hcomp2.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  55              	 .loc 1 45 3 is_stmt 1 view .LVU12
+  47:Core/Src/comp.c ****   hcomp2.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ARM GAS   			page 3
+
+
+  56              	 .loc 1 47 3 view .LVU13
+  48:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp2) != HAL_OK)
+  57              	 .loc 1 48 3 view .LVU14
+  58              	 .loc 1 49 3 view .LVU15
+  59              	 .loc 1 49 7 is_stmt 0 view .LVU16
+  60 0018 FFF7FEFF 	 bl HAL_COMP_Init
+  61              	.LVL0:
+  62              	 .loc 1 49 6 discriminator 1 view .LVU17
+  63 001c 00B9     	 cbnz r0,.L5
+  50:Core/Src/comp.c ****   {
+  51:Core/Src/comp.c ****     Error_Handler();
+  52:Core/Src/comp.c ****   }
+  53:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_Init 2 */
+  54:Core/Src/comp.c **** 
+  55:Core/Src/comp.c ****   /* USER CODE END COMP2_Init 2 */
+  56:Core/Src/comp.c **** 
+  57:Core/Src/comp.c **** }
+  64              	 .loc 1 57 1 view .LVU18
+  65 001e 10BD     	 pop {r4,pc}
+  66              	.L5:
+  51:Core/Src/comp.c ****   }
+  67              	 .loc 1 51 5 is_stmt 1 view .LVU19
+  68              	 .loc 1 57 1 is_stmt 0 view .LVU20
+  69 0020 BDE81040 	 pop {r4,lr}
+  70              	 .cfi_restore 14
+  71              	 .cfi_restore 4
+  72              	 .cfi_def_cfa_offset 0
+  51:Core/Src/comp.c ****   }
+  73              	 .loc 1 51 5 view .LVU21
+  74 0024 FFF7FEBF 	 b Error_Handler
+  75              	.LVL1:
+  76              	.L7:
+  77              	 .align 2
+  78              	.L6:
+  79 0028 00000000 	 .word hcomp2
+  80 002c 04020140 	 .word 1073807876
+  81              	 .cfi_endproc
+  82              	.LFE361:
+  84              	 .section .text.MX_COMP3_Init,"ax",%progbits
+  85              	 .align 1
+  86              	 .p2align 2,,3
+  87              	 .global MX_COMP3_Init
+  88              	 .syntax unified
+  89              	 .thumb
+  90              	 .thumb_func
+  92              	MX_COMP3_Init:
+  93              	.LFB362:
+  58:Core/Src/comp.c **** /* COMP3 init function */
+  59:Core/Src/comp.c **** void MX_COMP3_Init(void)
+  60:Core/Src/comp.c **** {
+  94              	 .loc 1 60 1 is_stmt 1 view-0
+  95              	 .cfi_startproc
+  96              	 
+  97              	 
+  61:Core/Src/comp.c **** 
+  62:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_Init 0 */
+  63:Core/Src/comp.c **** 
+ARM GAS   			page 4
+
+
+  64:Core/Src/comp.c ****   /* USER CODE END COMP3_Init 0 */
+  65:Core/Src/comp.c **** 
+  66:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_Init 1 */
+  67:Core/Src/comp.c **** 
+  68:Core/Src/comp.c ****   /* USER CODE END COMP3_Init 1 */
+  69:Core/Src/comp.c ****   hcomp3.Instance = COMP3;
+  98              	 .loc 1 69 3 view .LVU23
+  70:Core/Src/comp.c ****   hcomp3.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+  71:Core/Src/comp.c ****   hcomp3.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH1;
+  72:Core/Src/comp.c ****   hcomp3.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  73:Core/Src/comp.c ****   hcomp3.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+  74:Core/Src/comp.c ****   hcomp3.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+  75:Core/Src/comp.c ****   hcomp3.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  76:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp3) != HAL_OK)
+  99              	 .loc 1 76 7 is_stmt 0 view .LVU24
+ 100 0000 0948     	 ldr r0,.L12
+  69:Core/Src/comp.c ****   hcomp3.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+ 101              	 .loc 1 69 19 view .LVU25
+ 102 0002 0A49     	 ldr r1,.L12+4
+  60:Core/Src/comp.c **** 
+ 103              	 .loc 1 60 1 view .LVU26
+ 104 0004 10B5     	 push {r4,lr}
+ 105              	 .cfi_def_cfa_offset 8
+ 106              	 .cfi_offset 4,-8
+ 107              	 .cfi_offset 14,-4
+  70:Core/Src/comp.c ****   hcomp3.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+ 108              	 .loc 1 70 25 view .LVU27
+ 109 0006 0023     	 movs r3,#0
+  71:Core/Src/comp.c ****   hcomp3.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 110              	 .loc 1 71 26 view .LVU28
+ 111 0008 5022     	 movs r2,#80
+  70:Core/Src/comp.c ****   hcomp3.Init.InputMinus = COMP_INPUT_MINUS_DAC1_CH1;
+ 112              	 .loc 1 70 25 view .LVU29
+ 113 000a C0E90013 	 strd r1,r3,[r0]
+  71:Core/Src/comp.c ****   hcomp3.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 114              	 .loc 1 71 3 is_stmt 1 view .LVU30
+  73:Core/Src/comp.c ****   hcomp3.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+ 115              	 .loc 1 73 26 is_stmt 0 view .LVU31
+ 116 000e C0E90333 	 strd r3,r3,[r0,#12]
+  74:Core/Src/comp.c ****   hcomp3.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ 117              	 .loc 1 74 28 view .LVU32
+ 118 0012 C0E90533 	 strd r3,r3,[r0,#20]
+  71:Core/Src/comp.c ****   hcomp3.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 119              	 .loc 1 71 26 view .LVU33
+ 120 0016 8260     	 str r2,[r0,#8]
+  72:Core/Src/comp.c ****   hcomp3.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+ 121              	 .loc 1 72 3 is_stmt 1 view .LVU34
+  74:Core/Src/comp.c ****   hcomp3.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ 122              	 .loc 1 74 3 view .LVU35
+  75:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp3) != HAL_OK)
+ 123              	 .loc 1 75 3 view .LVU36
+ 124              	 .loc 1 76 3 view .LVU37
+ 125              	 .loc 1 76 7 is_stmt 0 view .LVU38
+ 126 0018 FFF7FEFF 	 bl HAL_COMP_Init
+ 127              	.LVL2:
+ 128              	 .loc 1 76 6 discriminator 1 view .LVU39
+ 129 001c 00B9     	 cbnz r0,.L11
+ARM GAS   			page 5
+
+
+  77:Core/Src/comp.c ****   {
+  78:Core/Src/comp.c ****     Error_Handler();
+  79:Core/Src/comp.c ****   }
+  80:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_Init 2 */
+  81:Core/Src/comp.c **** 
+  82:Core/Src/comp.c ****   /* USER CODE END COMP3_Init 2 */
+  83:Core/Src/comp.c **** 
+  84:Core/Src/comp.c **** }
+ 130              	 .loc 1 84 1 view .LVU40
+ 131 001e 10BD     	 pop {r4,pc}
+ 132              	.L11:
+  78:Core/Src/comp.c ****   }
+ 133              	 .loc 1 78 5 is_stmt 1 view .LVU41
+ 134              	 .loc 1 84 1 is_stmt 0 view .LVU42
+ 135 0020 BDE81040 	 pop {r4,lr}
+ 136              	 .cfi_restore 14
+ 137              	 .cfi_restore 4
+ 138              	 .cfi_def_cfa_offset 0
+  78:Core/Src/comp.c ****   }
+ 139              	 .loc 1 78 5 view .LVU43
+ 140 0024 FFF7FEBF 	 b Error_Handler
+ 141              	.LVL3:
+ 142              	.L13:
+ 143              	 .align 2
+ 144              	.L12:
+ 145 0028 00000000 	 .word hcomp3
+ 146 002c 08020140 	 .word 1073807880
+ 147              	 .cfi_endproc
+ 148              	.LFE362:
+ 150              	 .section .text.MX_COMP6_Init,"ax",%progbits
+ 151              	 .align 1
+ 152              	 .p2align 2,,3
+ 153              	 .global MX_COMP6_Init
+ 154              	 .syntax unified
+ 155              	 .thumb
+ 156              	 .thumb_func
+ 158              	MX_COMP6_Init:
+ 159              	.LFB363:
+  85:Core/Src/comp.c **** /* COMP6 init function */
+  86:Core/Src/comp.c **** void MX_COMP6_Init(void)
+  87:Core/Src/comp.c **** {
+ 160              	 .loc 1 87 1 is_stmt 1 view-0
+ 161              	 .cfi_startproc
+ 162              	 
+ 163              	 
+  88:Core/Src/comp.c **** 
+  89:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_Init 0 */
+  90:Core/Src/comp.c **** 
+  91:Core/Src/comp.c ****   /* USER CODE END COMP6_Init 0 */
+  92:Core/Src/comp.c **** 
+  93:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_Init 1 */
+  94:Core/Src/comp.c **** 
+  95:Core/Src/comp.c ****   /* USER CODE END COMP6_Init 1 */
+  96:Core/Src/comp.c ****   hcomp6.Instance = COMP6;
+ 164              	 .loc 1 96 3 view .LVU45
+  97:Core/Src/comp.c ****   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+  98:Core/Src/comp.c ****   hcomp6.Init.InputMinus = COMP_INPUT_MINUS_1_4VREFINT;
+ARM GAS   			page 6
+
+
+  99:Core/Src/comp.c ****   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 100:Core/Src/comp.c ****   hcomp6.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+ 101:Core/Src/comp.c ****   hcomp6.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+ 102:Core/Src/comp.c ****   hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ 103:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp6) != HAL_OK)
+ 165              	 .loc 1 103 7 is_stmt 0 view .LVU46
+ 166 0000 0A48     	 ldr r0,.L18
+  96:Core/Src/comp.c ****   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+ 167              	 .loc 1 96 19 view .LVU47
+ 168 0002 0B49     	 ldr r1,.L18+4
+  87:Core/Src/comp.c **** 
+ 169              	 .loc 1 87 1 view .LVU48
+ 170 0004 10B5     	 push {r4,lr}
+ 171              	 .cfi_def_cfa_offset 8
+ 172              	 .cfi_offset 4,-8
+ 173              	 .cfi_offset 14,-4
+  97:Core/Src/comp.c ****   hcomp6.Init.InputPlus = COMP_INPUT_PLUS_IO1;
+ 174              	 .loc 1 97 25 view .LVU49
+ 175 0006 0023     	 movs r3,#0
+  98:Core/Src/comp.c ****   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 176              	 .loc 1 98 26 view .LVU50
+ 177 0008 4FF44002 	 mov r2,#12582912
+  97:Core/Src/comp.c ****   hcomp6.Init.InputMinus = COMP_INPUT_MINUS_1_4VREFINT;
+ 178              	 .loc 1 97 25 view .LVU51
+ 179 000c C0E90013 	 strd r1,r3,[r0]
+  98:Core/Src/comp.c ****   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 180              	 .loc 1 98 3 is_stmt 1 view .LVU52
+ 100:Core/Src/comp.c ****   hcomp6.Init.BlankingSrce = COMP_BLANKINGSRC_NONE;
+ 181              	 .loc 1 100 26 is_stmt 0 view .LVU53
+ 182 0010 C0E90333 	 strd r3,r3,[r0,#12]
+ 101:Core/Src/comp.c ****   hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ 183              	 .loc 1 101 28 view .LVU54
+ 184 0014 C0E90533 	 strd r3,r3,[r0,#20]
+  98:Core/Src/comp.c ****   hcomp6.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+ 185              	 .loc 1 98 26 view .LVU55
+ 186 0018 8260     	 str r2,[r0,#8]
+  99:Core/Src/comp.c ****   hcomp6.Init.Hysteresis = COMP_HYSTERESIS_NONE;
+ 187              	 .loc 1 99 3 is_stmt 1 view .LVU56
+ 101:Core/Src/comp.c ****   hcomp6.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+ 188              	 .loc 1 101 3 view .LVU57
+ 102:Core/Src/comp.c ****   if (HAL_COMP_Init(&hcomp6) != HAL_OK)
+ 189              	 .loc 1 102 3 view .LVU58
+ 190              	 .loc 1 103 3 view .LVU59
+ 191              	 .loc 1 103 7 is_stmt 0 view .LVU60
+ 192 001a FFF7FEFF 	 bl HAL_COMP_Init
+ 193              	.LVL4:
+ 194              	 .loc 1 103 6 discriminator 1 view .LVU61
+ 195 001e 00B9     	 cbnz r0,.L17
+ 104:Core/Src/comp.c ****   {
+ 105:Core/Src/comp.c ****     Error_Handler();
+ 106:Core/Src/comp.c ****   }
+ 107:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_Init 2 */
+ 108:Core/Src/comp.c **** 
+ 109:Core/Src/comp.c ****   /* USER CODE END COMP6_Init 2 */
+ 110:Core/Src/comp.c **** 
+ 111:Core/Src/comp.c **** }
+ 196              	 .loc 1 111 1 view .LVU62
+ARM GAS   			page 7
+
+
+ 197 0020 10BD     	 pop {r4,pc}
+ 198              	.L17:
+ 105:Core/Src/comp.c ****   }
+ 199              	 .loc 1 105 5 is_stmt 1 view .LVU63
+ 200              	 .loc 1 111 1 is_stmt 0 view .LVU64
+ 201 0022 BDE81040 	 pop {r4,lr}
+ 202              	 .cfi_restore 14
+ 203              	 .cfi_restore 4
+ 204              	 .cfi_def_cfa_offset 0
+ 105:Core/Src/comp.c ****   }
+ 205              	 .loc 1 105 5 view .LVU65
+ 206 0026 FFF7FEBF 	 b Error_Handler
+ 207              	.LVL5:
+ 208              	.L19:
+ 209 002a 00BF     	 .align 2
+ 210              	.L18:
+ 211 002c 00000000 	 .word hcomp6
+ 212 0030 14020140 	 .word 1073807892
+ 213              	 .cfi_endproc
+ 214              	.LFE363:
+ 216              	 .section .text.HAL_COMP_MspInit,"ax",%progbits
+ 217              	 .align 1
+ 218              	 .p2align 2,,3
+ 219              	 .global HAL_COMP_MspInit
+ 220              	 .syntax unified
+ 221              	 .thumb
+ 222              	 .thumb_func
+ 224              	HAL_COMP_MspInit:
+ 225              	.LVL6:
+ 226              	.LFB364:
+ 112:Core/Src/comp.c **** 
+ 113:Core/Src/comp.c **** void HAL_COMP_MspInit(COMP_HandleTypeDef* compHandle)
+ 114:Core/Src/comp.c **** {
+ 227              	 .loc 1 114 1 is_stmt 1 view-0
+ 228              	 .cfi_startproc
+ 229              	 
+ 230              	 
+ 115:Core/Src/comp.c **** 
+ 116:Core/Src/comp.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 231              	 .loc 1 116 3 view .LVU67
+ 114:Core/Src/comp.c **** 
+ 232              	 .loc 1 114 1 is_stmt 0 view .LVU68
+ 233 0000 10B5     	 push {r4,lr}
+ 234              	 .cfi_def_cfa_offset 8
+ 235              	 .cfi_offset 4,-8
+ 236              	 .cfi_offset 14,-4
+ 117:Core/Src/comp.c ****   if(compHandle->Instance==COMP2)
+ 237              	 .loc 1 117 16 view .LVU69
+ 238 0002 0368     	 ldr r3,[r0]
+ 239              	 .loc 1 117 5 view .LVU70
+ 240 0004 424A     	 ldr r2,.L29
+ 114:Core/Src/comp.c **** 
+ 241              	 .loc 1 114 1 view .LVU71
+ 242 0006 8CB0     	 sub sp,sp,#48
+ 243              	 .cfi_def_cfa_offset 56
+ 116:Core/Src/comp.c ****   if(compHandle->Instance==COMP2)
+ 244              	 .loc 1 116 20 view .LVU72
+ARM GAS   			page 8
+
+
+ 245 0008 0024     	 movs r4,#0
+ 246              	 .loc 1 117 5 view .LVU73
+ 247 000a 9342     	 cmp r3,r2
+ 116:Core/Src/comp.c ****   if(compHandle->Instance==COMP2)
+ 248              	 .loc 1 116 20 view .LVU74
+ 249 000c CDE90644 	 strd r4,r4,[sp,#24]
+ 250 0010 CDE90844 	 strd r4,r4,[sp,#32]
+ 251 0014 0A94     	 str r4,[sp,#40]
+ 252              	 .loc 1 117 3 is_stmt 1 view .LVU75
+ 253              	 .loc 1 117 5 is_stmt 0 view .LVU76
+ 254 0016 07D0     	 beq .L26
+ 118:Core/Src/comp.c ****   {
+ 119:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_MspInit 0 */
+ 120:Core/Src/comp.c **** 
+ 121:Core/Src/comp.c ****   /* USER CODE END COMP2_MspInit 0 */
+ 122:Core/Src/comp.c **** 
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 124:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 125:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 126:Core/Src/comp.c ****     PA7     ------> COMP2_INP
+ 127:Core/Src/comp.c ****     PB9     ------> COMP2_OUT
+ 128:Core/Src/comp.c ****     */
+ 129:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_7;
+ 130:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 131:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 132:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 133:Core/Src/comp.c **** 
+ 134:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_9;
+ 135:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 136:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 137:Core/Src/comp.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 138:Core/Src/comp.c ****     GPIO_InitStruct.Alternate = GPIO_AF8_COMP2;
+ 139:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 140:Core/Src/comp.c **** 
+ 141:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_MspInit 1 */
+ 142:Core/Src/comp.c **** 
+ 143:Core/Src/comp.c ****   /* USER CODE END COMP2_MspInit 1 */
+ 144:Core/Src/comp.c ****   }
+ 145:Core/Src/comp.c ****   else if(compHandle->Instance==COMP3)
+ 255              	 .loc 1 145 8 is_stmt 1 view .LVU77
+ 256              	 .loc 1 145 10 is_stmt 0 view .LVU78
+ 257 0018 3E4A     	 ldr r2,.L29+4
+ 258 001a 9342     	 cmp r3,r2
+ 259 001c 2FD0     	 beq .L27
+ 146:Core/Src/comp.c ****   {
+ 147:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_MspInit 0 */
+ 148:Core/Src/comp.c **** 
+ 149:Core/Src/comp.c ****   /* USER CODE END COMP3_MspInit 0 */
+ 150:Core/Src/comp.c **** 
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 152:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 153:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 154:Core/Src/comp.c ****     PA0     ------> COMP3_INP
+ 155:Core/Src/comp.c ****     PB7     ------> COMP3_OUT
+ 156:Core/Src/comp.c ****     */
+ 157:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_0;
+ 158:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ARM GAS   			page 9
+
+
+ 159:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 160:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 161:Core/Src/comp.c **** 
+ 162:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_7;
+ 163:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 164:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 165:Core/Src/comp.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 166:Core/Src/comp.c ****     GPIO_InitStruct.Alternate = GPIO_AF8_COMP3;
+ 167:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 168:Core/Src/comp.c **** 
+ 169:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_MspInit 1 */
+ 170:Core/Src/comp.c **** 
+ 171:Core/Src/comp.c ****   /* USER CODE END COMP3_MspInit 1 */
+ 172:Core/Src/comp.c ****   }
+ 173:Core/Src/comp.c ****   else if(compHandle->Instance==COMP6)
+ 260              	 .loc 1 173 8 is_stmt 1 view .LVU79
+ 261              	 .loc 1 173 10 is_stmt 0 view .LVU80
+ 262 001e 3E4A     	 ldr r2,.L29+8
+ 263 0020 9342     	 cmp r3,r2
+ 264 0022 4AD0     	 beq .L28
+ 174:Core/Src/comp.c ****   {
+ 175:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_MspInit 0 */
+ 176:Core/Src/comp.c **** 
+ 177:Core/Src/comp.c ****   /* USER CODE END COMP6_MspInit 0 */
+ 178:Core/Src/comp.c **** 
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 180:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 181:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 182:Core/Src/comp.c ****     PB11     ------> COMP6_INP
+ 183:Core/Src/comp.c ****     PC6     ------> COMP6_OUT
+ 184:Core/Src/comp.c ****     */
+ 185:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_11;
+ 186:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 187:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 188:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 189:Core/Src/comp.c **** 
+ 190:Core/Src/comp.c ****     GPIO_InitStruct.Pin = GPIO_PIN_6;
+ 191:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 192:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 193:Core/Src/comp.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 194:Core/Src/comp.c ****     GPIO_InitStruct.Alternate = GPIO_AF7_COMP6;
+ 195:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 196:Core/Src/comp.c **** 
+ 197:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_MspInit 1 */
+ 198:Core/Src/comp.c **** 
+ 199:Core/Src/comp.c ****   /* USER CODE END COMP6_MspInit 1 */
+ 200:Core/Src/comp.c ****   }
+ 201:Core/Src/comp.c **** }
+ 265              	 .loc 1 201 1 view .LVU81
+ 266 0024 0CB0     	 add sp,sp,#48
+ 267              	 .cfi_remember_state
+ 268              	 .cfi_def_cfa_offset 8
+ 269              	 
+ 270 0026 10BD     	 pop {r4,pc}
+ 271              	.L26:
+ 272              	 .cfi_restore_state
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ARM GAS   			page 10
+
+
+ 273              	 .loc 1 123 5 is_stmt 1 view .LVU82
+ 274              	.LBB2:
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 275              	 .loc 1 123 5 view .LVU83
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 276              	 .loc 1 123 5 view .LVU84
+ 277 0028 3C4B     	 ldr r3,.L29+12
+ 278 002a DA6C     	 ldr r2,[r3,#76]
+ 279 002c 42F00102 	 orr r2,r2,#1
+ 280 0030 DA64     	 str r2,[r3,#76]
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 281              	 .loc 1 123 5 view .LVU85
+ 282 0032 DA6C     	 ldr r2,[r3,#76]
+ 283 0034 02F00102 	 and r2,r2,#1
+ 284 0038 0092     	 str r2,[sp]
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 285              	 .loc 1 123 5 view .LVU86
+ 286 003a 009A     	 ldr r2,[sp]
+ 287              	.LBE2:
+ 123:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 288              	 .loc 1 123 5 view .LVU87
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 289              	 .loc 1 124 5 view .LVU88
+ 290              	.LBB3:
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 291              	 .loc 1 124 5 view .LVU89
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 292              	 .loc 1 124 5 view .LVU90
+ 293 003c DA6C     	 ldr r2,[r3,#76]
+ 294 003e 42F00202 	 orr r2,r2,#2
+ 295 0042 DA64     	 str r2,[r3,#76]
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 296              	 .loc 1 124 5 view .LVU91
+ 297 0044 DB6C     	 ldr r3,[r3,#76]
+ 298 0046 03F00203 	 and r3,r3,#2
+ 299 004a 0193     	 str r3,[sp,#4]
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 300              	 .loc 1 124 5 view .LVU92
+ 301              	.LBE3:
+ 129:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 302              	 .loc 1 129 25 is_stmt 0 view .LVU93
+ 303 004c 8022     	 movs r2,#128
+ 304 004e 0323     	 movs r3,#3
+ 132:Core/Src/comp.c **** 
+ 305              	 .loc 1 132 5 view .LVU94
+ 306 0050 4FF09040 	 mov r0,#1207959552
+ 307              	.LVL7:
+ 132:Core/Src/comp.c **** 
+ 308              	 .loc 1 132 5 view .LVU95
+ 309 0054 06A9     	 add r1,sp,#24
+ 129:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 310              	 .loc 1 129 25 view .LVU96
+ 311 0056 CDE90623 	 strd r2,[sp,#24]
+ 312              	.LBB4:
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 313              	 .loc 1 124 5 view .LVU97
+ 314 005a 019B     	 ldr r3,[sp,#4]
+ARM GAS   			page 11
+
+
+ 315              	.LBE4:
+ 124:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 316              	 .loc 1 124 5 is_stmt 1 view .LVU98
+ 129:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 317              	 .loc 1 129 5 view .LVU99
+ 130:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 318              	 .loc 1 130 5 view .LVU100
+ 131:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 319              	 .loc 1 131 5 view .LVU101
+ 132:Core/Src/comp.c **** 
+ 320              	 .loc 1 132 5 view .LVU102
+ 321 005c FFF7FEFF 	 bl HAL_GPIO_Init
+ 322              	.LVL8:
+ 134:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 323              	 .loc 1 134 5 view .LVU103
+ 134:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 324              	 .loc 1 134 25 is_stmt 0 view .LVU104
+ 325 0060 4FF40070 	 mov r0,#512
+ 326              	.L25:
+ 163:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 327              	 .loc 1 163 26 view .LVU105
+ 328 0064 0222     	 movs r2,#2
+ 329 0066 CDE90602 	 strd r0,r2,[sp,#24]
+ 164:Core/Src/comp.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 330              	 .loc 1 164 5 is_stmt 1 view .LVU106
+ 166:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 331              	 .loc 1 166 31 is_stmt 0 view .LVU107
+ 332 006a 0823     	 movs r3,#8
+ 167:Core/Src/comp.c **** 
+ 333              	 .loc 1 167 5 view .LVU108
+ 334 006c 2C48     	 ldr r0,.L29+16
+ 166:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 335              	 .loc 1 166 31 view .LVU109
+ 336 006e 0A93     	 str r3,[sp,#40]
+ 167:Core/Src/comp.c **** 
+ 337              	 .loc 1 167 5 view .LVU110
+ 338 0070 06A9     	 add r1,sp,#24
+ 165:Core/Src/comp.c ****     GPIO_InitStruct.Alternate = GPIO_AF8_COMP3;
+ 339              	 .loc 1 165 27 view .LVU111
+ 340 0072 CDE90844 	 strd r4,r4,[sp,#32]
+ 166:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 341              	 .loc 1 166 5 is_stmt 1 view .LVU112
+ 167:Core/Src/comp.c **** 
+ 342              	 .loc 1 167 5 view .LVU113
+ 343 0076 FFF7FEFF 	 bl HAL_GPIO_Init
+ 344              	.LVL9:
+ 345              	 .loc 1 201 1 is_stmt 0 view .LVU114
+ 346 007a 0CB0     	 add sp,sp,#48
+ 347              	 .cfi_remember_state
+ 348              	 .cfi_def_cfa_offset 8
+ 349              	 
+ 350 007c 10BD     	 pop {r4,pc}
+ 351              	.LVL10:
+ 352              	.L27:
+ 353              	 .cfi_restore_state
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 354              	 .loc 1 151 5 is_stmt 1 view .LVU115
+ARM GAS   			page 12
+
+
+ 355              	.LBB5:
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 356              	 .loc 1 151 5 view .LVU116
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 357              	 .loc 1 151 5 view .LVU117
+ 358 007e 274B     	 ldr r3,.L29+12
+ 359 0080 DA6C     	 ldr r2,[r3,#76]
+ 360 0082 42F00102 	 orr r2,r2,#1
+ 361 0086 DA64     	 str r2,[r3,#76]
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 362              	 .loc 1 151 5 view .LVU118
+ 363 0088 DA6C     	 ldr r2,[r3,#76]
+ 364 008a 02F00102 	 and r2,r2,#1
+ 365 008e 0292     	 str r2,[sp,#8]
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 366              	 .loc 1 151 5 view .LVU119
+ 367 0090 029A     	 ldr r2,[sp,#8]
+ 368              	.LBE5:
+ 151:Core/Src/comp.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 369              	 .loc 1 151 5 view .LVU120
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 370              	 .loc 1 152 5 view .LVU121
+ 371              	.LBB6:
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 372              	 .loc 1 152 5 view .LVU122
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 373              	 .loc 1 152 5 view .LVU123
+ 374 0092 DA6C     	 ldr r2,[r3,#76]
+ 375 0094 42F00202 	 orr r2,r2,#2
+ 376 0098 DA64     	 str r2,[r3,#76]
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 377              	 .loc 1 152 5 view .LVU124
+ 378 009a DB6C     	 ldr r3,[r3,#76]
+ 379 009c 03F00203 	 and r3,r3,#2
+ 380 00a0 0393     	 str r3,[sp,#12]
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 381              	 .loc 1 152 5 view .LVU125
+ 382              	.LBE6:
+ 157:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 383              	 .loc 1 157 25 is_stmt 0 view .LVU126
+ 384 00a2 0122     	 movs r2,#1
+ 385 00a4 0323     	 movs r3,#3
+ 160:Core/Src/comp.c **** 
+ 386              	 .loc 1 160 5 view .LVU127
+ 387 00a6 4FF09040 	 mov r0,#1207959552
+ 388              	.LVL11:
+ 160:Core/Src/comp.c **** 
+ 389              	 .loc 1 160 5 view .LVU128
+ 390 00aa 06A9     	 add r1,sp,#24
+ 157:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 391              	 .loc 1 157 25 view .LVU129
+ 392 00ac CDE90623 	 strd r2,[sp,#24]
+ 393              	.LBB7:
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 394              	 .loc 1 152 5 view .LVU130
+ 395 00b0 039B     	 ldr r3,[sp,#12]
+ 396              	.LBE7:
+ARM GAS   			page 13
+
+
+ 152:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 397              	 .loc 1 152 5 is_stmt 1 view .LVU131
+ 157:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 398              	 .loc 1 157 5 view .LVU132
+ 158:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 399              	 .loc 1 158 5 view .LVU133
+ 159:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 400              	 .loc 1 159 5 view .LVU134
+ 160:Core/Src/comp.c **** 
+ 401              	 .loc 1 160 5 view .LVU135
+ 402 00b2 FFF7FEFF 	 bl HAL_GPIO_Init
+ 403              	.LVL12:
+ 162:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 404              	 .loc 1 162 5 view .LVU136
+ 162:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 405              	 .loc 1 162 25 is_stmt 0 view .LVU137
+ 406 00b6 8020     	 movs r0,#128
+ 407 00b8 D4E7     	 b .L25
+ 408              	.LVL13:
+ 409              	.L28:
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 410              	 .loc 1 179 5 is_stmt 1 view .LVU138
+ 411              	.LBB8:
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 412              	 .loc 1 179 5 view .LVU139
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 413              	 .loc 1 179 5 view .LVU140
+ 414 00ba 184B     	 ldr r3,.L29+12
+ 415              	.LBE8:
+ 188:Core/Src/comp.c **** 
+ 416              	 .loc 1 188 5 is_stmt 0 view .LVU141
+ 417 00bc 1848     	 ldr r0,.L29+16
+ 418              	.LVL14:
+ 419              	.LBB9:
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 420              	 .loc 1 179 5 view .LVU142
+ 421 00be DA6C     	 ldr r2,[r3,#76]
+ 422 00c0 42F00202 	 orr r2,r2,#2
+ 423 00c4 DA64     	 str r2,[r3,#76]
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 424              	 .loc 1 179 5 is_stmt 1 view .LVU143
+ 425 00c6 DA6C     	 ldr r2,[r3,#76]
+ 426 00c8 02F00202 	 and r2,r2,#2
+ 427 00cc 0492     	 str r2,[sp,#16]
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 428              	 .loc 1 179 5 view .LVU144
+ 429 00ce 049A     	 ldr r2,[sp,#16]
+ 430              	.LBE9:
+ 179:Core/Src/comp.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ 431              	 .loc 1 179 5 view .LVU145
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 432              	 .loc 1 180 5 view .LVU146
+ 433              	.LBB10:
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 434              	 .loc 1 180 5 view .LVU147
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 435              	 .loc 1 180 5 view .LVU148
+ARM GAS   			page 14
+
+
+ 436 00d0 DA6C     	 ldr r2,[r3,#76]
+ 437 00d2 42F00402 	 orr r2,r2,#4
+ 438 00d6 DA64     	 str r2,[r3,#76]
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 439              	 .loc 1 180 5 view .LVU149
+ 440 00d8 DB6C     	 ldr r3,[r3,#76]
+ 441 00da 03F00403 	 and r3,r3,#4
+ 442 00de 0593     	 str r3,[sp,#20]
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 443              	 .loc 1 180 5 view .LVU150
+ 444              	.LBE10:
+ 185:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 445              	 .loc 1 185 25 is_stmt 0 view .LVU151
+ 446 00e0 4FF40062 	 mov r2,#2048
+ 188:Core/Src/comp.c **** 
+ 447              	 .loc 1 188 5 view .LVU152
+ 448 00e4 06A9     	 add r1,sp,#24
+ 185:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 449              	 .loc 1 185 25 view .LVU153
+ 450 00e6 0323     	 movs r3,#3
+ 451 00e8 CDE90623 	 strd r2,[sp,#24]
+ 452              	.LBB11:
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 453              	 .loc 1 180 5 view .LVU154
+ 454 00ec 059B     	 ldr r3,[sp,#20]
+ 455              	.LBE11:
+ 180:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 456              	 .loc 1 180 5 is_stmt 1 view .LVU155
+ 185:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 457              	 .loc 1 185 5 view .LVU156
+ 186:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 458              	 .loc 1 186 5 view .LVU157
+ 187:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 459              	 .loc 1 187 5 view .LVU158
+ 188:Core/Src/comp.c **** 
+ 460              	 .loc 1 188 5 view .LVU159
+ 461 00ee FFF7FEFF 	 bl HAL_GPIO_Init
+ 462              	.LVL15:
+ 190:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 463              	 .loc 1 190 5 view .LVU160
+ 191:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 464              	 .loc 1 191 26 is_stmt 0 view .LVU161
+ 465 00f2 0222     	 movs r2,#2
+ 190:Core/Src/comp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 466              	 .loc 1 190 25 view .LVU162
+ 467 00f4 4020     	 movs r0,#64
+ 191:Core/Src/comp.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 468              	 .loc 1 191 26 view .LVU163
+ 469 00f6 CDE90602 	 strd r0,r2,[sp,#24]
+ 192:Core/Src/comp.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 470              	 .loc 1 192 5 is_stmt 1 view .LVU164
+ 194:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 471              	 .loc 1 194 31 is_stmt 0 view .LVU165
+ 472 00fa 0723     	 movs r3,#7
+ 195:Core/Src/comp.c **** 
+ 473              	 .loc 1 195 5 view .LVU166
+ 474 00fc 0948     	 ldr r0,.L29+20
+ARM GAS   			page 15
+
+
+ 194:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 475              	 .loc 1 194 31 view .LVU167
+ 476 00fe 0A93     	 str r3,[sp,#40]
+ 195:Core/Src/comp.c **** 
+ 477              	 .loc 1 195 5 view .LVU168
+ 478 0100 06A9     	 add r1,sp,#24
+ 193:Core/Src/comp.c ****     GPIO_InitStruct.Alternate = GPIO_AF7_COMP6;
+ 479              	 .loc 1 193 27 view .LVU169
+ 480 0102 CDE90844 	 strd r4,r4,[sp,#32]
+ 194:Core/Src/comp.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 481              	 .loc 1 194 5 is_stmt 1 view .LVU170
+ 195:Core/Src/comp.c **** 
+ 482              	 .loc 1 195 5 view .LVU171
+ 483 0106 FFF7FEFF 	 bl HAL_GPIO_Init
+ 484              	.LVL16:
+ 485              	 .loc 1 201 1 is_stmt 0 view .LVU172
+ 486 010a 0CB0     	 add sp,sp,#48
+ 487              	 .cfi_def_cfa_offset 8
+ 488              	 
+ 489 010c 10BD     	 pop {r4,pc}
+ 490              	.L30:
+ 491 010e 00BF     	 .align 2
+ 492              	.L29:
+ 493 0110 04020140 	 .word 1073807876
+ 494 0114 08020140 	 .word 1073807880
+ 495 0118 14020140 	 .word 1073807892
+ 496 011c 00100240 	 .word 1073876992
+ 497 0120 00040048 	 .word 1207960576
+ 498 0124 00080048 	 .word 1207961600
+ 499              	 .cfi_endproc
+ 500              	.LFE364:
+ 502              	 .section .text.HAL_COMP_MspDeInit,"ax",%progbits
+ 503              	 .align 1
+ 504              	 .p2align 2,,3
+ 505              	 .global HAL_COMP_MspDeInit
+ 506              	 .syntax unified
+ 507              	 .thumb
+ 508              	 .thumb_func
+ 510              	HAL_COMP_MspDeInit:
+ 511              	.LVL17:
+ 512              	.LFB365:
+ 202:Core/Src/comp.c **** 
+ 203:Core/Src/comp.c **** void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
+ 204:Core/Src/comp.c **** {
+ 513              	 .loc 1 204 1 is_stmt 1 view-0
+ 514              	 .cfi_startproc
+ 515              	 
+ 516              	 
+ 205:Core/Src/comp.c **** 
+ 206:Core/Src/comp.c ****   if(compHandle->Instance==COMP2)
+ 517              	 .loc 1 206 3 view .LVU174
+ 204:Core/Src/comp.c **** 
+ 518              	 .loc 1 204 1 is_stmt 0 view .LVU175
+ 519 0000 08B5     	 push {r3,lr}
+ 520              	 .cfi_def_cfa_offset 8
+ 521              	 .cfi_offset 3,-8
+ 522              	 .cfi_offset 14,-4
+ARM GAS   			page 16
+
+
+ 523              	 .loc 1 206 5 view .LVU176
+ 524 0002 164A     	 ldr r2,.L39
+ 525              	 .loc 1 206 16 view .LVU177
+ 526 0004 0368     	 ldr r3,[r0]
+ 527              	 .loc 1 206 5 view .LVU178
+ 528 0006 9342     	 cmp r3,r2
+ 529 0008 06D0     	 beq .L36
+ 207:Core/Src/comp.c ****   {
+ 208:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_MspDeInit 0 */
+ 209:Core/Src/comp.c **** 
+ 210:Core/Src/comp.c ****   /* USER CODE END COMP2_MspDeInit 0 */
+ 211:Core/Src/comp.c **** 
+ 212:Core/Src/comp.c ****     /**COMP2 GPIO Configuration
+ 213:Core/Src/comp.c ****     PA7     ------> COMP2_INP
+ 214:Core/Src/comp.c ****     PB9     ------> COMP2_OUT
+ 215:Core/Src/comp.c ****     */
+ 216:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_7);
+ 217:Core/Src/comp.c **** 
+ 218:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_9);
+ 219:Core/Src/comp.c **** 
+ 220:Core/Src/comp.c ****   /* USER CODE BEGIN COMP2_MspDeInit 1 */
+ 221:Core/Src/comp.c **** 
+ 222:Core/Src/comp.c ****   /* USER CODE END COMP2_MspDeInit 1 */
+ 223:Core/Src/comp.c ****   }
+ 224:Core/Src/comp.c ****   else if(compHandle->Instance==COMP3)
+ 530              	 .loc 1 224 8 is_stmt 1 view .LVU179
+ 531              	 .loc 1 224 10 is_stmt 0 view .LVU180
+ 532 000a 154A     	 ldr r2,.L39+4
+ 533 000c 9342     	 cmp r3,r2
+ 534 000e 0FD0     	 beq .L37
+ 225:Core/Src/comp.c ****   {
+ 226:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_MspDeInit 0 */
+ 227:Core/Src/comp.c **** 
+ 228:Core/Src/comp.c ****   /* USER CODE END COMP3_MspDeInit 0 */
+ 229:Core/Src/comp.c **** 
+ 230:Core/Src/comp.c ****     /**COMP3 GPIO Configuration
+ 231:Core/Src/comp.c ****     PA0     ------> COMP3_INP
+ 232:Core/Src/comp.c ****     PB7     ------> COMP3_OUT
+ 233:Core/Src/comp.c ****     */
+ 234:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_0);
+ 235:Core/Src/comp.c **** 
+ 236:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
+ 237:Core/Src/comp.c **** 
+ 238:Core/Src/comp.c ****   /* USER CODE BEGIN COMP3_MspDeInit 1 */
+ 239:Core/Src/comp.c **** 
+ 240:Core/Src/comp.c ****   /* USER CODE END COMP3_MspDeInit 1 */
+ 241:Core/Src/comp.c ****   }
+ 242:Core/Src/comp.c ****   else if(compHandle->Instance==COMP6)
+ 535              	 .loc 1 242 8 is_stmt 1 view .LVU181
+ 536              	 .loc 1 242 10 is_stmt 0 view .LVU182
+ 537 0010 144A     	 ldr r2,.L39+8
+ 538 0012 9342     	 cmp r3,r2
+ 539 0014 17D0     	 beq .L38
+ 243:Core/Src/comp.c ****   {
+ 244:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_MspDeInit 0 */
+ 245:Core/Src/comp.c **** 
+ 246:Core/Src/comp.c ****   /* USER CODE END COMP6_MspDeInit 0 */
+ARM GAS   			page 17
+
+
+ 247:Core/Src/comp.c **** 
+ 248:Core/Src/comp.c ****     /**COMP6 GPIO Configuration
+ 249:Core/Src/comp.c ****     PB11     ------> COMP6_INP
+ 250:Core/Src/comp.c ****     PC6     ------> COMP6_OUT
+ 251:Core/Src/comp.c ****     */
+ 252:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11);
+ 253:Core/Src/comp.c **** 
+ 254:Core/Src/comp.c ****     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_6);
+ 255:Core/Src/comp.c **** 
+ 256:Core/Src/comp.c ****   /* USER CODE BEGIN COMP6_MspDeInit 1 */
+ 257:Core/Src/comp.c **** 
+ 258:Core/Src/comp.c ****   /* USER CODE END COMP6_MspDeInit 1 */
+ 259:Core/Src/comp.c ****   }
+ 260:Core/Src/comp.c **** }
+ 540              	 .loc 1 260 1 view .LVU183
+ 541 0016 08BD     	 pop {r3,pc}
+ 542              	.L36:
+ 216:Core/Src/comp.c **** 
+ 543              	 .loc 1 216 5 is_stmt 1 view .LVU184
+ 544 0018 8021     	 movs r1,#128
+ 545 001a 4FF09040 	 mov r0,#1207959552
+ 546              	.LVL18:
+ 216:Core/Src/comp.c **** 
+ 547              	 .loc 1 216 5 is_stmt 0 view .LVU185
+ 548 001e FFF7FEFF 	 bl HAL_GPIO_DeInit
+ 549              	.LVL19:
+ 218:Core/Src/comp.c **** 
+ 550              	 .loc 1 218 5 is_stmt 1 view .LVU186
+ 551              	 .loc 1 260 1 is_stmt 0 view .LVU187
+ 552 0022 BDE80840 	 pop {r3,lr}
+ 553              	 .cfi_remember_state
+ 554              	 .cfi_restore 14
+ 555              	 .cfi_restore 3
+ 556              	 .cfi_def_cfa_offset 0
+ 218:Core/Src/comp.c **** 
+ 557              	 .loc 1 218 5 view .LVU188
+ 558 0026 1048     	 ldr r0,.L39+12
+ 559 0028 4FF40071 	 mov r1,#512
+ 560 002c FFF7FEBF 	 b HAL_GPIO_DeInit
+ 561              	.LVL20:
+ 562              	.L37:
+ 563              	 .cfi_restore_state
+ 234:Core/Src/comp.c **** 
+ 564              	 .loc 1 234 5 is_stmt 1 view .LVU189
+ 565 0030 0121     	 movs r1,#1
+ 566 0032 4FF09040 	 mov r0,#1207959552
+ 567              	.LVL21:
+ 234:Core/Src/comp.c **** 
+ 568              	 .loc 1 234 5 is_stmt 0 view .LVU190
+ 569 0036 FFF7FEFF 	 bl HAL_GPIO_DeInit
+ 570              	.LVL22:
+ 236:Core/Src/comp.c **** 
+ 571              	 .loc 1 236 5 is_stmt 1 view .LVU191
+ 572              	 .loc 1 260 1 is_stmt 0 view .LVU192
+ 573 003a BDE80840 	 pop {r3,lr}
+ 574              	 .cfi_remember_state
+ 575              	 .cfi_restore 14
+ARM GAS   			page 18
+
+
+ 576              	 .cfi_restore 3
+ 577              	 .cfi_def_cfa_offset 0
+ 236:Core/Src/comp.c **** 
+ 578              	 .loc 1 236 5 view .LVU193
+ 579 003e 0A48     	 ldr r0,.L39+12
+ 580 0040 8021     	 movs r1,#128
+ 581 0042 FFF7FEBF 	 b HAL_GPIO_DeInit
+ 582              	.LVL23:
+ 583              	.L38:
+ 584              	 .cfi_restore_state
+ 252:Core/Src/comp.c **** 
+ 585              	 .loc 1 252 5 is_stmt 1 view .LVU194
+ 586 0046 0848     	 ldr r0,.L39+12
+ 587              	.LVL24:
+ 252:Core/Src/comp.c **** 
+ 588              	 .loc 1 252 5 is_stmt 0 view .LVU195
+ 589 0048 4FF40061 	 mov r1,#2048
+ 590 004c FFF7FEFF 	 bl HAL_GPIO_DeInit
+ 591              	.LVL25:
+ 254:Core/Src/comp.c **** 
+ 592              	 .loc 1 254 5 is_stmt 1 view .LVU196
+ 593              	 .loc 1 260 1 is_stmt 0 view .LVU197
+ 594 0050 BDE80840 	 pop {r3,lr}
+ 595              	 .cfi_restore 14
+ 596              	 .cfi_restore 3
+ 597              	 .cfi_def_cfa_offset 0
+ 254:Core/Src/comp.c **** 
+ 598              	 .loc 1 254 5 view .LVU198
+ 599 0054 0548     	 ldr r0,.L39+16
+ 600 0056 4021     	 movs r1,#64
+ 601 0058 FFF7FEBF 	 b HAL_GPIO_DeInit
+ 602              	.LVL26:
+ 603              	.L40:
+ 604              	 .align 2
+ 605              	.L39:
+ 606 005c 04020140 	 .word 1073807876
+ 607 0060 08020140 	 .word 1073807880
+ 608 0064 14020140 	 .word 1073807892
+ 609 0068 00040048 	 .word 1207960576
+ 610 006c 00080048 	 .word 1207961600
+ 611              	 .cfi_endproc
+ 612              	.LFE365:
+ 614              	 .global hcomp6
+ 615              	 .section .bss.hcomp6,"aw",%nobits
+ 616              	 .align 3
+ 619              	hcomp6:
+ 620 0000 00000000 	 .space 36
+ 620      00000000 
+ 620      00000000 
+ 620      00000000 
+ 620      00000000 
+ 621              	 .global hcomp3
+ 622              	 .section .bss.hcomp3,"aw",%nobits
+ 623              	 .align 3
+ 626              	hcomp3:
+ 627 0000 00000000 	 .space 36
+ 627      00000000 
+ARM GAS   			page 19
+
+
+ 627      00000000 
+ 627      00000000 
+ 627      00000000 
+ 628              	 .global hcomp2
+ 629              	 .section .bss.hcomp2,"aw",%nobits
+ 630              	 .align 3
+ 633              	hcomp2:
+ 634 0000 00000000 	 .space 36
+ 634      00000000 
+ 634      00000000 
+ 634      00000000 
+ 634      00000000 
+ 635              	 .text
+ 636              	.Letext0:
+ 637              	 .file 2 "/usr/lib/gcc/arm-none-eabi/14.2.1/include/stdint.h"
+ 638              	 .file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g474xx.h"
+ 639              	 .file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+ 640              	 .file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_gpio.h"
+ 641              	 .file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_comp.h"
+ 642              	 .file 7 "Core/Inc/comp.h"
+ 643              	 .file 8 "Core/Inc/main.h"
+ARM GAS   			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 comp.c
+    {standard input}:19     .text.MX_COMP2_Init:00000000 $t
+    {standard input}:26     .text.MX_COMP2_Init:00000000 MX_COMP2_Init
+    {standard input}:79     .text.MX_COMP2_Init:00000028 $d
+    {standard input}:633    .bss.hcomp2:00000000 hcomp2
+    {standard input}:85     .text.MX_COMP3_Init:00000000 $t
+    {standard input}:92     .text.MX_COMP3_Init:00000000 MX_COMP3_Init
+    {standard input}:145    .text.MX_COMP3_Init:00000028 $d
+    {standard input}:626    .bss.hcomp3:00000000 hcomp3
+    {standard input}:151    .text.MX_COMP6_Init:00000000 $t
+    {standard input}:158    .text.MX_COMP6_Init:00000000 MX_COMP6_Init
+    {standard input}:211    .text.MX_COMP6_Init:0000002c $d
+    {standard input}:619    .bss.hcomp6:00000000 hcomp6
+    {standard input}:217    .text.HAL_COMP_MspInit:00000000 $t
+    {standard input}:224    .text.HAL_COMP_MspInit:00000000 HAL_COMP_MspInit
+    {standard input}:493    .text.HAL_COMP_MspInit:00000110 $d
+    {standard input}:503    .text.HAL_COMP_MspDeInit:00000000 $t
+    {standard input}:510    .text.HAL_COMP_MspDeInit:00000000 HAL_COMP_MspDeInit
+    {standard input}:606    .text.HAL_COMP_MspDeInit:0000005c $d
+    {standard input}:616    .bss.hcomp6:00000000 $d
+    {standard input}:623    .bss.hcomp3:00000000 $d
+    {standard input}:630    .bss.hcomp2:00000000 $d
+                           .group:00000000 wm4.0.ea19c25cbb216197368fe558daea6575
+                           .group:00000000 wm4.stm32g4xx_hal_conf.h.23.942b1d1576b5866b7e11680d4727b823
+                           .group:00000000 wm4.stm32g4xx.h.38.4ce5d67cecf3db23972af81b516b937b
+                           .group:00000000 wm4.stm32g474xx.h.34.0f14ed7ce45f8c3c7c55af7520d7efa5
+                           .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:00000000 wm4.cmsis_version.h.32.46e8eccfa2cfeaae11d008bb2823a3ed
+                           .group:00000000 wm4.core_cm4.h.66.e4ff136c4a17abc46741866f64f8e729
+                           .group:00000000 wm4.cmsis_gcc.h.26.78077cef1206e937f7b56043ffca496a
+                           .group:00000000 wm4.core_cm4.h.174.fcddd62df80231752fa39eb9b61dadfe
+                           .group:00000000 wm4.mpu_armv7.h.32.4049752bb5792d4e15357775e9506cfc
+                           .group:00000000 wm4.stm32g474xx.h.714.40df4d5d8bd1a3a0e2dcb49e18b09038
+                           .group:00000000 wm4.stm32g4xx.h.158.aa4340ed3b15fb0d4b1741cf5ce96563
+                           .group:00000000 wm4.stm32_hal_legacy.h.22.e1e932ae083ad1562e3b1af87ae47999
+                           .group:00000000 wm4.stddef.h.39.0dc9006b34572d4d9cae4c8b422c4971
+                           .group:00000000 wm4.stm32g4xx_hal_def.h.57.460ac21f0caebde175d7222cb23afe15
+                           .group:00000000 wm4.stm32g4xx_hal_rcc.h.135.8d28bdf720f4165758e115c83d05a7c2
+                           .group:00000000 wm4.stm32g4xx_hal_rcc_ex.h.20.a381de89af88802207f549f948fabbc4
+                           .group:00000000 wm4.stm32g4xx_hal_gpio.h.21.2ca30689d7a5ad939e06f5298d557243
+                           .group:00000000 wm4.stm32g4xx_hal_gpio_ex.h.22.1b7da6fc7615b2341724123ae8e461d9
+                           .group:00000000 wm4.stm32g4xx_hal_dma.h.21.2e23b0d56595a6b838cda841e78b2cf2
+                           .group:00000000 wm4.stm32g4xx_hal_dma_ex.h.21.93a1fe56678997ad72754076070f4a0d
+                           .group:00000000 wm4.stm32g4xx_hal_dma.h.803.dd88ea57b632f588d556f066658ac8d8
+                           .group:00000000 wm4.stm32g4xx_hal_cortex.h.20.1ad77fb6b4fc679887cb0a980ea44a7a
+                           .group:00000000 wm4.stm32g4xx_ll_adc.h.21.8052bcc80fb264686ac0eb0df096b4eb
+                           .group:00000000 wm4.stm32g4xx_hal_adc.h.441.b9143c2a34e1e7389f3042e2226178dc
+                           .group:00000000 wm4.stm32g4xx_hal_adc_ex.h.21.bf5e513b0c782ac53971b6599734b8c4
+                           .group:00000000 wm4.stm32g4xx_ll_exti.h.21.3148a6980741767f71761eb445f346e9
+                           .group:00000000 wm4.stm32g4xx_hal_comp.h.74.993852ecfac8b19c902e64e33c61511c
+                           .group:00000000 wm4.stm32g4xx_hal_dac.h.21.db627068e52007634376a4c972c5d419
+                           .group:00000000 wm4.stm32g4xx_hal_dac_ex.h.21.3725e9b2e9e08a08e2a598b2d2f18a92
+                           .group:00000000 wm4.stm32g4xx_hal_exti.h.21.723acd8e98480aae634680651af4eb2a
+                           .group:00000000 wm4.stm32g4xx_hal_fdcan.h.21.7e3b4b48cfc4adf8b669f7e4b16ec2a0
+                           .group:00000000 wm4.stm32g4xx_hal_flash.h.20.d5eb04c7abbe2eb79b40a04b3414a774
+                           .group:00000000 wm4.stm32g4xx_hal_flash.h.868.06dd2f9ca2f40ac164951ad647480079
+ARM GAS   			page 21
+
+
+                           .group:00000000 wm4.stm32g4xx_hal_hrtim.h.21.5bb9cc2116aa63503a68d53ce84fbb8c
+                           .group:00000000 wm4.stm32g4xx_hal_opamp.h.21.0de86917e81e98dccfa125838db59b66
+                           .group:00000000 wm4.stm32g4xx_hal_pwr.h.21.9b149e14c0ecf58cee46e8fb7f654b77
+                           .group:00000000 wm4.stm32g4xx_hal_pwr_ex.h.21.32206cbbd2cbec024b8600a98cfa3df7
+                           .group:00000000 wm4.stm32g4xx_hal_tim.h.21.48998681c932026239437f6645b6b47f
+                           .group:00000000 wm4.stm32g4xx_hal_tim_ex.h.21.931c546f492dcdbc9ac587da38712500
+                           .group:00000000 wm4.stm32g4xx_hal.h.49.77ad48c45d6a59e5132483403b560be0
+                           .group:00000000 wm4.main.h.60.b5d5fcf8e20642920eaa5e2c93fc5ae7
+
+UNDEFINED SYMBOLS
+HAL_COMP_Init
+Error_Handler
+HAL_GPIO_Init
+HAL_GPIO_DeInit
