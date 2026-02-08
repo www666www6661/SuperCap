@@ -38,8 +38,8 @@ build/Core/Src/Communication.o: Core/Src/Communication.cpp \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h Core/Inc/tim.h \
  Core/Inc/adc.h Core/Inc/Config.hpp Core/Inc/fdcan.h Core/Inc/dma.h \
  Core/Inc/Calibration.hpp Core/Inc/PowerManager.hpp \
- Core/Inc/Interface.hpp Core/Inc/hrtim.h Core/Inc/Utility.hpp \
- Core/Inc/dac.h Core/Inc/opamp.h Core/Inc/comp.h
+ Core/Inc/Interface.hpp Core/Inc/Utility.hpp Core/Inc/hrtim.h \
+ Core/Inc/comp.h Core/Inc/dac.h Core/Inc/opamp.h
 Core/Inc/Communication.hpp:
 Core/Inc/main.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -88,8 +88,8 @@ Core/Inc/dma.h:
 Core/Inc/Calibration.hpp:
 Core/Inc/PowerManager.hpp:
 Core/Inc/Interface.hpp:
-Core/Inc/hrtim.h:
 Core/Inc/Utility.hpp:
+Core/Inc/hrtim.h:
+Core/Inc/comp.h:
 Core/Inc/dac.h:
 Core/Inc/opamp.h:
-Core/Inc/comp.h:

@@ -1,0 +1,33 @@
+
+
+GraphedExpression="(adcData).tempData[1]", Color=#e56a6f, Show=0
+GraphedExpression="(adcData).tempData[0]", Color=#35792b, Show=0
+OpenDocument="PowerManager.hpp", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Inc/PowerManager.hpp", Line=48
+OpenDocument="stm32g4xx_it.c", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Src/stm32g4xx_it.c", Line=81
+OpenDocument="startup_stm32g474xx.s", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/startup_stm32g474xx.s", Line=48
+OpenDocument="stm32g4xx_hal.c", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c", Line=321
+OpenDocument="UserTask.cpp", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Src/UserTask.cpp", Line=126
+OpenDocument="Interface.cpp", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Src/Interface.cpp", Line=63
+OpenDocument="PowerManager.cpp", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Src/PowerManager.cpp", Line=232
+OpenDocument="main.c", FilePath="/home/concon/Documents/SuperCap_2025ENTERPRIZE/Core/Src/main.c", Line=68
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=1, w=521, h=256, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=2, w=521, h=154, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=521, h=609, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=464, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0xD47AE100
+OpenWindow="Global Data", DockArea=LEFT, x=0, y=0, w=522, h=689, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=1, w=522, h=331, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=1, y=0, w=778, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Timeline", DockArea=BOTTOM, x=0, y=0, w=1139, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=1, DataPaneShown=1, PowerPaneShown=0, CodePaneShown=0, PinCursor="Cursor Movable", TimePerDiv="1 ns / Div", TimeStampFormat="Time", DataGraphDrawAsPoints=0, DataGraphLegendShown=1, DataGraphUniformSampleSpacing=0, DataGraphLegendPosition="901;141", DataGraphShowNamesAtCursor=0, PowerGraphDrawAsPoints=0, PowerGraphLegendShown=0, PowerGraphAvgFilterTime=Off, PowerGraphAvgFilterLen=Off, PowerGraphUniformSampleSpacing=0, PowerGraphLegendPosition="952;1", CodeGraphLegendShown=0, CodeGraphLegendPosition="968;0"
+OpenWindow="Console", DockArea=BOTTOM, x=3, y=0, w=176, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[149;100;100;100;100;0;100]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[270;129;160;122;345;100]
+TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";" (adcData).tempData[1]";" (adcData).tempData[0]"], ColWidths=[100;100;100;100]
+TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[148;100;100;100;104;100;100;100;100]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[100;100;305]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Location";"Value";"Refresh";"Access"], ColWidths=[214;66;120;122;100]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[231;132;96;1203]
+WatchedExpression="adcData", RefreshRate=5, Window=Watched Data 1

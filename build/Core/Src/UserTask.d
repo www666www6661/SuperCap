@@ -1,4 +1,4 @@
-build/Core/Src/UserTask.o: Core/Src/UserTask.cpp Core/Inc/adc.h \
+build/Core/Src/UserTask.o: Core/Src/UserTask.cpp Core/Inc/hrtim.h \
  Core/Inc/main.h Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  Core/Inc/stm32g4xx_hal_conf.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -34,13 +34,13 @@ build/Core/Src/UserTask.o: Core/Src/UserTask.cpp Core/Inc/adc.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h Core/Inc/dac.h \
- Core/Inc/hrtim.h Core/Inc/main.h Core/Inc/tim.h Core/Inc/Calibration.hpp \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h Core/Inc/tim.h \
  Core/Inc/Communication.hpp Core/Inc/tim.h Core/Inc/adc.h \
  Core/Inc/Config.hpp Core/Inc/fdcan.h Core/Inc/dma.h \
- Core/Inc/PowerManager.hpp Core/Inc/Interface.hpp Core/Inc/hrtim.h \
- Core/Inc/Utility.hpp Core/Inc/dac.h Core/Inc/opamp.h Core/Inc/comp.h
-Core/Inc/adc.h:
+ Core/Inc/Calibration.hpp Core/Inc/PowerManager.hpp \
+ Core/Inc/Interface.hpp Core/Inc/Utility.hpp Core/Inc/hrtim.h \
+ Core/Inc/comp.h Core/Inc/dac.h Core/Inc/opamp.h
+Core/Inc/hrtim.h:
 Core/Inc/main.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 Core/Inc/stm32g4xx_hal_conf.h:
@@ -80,21 +80,18 @@ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
-Core/Inc/dac.h:
-Core/Inc/hrtim.h:
-Core/Inc/main.h:
 Core/Inc/tim.h:
-Core/Inc/Calibration.hpp:
 Core/Inc/Communication.hpp:
 Core/Inc/tim.h:
 Core/Inc/adc.h:
 Core/Inc/Config.hpp:
 Core/Inc/fdcan.h:
 Core/Inc/dma.h:
+Core/Inc/Calibration.hpp:
 Core/Inc/PowerManager.hpp:
 Core/Inc/Interface.hpp:
-Core/Inc/hrtim.h:
 Core/Inc/Utility.hpp:
+Core/Inc/hrtim.h:
+Core/Inc/comp.h:
 Core/Inc/dac.h:
 Core/Inc/opamp.h:
-Core/Inc/comp.h:

@@ -3105,3 +3105,21 @@ Nominal
 2026-02-05 22:11:44,129 [INFO] ProjectBuilder:5596 - Time for Generating toolchain IDE Files: 1155mS.
 2026-02-05 22:11:44,380 [INFO] ProjectBuilder:3563 - Time for Copy CMSIS : 249mS.
 2026-02-05 22:11:44,590 [INFO] ProjectBuilder:3563 - Time for Copy CMSIS : 209mS.
+2026-02-06 00:50:22,339 [INFO] MainFileManager:740 - Exiting application...
+2026-02-06 00:50:22,444 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
+2026-02-06 00:50:23,693 [INFO] ServerAccessManage:452 - Complete download http(s) 200
+2026-02-06 00:50:23,693 [INFO] ServerAccessManage:509 - Download File 
+2026-02-06 00:50:23,693 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
+2026-02-06 00:50:23,693 [INFO] DbMcusAds:53 - JSON generation date=Thu Jan 08 23:57:51 CST 2026 (1767887871456)
+2026-02-06 00:50:23,705 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
+2026-02-06 00:50:23,706 [INFO] MainFileManager:802 - Refresh advertisement image is successful
+2026-02-06 00:50:23,706 [INFO] ApplicationProperties:184 - Using Application install path: /opt/STM32CubeMX
+2026-02-06 00:50:23,706 [INFO] ApplicationProperties:184 - Using Application install path: /opt/STM32CubeMX
+2026-02-06 00:50:23,707 [INFO] MainFileManager:1253 - file mxinstallation.txt is not found
+2026-02-06 00:50:25,778 [INFO] WebApp:179 - JxBrowser engine has been closed 
+2026-02-06 00:50:25,779 [INFO] WebApp:330 - Close the Jxbrowser engine manually
+/usr/bin/dbus-send
+method return time=1770310268.701604 sender=:1.101 -> destination=:1.448 serial=106 reply_serial=2
+/usr/bin/dbus-send
+method return time=1770310789.188423 sender=:1.101 -> destination=:1.464 serial=142 reply_serial=2
+[0206/011022.644307:ERROR:elf_dynamic_array_reader.h(64)] tag not found
