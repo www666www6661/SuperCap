@@ -4552,7 +4552,7 @@ DEFINED SYMBOLS
                            .group:00000000 wm4.stm32g4xx_hal_tim_ex.h.21.931c546f492dcdbc9ac587da38712500
                            .group:00000000 wm4.stm32g4xx_hal.h.49.77ad48c45d6a59e5132483403b560be0
                            .group:00000000 wm4.main.h.60.b5d5fcf8e20642920eaa5e2c93fc5ae7
-                           .group:00000000 wm4.Config.hpp.4.e77f300c0d363d6e490ad58899efbd85
+                           .group:00000000 wm4.Config.hpp.4.fe07e6e2d7d607c32bac91ac79278f1f
                            .group:00000000 wm4.Calibration.hpp.4.d8b01743c3d98754e3e3e7f6eacc606c
                            .group:00000000 wm4.cconfig.h.31.efd9728f6c1cd95dec278d75223964a3
                            .group:00000000 wm4.cpu_defines.h.31.bf53b50a3b7882b34c717ebded187478

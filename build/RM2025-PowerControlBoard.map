@@ -6615,92 +6615,92 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
 .iplt           0x0800a214        0x0
  .iplt          0x0800a214        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.code_in_ram    0x0800a214      0x960
- .code_in_ram   0x0800a214      0x960 build/Core/Src/PowerManager.o
+.code_in_ram    0x0800a214      0x988
+ .code_in_ram   0x0800a214      0x988 build/Core/Src/PowerManager.o
                 0x0800a214                HRTIM::modeStateMachine()
-                0x0800a41c                ADC::updateADCmf()
-                0x0800a5ec                PowerControl::updateMFLoop()
-                0x0800a800                Protection::checkShortCircuit()
-                0x0800a910                Protection::checkEfficiency()
-                0x0800a97c                CAPARR::updateMaxCurrent()
-                0x0800a9fc                HRTIM1_Master_IRQHandler
+                0x0800a444                ADC::updateADCmf()
+                0x0800a614                PowerControl::updateMFLoop()
+                0x0800a828                Protection::checkShortCircuit()
+                0x0800a938                Protection::checkEfficiency()
+                0x0800a9a4                CAPARR::updateMaxCurrent()
+                0x0800aa24                HRTIM1_Master_IRQHandler
 
-.rodata         0x0800ab74      0x258
-                0x0800ab74                        . = ALIGN (0x4)
+.rodata         0x0800ab9c      0x258
+                0x0800ab9c                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata.DLCtoBytes
-                0x0800ab74       0x10 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
+                0x0800ab9c       0x10 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
  .rodata.TimerIdxToTimerId
-                0x0800ab84       0x1c build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_hrtim.o
+                0x0800abac       0x1c build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_hrtim.o
  .rodata.AHBPrescTable
-                0x0800aba0       0x10 build/Core/Src/system_stm32g4xx.o
-                0x0800aba0                AHBPrescTable
+                0x0800abc8       0x10 build/Core/Src/system_stm32g4xx.o
+                0x0800abc8                AHBPrescTable
  .rodata._ZL19buzzerWS_LowBattery
-                0x0800abb0       0x3c build/Core/Src/Interface.o
+                0x0800abd8       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_OVPB
-                0x0800abec       0x3c build/Core/Src/Interface.o
+                0x0800ac14       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_OVPA
-                0x0800ac28       0x3c build/Core/Src/Interface.o
+                0x0800ac50       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_OCPR
-                0x0800ac64       0x3c build/Core/Src/Interface.o
+                0x0800ac8c       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_OCPB
-                0x0800aca0       0x3c build/Core/Src/Interface.o
+                0x0800acc8       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_OCPA
-                0x0800acdc       0x3c build/Core/Src/Interface.o
+                0x0800ad04       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_SCPB
-                0x0800ad18       0x3c build/Core/Src/Interface.o
+                0x0800ad40       0x3c build/Core/Src/Interface.o
  .rodata._ZL13buzzerWS_SCPA
-                0x0800ad54       0x3c build/Core/Src/Interface.o
+                0x0800ad7c       0x3c build/Core/Src/Interface.o
  .rodata._ZL22buzzerWS_Unrecoverable
-                0x0800ad90       0x3c build/Core/Src/Interface.o
-                0x0800adcc                        . = ALIGN (0x4)
+                0x0800adb8       0x3c build/Core/Src/Interface.o
+                0x0800adf4                        . = ALIGN (0x4)
 
-.ARM.extab      0x0800adcc        0x0
-                0x0800adcc                        . = ALIGN (0x4)
+.ARM.extab      0x0800adf4        0x0
+                0x0800adf4                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0800adcc                        . = ALIGN (0x4)
+                0x0800adf4                        . = ALIGN (0x4)
 
-.ARM            0x0800adcc        0x0
-                0x0800adcc                        . = ALIGN (0x4)
-                0x0800adcc                        __exidx_start = .
+.ARM            0x0800adf4        0x0
+                0x0800adf4                        . = ALIGN (0x4)
+                0x0800adf4                        __exidx_start = .
  *(.ARM.exidx*)
-                0x0800adcc                        __exidx_end = .
-                0x0800adcc                        . = ALIGN (0x4)
+                0x0800adf4                        __exidx_end = .
+                0x0800adf4                        . = ALIGN (0x4)
 
-.preinit_array  0x0800adcc        0x0
-                0x0800adcc                        . = ALIGN (0x4)
-                0x0800adcc                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0800adf4        0x0
+                0x0800adf4                        . = ALIGN (0x4)
+                0x0800adf4                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0800adcc                        PROVIDE (__preinit_array_end = .)
-                0x0800adcc                        . = ALIGN (0x4)
+                0x0800adf4                        PROVIDE (__preinit_array_end = .)
+                0x0800adf4                        . = ALIGN (0x4)
 
-.init_array     0x0800adcc       0x10
-                0x0800adcc                        . = ALIGN (0x4)
-                0x0800adcc                        PROVIDE (__init_array_start = .)
+.init_array     0x0800adf4       0x10
+                0x0800adf4                        . = ALIGN (0x4)
+                0x0800adf4                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0800adcc        0x4 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
- .init_array    0x0800add0        0x4 build/Core/Src/Communication.o
- .init_array    0x0800add4        0x4 build/Core/Src/Interface.o
- .init_array    0x0800add8        0x4 build/Core/Src/PowerManager.o
-                0x0800addc                        PROVIDE (__init_array_end = .)
-                0x0800addc                        . = ALIGN (0x4)
+ .init_array    0x0800adf4        0x4 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .init_array    0x0800adf8        0x4 build/Core/Src/Communication.o
+ .init_array    0x0800adfc        0x4 build/Core/Src/Interface.o
+ .init_array    0x0800ae00        0x4 build/Core/Src/PowerManager.o
+                0x0800ae04                        PROVIDE (__init_array_end = .)
+                0x0800ae04                        . = ALIGN (0x4)
 
-.fini_array     0x0800addc        0x4
-                0x0800addc                        . = ALIGN (0x4)
-                0x0800addc                        PROVIDE (__fini_array_start = .)
+.fini_array     0x0800ae04        0x4
+                0x0800ae04                        . = ALIGN (0x4)
+                0x0800ae04                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0800addc        0x4 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x0800ade0                        PROVIDE (__fini_array_end = .)
-                0x0800ade0                        . = ALIGN (0x4)
-                0x0800ade0                        _sidata = LOADADDR (.data)
+ .fini_array    0x0800ae04        0x4 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x0800ae08                        PROVIDE (__fini_array_end = .)
+                0x0800ae08                        . = ALIGN (0x4)
+                0x0800ae08                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x0800ade0        0x0
- .rel.iplt      0x0800ade0        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x0800ae08        0x0
+ .rel.iplt      0x0800ae08        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.data           0x20000000       0x5c load address 0x0800ade0
+.data           0x20000000       0x5c load address 0x0800ae08
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -6725,17 +6725,17 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
                 0x2000005c                        _edata = .
 
 .tm_clone_table
-                0x2000005c        0x0 load address 0x0800ae3c
+                0x2000005c        0x0 load address 0x0800ae64
  .tm_clone_table
                 0x2000005c        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
  .tm_clone_table
                 0x2000005c        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
 
-.igot.plt       0x2000005c        0x0 load address 0x0800ae3c
+.igot.plt       0x2000005c        0x0 load address 0x0800ae64
  .igot.plt      0x2000005c        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
                 0x2000005c                        . = ALIGN (0x4)
 
-.bss            0x20000060      0xfb8 load address 0x0800ae3c
+.bss            0x20000060      0xfb8 load address 0x0800ae64
                 0x20000060                        _sbss = .
                 0x20000060                        __bss_start__ = _sbss
  *(.bss)
@@ -6861,7 +6861,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
                 0x20001018                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20001018      0x600 load address 0x0800ae3c
+                0x20001018      0x600 load address 0x0800ae64
                 0x20001018                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 0x20001018                        PROVIDE (_end = .)
@@ -7010,7 +7010,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/libgcc.a
  .comment       0x0000004c       0x27 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
  .comment       0x0000004c       0x27 /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
 
-.debug_info     0x00000000    0x39736
+.debug_info     0x00000000    0x39751
  .debug_info    0x00000000      0x551 build/Core/Src/main.o
  .debug_info    0x00000551      0x577 build/Core/Src/gpio.o
  .debug_info    0x00000ac8     0x1731 build/Core/Src/adc.o
@@ -7043,14 +7043,14 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/libgcc.a
  .debug_info    0x0002a1a9      0x5a0 build/Core/Src/system_stm32g4xx.o
  .debug_info    0x0002a749     0x3069 build/Core/Src/Communication.o
  .debug_info    0x0002d7b2     0x3005 build/Core/Src/Interface.o
- .debug_info    0x000307b7     0x55f9 build/Core/Src/PowerManager.o
- .debug_info    0x00035db0     0x33a2 build/Core/Src/UserTask.o
- .debug_info    0x00039152      0x375 build/Core/Src/Utility.o
- .debug_info    0x000394c7       0x2f build/startup_stm32g474xx.o
- .debug_info    0x000394f6      0x10b /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
- .debug_info    0x00039601      0x135 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
+ .debug_info    0x000307b7     0x5614 build/Core/Src/PowerManager.o
+ .debug_info    0x00035dcb     0x33a2 build/Core/Src/UserTask.o
+ .debug_info    0x0003916d      0x375 build/Core/Src/Utility.o
+ .debug_info    0x000394e2       0x2f build/startup_stm32g474xx.o
+ .debug_info    0x00039511      0x10b /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
+ .debug_info    0x0003961c      0x135 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
 
-.debug_abbrev   0x00000000     0x63eb
+.debug_abbrev   0x00000000     0x63fe
  .debug_abbrev  0x00000000      0x1c7 build/Core/Src/main.o
  .debug_abbrev  0x000001c7      0x16a build/Core/Src/gpio.o
  .debug_abbrev  0x00000331      0x263 build/Core/Src/adc.o
@@ -7083,12 +7083,12 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/libgcc.a
  .debug_abbrev  0x00004a4d      0x11c build/Core/Src/system_stm32g4xx.o
  .debug_abbrev  0x00004b69      0x4fb build/Core/Src/Communication.o
  .debug_abbrev  0x00005064      0x597 build/Core/Src/Interface.o
- .debug_abbrev  0x000055fb      0x6e0 build/Core/Src/PowerManager.o
- .debug_abbrev  0x00005cdb      0x42e build/Core/Src/UserTask.o
- .debug_abbrev  0x00006109      0x13e build/Core/Src/Utility.o
- .debug_abbrev  0x00006247       0x24 build/startup_stm32g474xx.o
- .debug_abbrev  0x0000626b       0xc9 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
- .debug_abbrev  0x00006334       0xb7 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
+ .debug_abbrev  0x000055fb      0x6f3 build/Core/Src/PowerManager.o
+ .debug_abbrev  0x00005cee      0x42e build/Core/Src/UserTask.o
+ .debug_abbrev  0x0000611c      0x13e build/Core/Src/Utility.o
+ .debug_abbrev  0x0000625a       0x24 build/startup_stm32g474xx.o
+ .debug_abbrev  0x0000627e       0xc9 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
+ .debug_abbrev  0x00006347       0xb7 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
 
 .debug_aranges  0x00000000     0x1bd8
  .debug_aranges
@@ -7309,7 +7309,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/libgcc.a
  .debug_macro   0x000304a5      0x40e build/Core/Src/UserTask.o
  .debug_macro   0x000308b3      0x20b build/Core/Src/Utility.o
 
-.debug_line     0x00000000    0x2ce17
+.debug_line     0x00000000    0x2ce2c
  .debug_line    0x00000000      0x64e build/Core/Src/main.o
  .debug_line    0x0000064e      0x528 build/Core/Src/gpio.o
  .debug_line    0x00000b76      0xcd9 build/Core/Src/adc.o
@@ -7342,53 +7342,53 @@ LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/libgcc.a
  .debug_line    0x00027a10      0x548 build/Core/Src/system_stm32g4xx.o
  .debug_line    0x00027f58      0xc28 build/Core/Src/Communication.o
  .debug_line    0x00028b80      0xd72 build/Core/Src/Interface.o
- .debug_line    0x000298f2     0x21f9 build/Core/Src/PowerManager.o
- .debug_line    0x0002baeb      0x9f7 build/Core/Src/UserTask.o
- .debug_line    0x0002c4e2      0x5e5 build/Core/Src/Utility.o
- .debug_line    0x0002cac7       0x78 build/startup_stm32g474xx.o
- .debug_line    0x0002cb3f      0x11e /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
- .debug_line    0x0002cc5d      0x1ba /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
+ .debug_line    0x000298f2     0x220e build/Core/Src/PowerManager.o
+ .debug_line    0x0002bb00      0x9f7 build/Core/Src/UserTask.o
+ .debug_line    0x0002c4f7      0x5e5 build/Core/Src/Utility.o
+ .debug_line    0x0002cadc       0x78 build/startup_stm32g474xx.o
+ .debug_line    0x0002cb54      0x11e /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
+ .debug_line    0x0002cc72      0x1ba /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
 
-.debug_str      0x00000000   0x143c9a
- .debug_str     0x00000000   0x143c9a build/Core/Src/main.o
+.debug_str      0x00000000   0x143cac
+ .debug_str     0x00000000   0x143cac build/Core/Src/main.o
                              0x12e796 (size before relaxing)
- .debug_str     0x00143c9a   0x12e632 build/Core/Src/gpio.o
- .debug_str     0x00143c9a   0x12efc7 build/Core/Src/adc.o
- .debug_str     0x00143c9a   0x12f359 build/Core/Src/fdcan.o
- .debug_str     0x00143c9a   0x12f9cd build/Core/Src/tim.o
- .debug_str     0x00143c9a   0x12ef5e build/Core/Src/stm32g4xx_it.o
- .debug_str     0x00143c9a   0x12e633 build/Core/Src/stm32g4xx_hal_msp.o
- .debug_str     0x00143c9a   0x12fd88 build/Core/Src/hrtim.o
- .debug_str     0x00143c9a   0x12e56f build/Core/Src/dma.o
- .debug_str     0x00143c9a   0x12e829 build/Core/Src/comp.o
- .debug_str     0x00143c9a   0x12e8d6 build/Core/Src/opamp.o
- .debug_str     0x00143c9a   0x12f28f build/Core/Src/dac.o
- .debug_str     0x00143c9a   0x12f5b9 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o
- .debug_str     0x00143c9a   0x12f55f build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o
- .debug_str     0x00143c9a   0x12f2a8 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
- .debug_str     0x00143c9a   0x12ecab build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
- .debug_str     0x00143c9a   0x12ecd4 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
- .debug_str     0x00143c9a   0x12e716 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
- .debug_str     0x00143c9a   0x12e970 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o
- .debug_str     0x00143c9a   0x12ea7a build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
- .debug_str     0x00143c9a   0x12ef50 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
- .debug_str     0x00143c9a   0x12e96f build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_comp.o
- .debug_str     0x00143c9a   0x12ec6b build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dac.o
- .debug_str     0x00143c9a   0x12ec9a build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dac_ex.o
- .debug_str     0x00143c9a   0x130035 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
- .debug_str     0x00143c9a   0x1310b9 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_hrtim.o
- .debug_str     0x00143c9a   0x12ea64 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_opamp.o
- .debug_str     0x00143c9a   0x1301ec build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o
- .debug_str     0x00143c9a   0x12f9c0 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o
- .debug_str     0x00143c9a   0x12e58c build/Core/Src/system_stm32g4xx.o
- .debug_str     0x00143c9a   0x138849 build/Core/Src/Communication.o
- .debug_str     0x00143c9a   0x138fce build/Core/Src/Interface.o
- .debug_str     0x00143c9a   0x13a32b build/Core/Src/PowerManager.o
- .debug_str     0x00143c9a   0x139391 build/Core/Src/UserTask.o
- .debug_str     0x00143c9a   0x12f090 build/Core/Src/Utility.o
- .debug_str     0x00143c9a       0x5f build/startup_stm32g474xx.o
- .debug_str     0x00143c9a      0x1fe /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
- .debug_str     0x00143c9a      0x1b1 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
+ .debug_str     0x00143cac   0x12e632 build/Core/Src/gpio.o
+ .debug_str     0x00143cac   0x12efc7 build/Core/Src/adc.o
+ .debug_str     0x00143cac   0x12f359 build/Core/Src/fdcan.o
+ .debug_str     0x00143cac   0x12f9cd build/Core/Src/tim.o
+ .debug_str     0x00143cac   0x12ef5e build/Core/Src/stm32g4xx_it.o
+ .debug_str     0x00143cac   0x12e633 build/Core/Src/stm32g4xx_hal_msp.o
+ .debug_str     0x00143cac   0x12fd88 build/Core/Src/hrtim.o
+ .debug_str     0x00143cac   0x12e56f build/Core/Src/dma.o
+ .debug_str     0x00143cac   0x12e829 build/Core/Src/comp.o
+ .debug_str     0x00143cac   0x12e8d6 build/Core/Src/opamp.o
+ .debug_str     0x00143cac   0x12f28f build/Core/Src/dac.o
+ .debug_str     0x00143cac   0x12f5b9 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o
+ .debug_str     0x00143cac   0x12f55f build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o
+ .debug_str     0x00143cac   0x12f2a8 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
+ .debug_str     0x00143cac   0x12ecab build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
+ .debug_str     0x00143cac   0x12ecd4 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
+ .debug_str     0x00143cac   0x12e716 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
+ .debug_str     0x00143cac   0x12e970 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o
+ .debug_str     0x00143cac   0x12ea7a build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
+ .debug_str     0x00143cac   0x12ef50 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
+ .debug_str     0x00143cac   0x12e96f build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_comp.o
+ .debug_str     0x00143cac   0x12ec6b build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dac.o
+ .debug_str     0x00143cac   0x12ec9a build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dac_ex.o
+ .debug_str     0x00143cac   0x130035 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
+ .debug_str     0x00143cac   0x1310b9 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_hrtim.o
+ .debug_str     0x00143cac   0x12ea64 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_opamp.o
+ .debug_str     0x00143cac   0x1301ec build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o
+ .debug_str     0x00143cac   0x12f9c0 build/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o
+ .debug_str     0x00143cac   0x12e58c build/Core/Src/system_stm32g4xx.o
+ .debug_str     0x00143cac   0x138848 build/Core/Src/Communication.o
+ .debug_str     0x00143cac   0x138fcd build/Core/Src/Interface.o
+ .debug_str     0x00143cac   0x13a33d build/Core/Src/PowerManager.o
+ .debug_str     0x00143cac   0x139390 build/Core/Src/UserTask.o
+ .debug_str     0x00143cac   0x12f08f build/Core/Src/Utility.o
+ .debug_str     0x00143cac       0x5f build/startup_stm32g474xx.o
+ .debug_str     0x00143cac      0x1fe /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-init.o)
+ .debug_str     0x00143cac      0x1b1 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(libc_a-memset.o)
 
 .debug_frame    0x00000000     0x4d04
  .debug_frame   0x00000000       0x58 build/Core/Src/main.o

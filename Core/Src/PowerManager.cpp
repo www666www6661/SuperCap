@@ -66,6 +66,8 @@ void disableOutputAB() {
 }
 
 __attribute__((section(".code_in_ram"))) void modeStateMachine() {
+  constexpr float DUTY_NO_CHARGEPUMP = 0.98f; // #TODO
+
   // 根据电压计算占空比
   psData.dutyByVoltage = M_MAX(adcData.vB, 0.01f) / adcData.vA;
 
@@ -108,9 +110,13 @@ __attribute__((section(".code_in_ram"))) void modeStateMachine() {
     // A侧限制0.5%占空比
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
                            HRTIM_COMPAREUNIT_3, HRTIM_PERIOD * 0.998f);
-    // B侧常开
+    // B侧改为高占空比（无电荷泵时避免上桥常开） // #TODO
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-                           HRTIM_COMPAREUNIT_3, 0U);
+                           HRTIM_COMPAREUNIT_3,
+                           HRTIM_PERIOD * (1.0f - DUTY_NO_CHARGEPUMP)); // #TODO
+    // 保留比较器保护窗口，不再使用常开全屏蔽 // #TODO
+    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
+                           HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.06f); // #TODO
     // 更新状态和AB占空比
     psData.pcmMode = IB_VALLEY;
     // psData.dutyA = psData.dutyByVoltage;
@@ -152,9 +158,13 @@ __attribute__((section(".code_in_ram"))) void modeStateMachine() {
     psData.pcmMode = IA_PEAK;
     break;
   case BOOST:
-    // A侧常开
+    // A侧改为高占空比（无电荷泵时避免上桥常开） // #TODO
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-                           HRTIM_COMPAREUNIT_3, 0U);
+                           HRTIM_COMPAREUNIT_3,
+                           HRTIM_PERIOD * (1.0f - DUTY_NO_CHARGEPUMP)); // #TODO
+    // 保留比较器保护窗口，不再使用常开全屏蔽 // #TODO
+    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
+                           HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.06f); // #TODO
     // B侧限制94%占空比
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
                            HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.06f);
@@ -175,9 +185,12 @@ __attribute__((section(".code_in_ram"))) void modeStateMachine() {
                            HRTIM_COMPAREUNIT_3, HRTIM_PERIOD * 0.20f);
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
                            HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.35f);
-    // B侧固定100%占空比
+    // B侧改为高占空比（无电荷泵时避免上桥常开） // #TODO
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
-                           HRTIM_COMPAREUNIT_3, 0U);
+                           HRTIM_COMPAREUNIT_3,
+                           HRTIM_PERIOD * (1.0f - DUTY_NO_CHARGEPUMP)); // #TODO
+    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
+                           HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.06f); // #TODO
     break;
   case CALIBRATION_A:
     // B侧固定80%占空比
@@ -185,9 +198,12 @@ __attribute__((section(".code_in_ram"))) void modeStateMachine() {
                            HRTIM_COMPAREUNIT_3, HRTIM_PERIOD * 0.20f);
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B,
                            HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.5f);
-    // A侧固定100%占空比
+    // A侧改为高占空比（无电荷泵时避免上桥常开） // #TODO
     __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
-                           HRTIM_COMPAREUNIT_3, 0U);
+                           HRTIM_COMPAREUNIT_3,
+                           HRTIM_PERIOD * (1.0f - DUTY_NO_CHARGEPUMP)); // #TODO
+    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A,
+                           HRTIM_COMPAREUNIT_4, HRTIM_PERIOD * 0.06f); // #TODO
     break;
   default:
     break;

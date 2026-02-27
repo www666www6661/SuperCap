@@ -3123,3 +3123,6 @@ method return time=1770310268.701604 sender=:1.101 -> destination=:1.448 serial=
 /usr/bin/dbus-send
 method return time=1770310789.188423 sender=:1.101 -> destination=:1.464 serial=142 reply_serial=2
 [0206/011022.644307:ERROR:elf_dynamic_array_reader.h(64)] tag not found
+Object::connect: No such signal CAutomationTask::Finished()
+Object::connect: No such signal CAutomationTask::Finished()
+Object::connect: No such signal CAutomationTask::Finished()

@@ -5,27 +5,27 @@ Core/Src/PowerManager.cpp:44:6:bool HRTIM::enableOutputE(float)	16	static
 Core/Src/PowerManager.cpp:55:6:void HRTIM::disableOutputE()	8	static
 Core/Src/PowerManager.cpp:61:6:void HRTIM::disableOutputAB()	8	static
 Core/Src/PowerManager.cpp:68:47:void HRTIM::modeStateMachine()	4	static
-Core/Src/PowerManager.cpp:201:6:void ADC::initAnalog()	8	static
-Core/Src/PowerManager.cpp:219:6:void ADC::initADC()	8	static
-Core/Src/PowerManager.cpp:232:47:void ADC::updateADCmf()	4	static
-Core/Src/PowerManager.cpp:330:6:void ADC::updateADClf()	0	static
-Core/Src/PowerManager.cpp:344:6:void PowerControl::powerOnOffControl()	8	static
-Core/Src/PowerManager.cpp:375:47:void PowerControl::updateMFLoop()	24	static
-Core/Src/PowerManager.cpp:426:6:void PowerControl::updateRefereePower(const RxData&, const uint32_t&)	4	static
-Core/Src/PowerManager.cpp:450:6:void PowerControl::checkRxDataTimeout(const uint32_t&)	4	static
-Core/Src/PowerManager.cpp:472:6:void Protection::errorHandlerLF()	16	static
-Core/Src/PowerManager.cpp:498:6:void Protection::checkLowBattery()	0	static
-Core/Src/PowerManager.cpp:523:47:void Protection::checkShortCircuit()	16	static
-Core/Src/PowerManager.cpp:556:47:void Protection::checkEfficiency()	0	static
-Core/Src/PowerManager.cpp:563:6:void Protection::hrtimFaultHandler()	8	static
-Core/Src/PowerManager.cpp:597:6:void Protection::configAWDG()	4	static
-Core/Src/PowerManager.cpp:606:6:void Protection::checkHardwareUID()	8	static
-Core/Src/PowerManager.cpp:626:6:void Protection::autoClearError()	16	static
-Core/Src/PowerManager.cpp:636:6:void Protection::manualClearError()	8	static
-Core/Src/PowerManager.cpp:650:47:void CAPARR::updateMaxCurrent()	0	static
-Core/Src/PowerManager.cpp:672:10:uint16_t CAPARR::getMaxPowerFeedback()	0	static
-Core/Src/PowerManager.cpp:685:6:void CAPARR::restartEstimation(const uint32_t&)	4	static
-Core/Src/PowerManager.cpp:693:6:void CAPARR::estimateCapacity(const uint32_t&)	4	static
-Core/Src/PowerManager.cpp:744:1:void HRTIM1_Master_IRQHandler()	40	static
-Core/Src/PowerManager.cpp:829:6:void HRTIM1_FLT_IRQHandler()	8	static
-Core/Src/PowerManager.cpp:833:1:cpp)	4	static
+Core/Src/PowerManager.cpp:217:6:void ADC::initAnalog()	8	static
+Core/Src/PowerManager.cpp:235:6:void ADC::initADC()	8	static
+Core/Src/PowerManager.cpp:248:47:void ADC::updateADCmf()	4	static
+Core/Src/PowerManager.cpp:346:6:void ADC::updateADClf()	0	static
+Core/Src/PowerManager.cpp:360:6:void PowerControl::powerOnOffControl()	8	static
+Core/Src/PowerManager.cpp:391:47:void PowerControl::updateMFLoop()	24	static
+Core/Src/PowerManager.cpp:442:6:void PowerControl::updateRefereePower(const RxData&, const uint32_t&)	4	static
+Core/Src/PowerManager.cpp:466:6:void PowerControl::checkRxDataTimeout(const uint32_t&)	4	static
+Core/Src/PowerManager.cpp:488:6:void Protection::errorHandlerLF()	16	static
+Core/Src/PowerManager.cpp:514:6:void Protection::checkLowBattery()	0	static
+Core/Src/PowerManager.cpp:539:47:void Protection::checkShortCircuit()	16	static
+Core/Src/PowerManager.cpp:572:47:void Protection::checkEfficiency()	0	static
+Core/Src/PowerManager.cpp:579:6:void Protection::hrtimFaultHandler()	8	static
+Core/Src/PowerManager.cpp:613:6:void Protection::configAWDG()	4	static
+Core/Src/PowerManager.cpp:622:6:void Protection::checkHardwareUID()	8	static
+Core/Src/PowerManager.cpp:642:6:void Protection::autoClearError()	16	static
+Core/Src/PowerManager.cpp:652:6:void Protection::manualClearError()	8	static
+Core/Src/PowerManager.cpp:666:47:void CAPARR::updateMaxCurrent()	0	static
+Core/Src/PowerManager.cpp:688:10:uint16_t CAPARR::getMaxPowerFeedback()	0	static
+Core/Src/PowerManager.cpp:701:6:void CAPARR::restartEstimation(const uint32_t&)	4	static
+Core/Src/PowerManager.cpp:709:6:void CAPARR::estimateCapacity(const uint32_t&)	4	static
+Core/Src/PowerManager.cpp:760:1:void HRTIM1_Master_IRQHandler()	40	static
+Core/Src/PowerManager.cpp:845:6:void HRTIM1_FLT_IRQHandler()	8	static
+Core/Src/PowerManager.cpp:849:1:cpp)	4	static
