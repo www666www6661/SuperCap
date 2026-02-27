@@ -799,11 +799,11 @@ DEFINED SYMBOLS
                            .group:00000000 wm4.cmath.52.8686cf09462fb5ec874ed5812f528e33
                            .group:00000000 wm4.version.h.53.eddb904a5ed2508953a0d233a0cbe846
                            .group:00000000 wm4.cmath.59.a017be978e4f860d3dddb5e396d497ec
-                           .group:00000000 wm4.Config.hpp.7.5a1c6f241ed32fadaecb2e346a2a47fe
-                           .group:00000000 wm4.Calibration.hpp.4.a4f49770609d195a35655cd77ee7e972
+                           .group:00000000 wm4.Config.hpp.4.e77f300c0d363d6e490ad58899efbd85
+                           .group:00000000 wm4.Calibration.hpp.4.d8b01743c3d98754e3e3e7f6eacc606c
                            .group:00000000 wm4.Interface.hpp.10.709a2db53a2c99c6d60ed43b74d29ae4
                            .group:00000000 wm4.Utility.hpp.9.378999a7136498b1fcaa268e05c8cfe4
-                           .group:00000000 wm4.PowerManager.hpp.21.90a99520fd5feac35accd2a34e2f07b6
+                           .group:00000000 wm4.PowerManager.hpp.21.217185d07295a9dd34c438f7c358eabe
 
 UNDEFINED SYMBOLS
 _ZN10Protection15checkLowBatteryEv

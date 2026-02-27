@@ -50,7 +50,7 @@ enum PCMMode { IB_VALLEY, IA_PEAK };
 
 struct PowerStageData {
   bool timerEnabled = 0;
-  bool outputABEnabled = 0;
+  bool outputABEnabled = 1; // TODO
   bool outputEEnabled = 0;
   // bool chargePumpEnabled = true;
   bool allowEnableOutput = 1;

@@ -7,7 +7,7 @@ Core/Src/PowerManager.cpp:61:6:void HRTIM::disableOutputAB()	8	static
 Core/Src/PowerManager.cpp:68:47:void HRTIM::modeStateMachine()	4	static
 Core/Src/PowerManager.cpp:201:6:void ADC::initAnalog()	8	static
 Core/Src/PowerManager.cpp:219:6:void ADC::initADC()	8	static
-Core/Src/PowerManager.cpp:232:47:void ADC::updateADCmf()	16	static
+Core/Src/PowerManager.cpp:232:47:void ADC::updateADCmf()	4	static
 Core/Src/PowerManager.cpp:330:6:void ADC::updateADClf()	0	static
 Core/Src/PowerManager.cpp:344:6:void PowerControl::powerOnOffControl()	8	static
 Core/Src/PowerManager.cpp:375:47:void PowerControl::updateMFLoop()	24	static
@@ -19,7 +19,7 @@ Core/Src/PowerManager.cpp:523:47:void Protection::checkShortCircuit()	16	static
 Core/Src/PowerManager.cpp:556:47:void Protection::checkEfficiency()	0	static
 Core/Src/PowerManager.cpp:563:6:void Protection::hrtimFaultHandler()	8	static
 Core/Src/PowerManager.cpp:597:6:void Protection::configAWDG()	4	static
-Core/Src/PowerManager.cpp:606:6:void Protection::checkHardwareUID()	0	static
+Core/Src/PowerManager.cpp:606:6:void Protection::checkHardwareUID()	8	static
 Core/Src/PowerManager.cpp:626:6:void Protection::autoClearError()	16	static
 Core/Src/PowerManager.cpp:636:6:void Protection::manualClearError()	8	static
 Core/Src/PowerManager.cpp:650:47:void CAPARR::updateMaxCurrent()	0	static

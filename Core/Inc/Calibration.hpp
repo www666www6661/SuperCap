@@ -50,7 +50,7 @@
 #define ADC_IB_K 0.00414766f
 #define ADC_IB_B -33.68477810f
 
-#define ADC_IREF_K -0.00039875f
-#define ADC_IREF_B 4.00809463f
+#define ADC_IREF_K 0.004220148f
+#define ADC_IREF_B -34.3851740f
 
 #endif
