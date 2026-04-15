@@ -48,9 +48,9 @@ static inline void Device_BuckBoost_Init(Device_BuckBoost *this, Device_BuckBoos
     this->phase = param.phase;
 }
 
-static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() { bsp_hrtim_allch_start(); }
+static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() { bsp_hrtim_allch_stop(); }
 
-static inline void __attribute__((always_inline)) Device_BuckBoost_Enable() { bsp_hrtim_allch_stop(); }
+static inline void __attribute__((always_inline)) Device_BuckBoost_Enable() { bsp_hrtim_allch_start(); }
 
 static inline bool __attribute__((always_inline)) Device_BuckBoost_GetBuckBoostMode(float Physical_VBToVA)
 {

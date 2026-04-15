@@ -20,20 +20,18 @@
 #include "main.h"
 
 #include "adc.h"
+#include "dev_led.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "gpio.h"
 #include "hrtim.h"
+#include "stm32g4xx_hal.h"
 #include "tim.h"
 #include "usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bsp_adc.h"
-#include "bsp_hrtim.h"
-#include "bsp_time.h"
-#include "dev_led.h"
-#include "dev_sampler.h"
+#include "SuperCap.h"
 
 /* USER CODE END Includes */
 
@@ -55,23 +53,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-Device_Current_Sampler adc_Ialpha;
-Device_Current_Sampler adc_Ibeta;
-Device_Volt_Sampler adc_VA;
-Device_Volt_Sampler adc_NC;
-Device_Volt_Sampler adc_VB;
-Device_Current_Sampler adc_Igamma;
-Device_Current_Sampler adc_IREF;
-Device_Current_Sampler adc_IA;
 
-float val_Ialpha;
-float val_Ibeta;
-float val_VA;
-float val_NC;
-float val_VB;
-float val_Igamma;
-float val_IREF;
-float val_IA;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -122,26 +104,8 @@ int main(void)
     MX_TIM1_Init();
     MX_TIM2_Init();
     /* USER CODE BEGIN 2 */
-    /**
-     * @brief board level device/service init order
-     *
-     * 1. start basic indication and time base
-     * 2. start hrtim trigger source
-     * 3. start adc2 dma path and adc1 injected path
-     * 4. bind all sampler objects to bsp adc channels
-     */
-    extern void Device_Buzzer_PowerOn();
-    Device_Buzzer_PowerOn();
-    Device_LED_Init();
+    SuperCap_Start();
     Device_LED_SetSysState(DEV_LED_SYS_NORMAL);
-    bsp_time_hs_start();
-
-    bsp_hrtim_allch_start();
-    bsp_adc_start(BSP_ADC_Igamma);
-    bsp_adc_start(BSP_ADC_Ialpha);
-    bsp_adc_start(BSP_ADC_Ibeta);
-
-    extern HRTIM_HandleTypeDef hhrtim1;
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -149,24 +113,6 @@ int main(void)
     while (1)
     {
         Device_LED_Task(HAL_GetTick());
-
-        uint32_t adc_raw = 0;
-
-        /**
-         * @brief refresh all exported adc channels
-         *
-         * adc1 values are updated in injected conversion callback,
-         * adc2 values are updated from dma circular buffer.
-         */
-        (void)bsp_adc_update(BSP_ADC_Ialpha, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_Ibeta, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_VA, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_NC, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_VB, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_Igamma, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_IREF, &adc_raw);
-        (void)bsp_adc_update(BSP_ADC_IA, &adc_raw);
-
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -219,15 +165,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HRTIM1_Master_IRQHandler(void)
-{
-    __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
-
-    if (__HAL_HRTIM_MASTER_GET_FLAG(&hhrtim1, HRTIM_MASTER_FLAG_MREP) != RESET)  // blocking detected
-    {
-        __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);  // stall the loop
-    }
-}
 
 /* USER CODE END 4 */
 

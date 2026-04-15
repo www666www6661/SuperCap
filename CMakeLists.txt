@@ -55,6 +55,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp/comp_utils.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/mod_errchecker.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/mod_powerctrl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/app/SuperCap.c
 )
 
 # Add include paths
@@ -64,6 +65,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp
     ${CMAKE_CURRENT_SOURCE_DIR}/bsp
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/app
 
 )
 

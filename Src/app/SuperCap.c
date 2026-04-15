@@ -6,6 +6,7 @@
 #include "bsp_time.h"
 #include "dev_buckboost.h"
 #include "dev_buzzer.h"
+#include "dev_led.h"
 #include "mod_errchecker.h"
 #include "mod_powerctrl.h"
 #include "mod_status.h"
@@ -19,6 +20,7 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param)
     Module_PowerCtrl_Init(&this->powerctrl_, param.powerctrl);
     bsp_time_hs_start();
     bsp_time_ls_start();
+    Device_LED_Init();
     Device_BuckBoost_Enable();
     // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
@@ -38,20 +40,20 @@ SuperCap_Param param_ = {
         .dt = DT, // HRTIM MREP actual loop rate: about 56.667kHz
         .vaside = {
             .adc_channel = BSP_ADC_VA,
-            .k = 0.00807537f,
-            .b = 0.02422611f,
+            .k = 0.0073137736f,
+            .b = -0.0561247502f,
             .cutoff_freq = 150.0f
         },
         .vbside ={
             .adc_channel = BSP_ADC_VB,
-            .k = 0.008096386f,
-            .b = 0.041638554f,
+            .k = 0.0072455170f,
+            .b = -0.0428535364f,
             .cutoff_freq = 150.0f
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
-            .k = 0.020190366f,
-            .b = (-41.28785694f),
+            .k =   0.0140179631f,
+            .b = (-28.5919519601f),
             .cutoff_freq = 150.0f
         },
         .i_alpha = {
@@ -74,8 +76,8 @@ SuperCap_Param param_ = {
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
-            .k = 0.020207852f,
-            .b = (-41.30051963f),
+            .k =   0.0140179631f,
+            .b = (-28.5919519601f),
             .cutoff_freq = 150.0f
         }
 
@@ -156,8 +158,8 @@ SuperCap_Param param_ = {
 inline void __attribute__((always_inline))  SuperCap_control(){
   
     Module_Sampler_Update(&(supercap.sampler_));
-    Module_ErrChecker_ShortChk(&(supercap.errchk_));
-    Module_PowerCtrl_Control(&(supercap.powerctrl_));
+    //Module_ErrChecker_ShortChk(&(supercap.errchk_));
+    //Module_PowerCtrl_Control(&(supercap.powerctrl_));
 
 }
 
@@ -192,6 +194,5 @@ void HRTIM1_Master_IRQHandler(void) {
  *
  */
 void TIM2_IRQHandler(void) { 
-    
     __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
  }
