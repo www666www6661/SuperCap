@@ -39,3 +39,11 @@
 
 # debug information files
 *.dwo
+
+.history
+
+.vscode
+
+build
+
+nohup.out
