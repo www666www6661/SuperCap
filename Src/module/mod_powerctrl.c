@@ -93,6 +93,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         }
 
         // this->iaside_setpoint_ = this->iaside_setpoint_ > 1.0f ? 0.4f : this->iaside_setpoint_ + 0.00005f;
+        this->iaside_setpoint_ = 0.8f;
 
         // =========================================================================
 
@@ -100,7 +101,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         float ff_voltage_ratio = this->sampler_->vbside_.voltage_ / this->sampler_->vaside_.voltage_;
 
         // 2. 获取当前的系统全局模式 (调用上一轮回复中提供的新函数)
-        bool sys_mode = Device_BuckBoost_GetBuckBoostMode(ff_voltage_ratio);
+        bool buckboost_mode = Device_BuckBoost_GetBuckBoostMode(ff_voltage_ratio);
 
         // 3. 计算【单相】目标电流 (总电流除以3)
         float phase_i_setpoint = this->iaside_setpoint_ / 3.0f;
@@ -116,7 +117,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         float duty_gamma = ff_voltage_ratio + this->param_.k_feedforward * phase_i_setpoint +
                            Component_PID_Calculate(&(this->PID_igamma_), phase_i_setpoint, this->sampler_->i_gamma_.current_, this->dt);
 
-        // 5. 电压限幅控制 (防止超容过充)
+        // 5. 电压限幅控制
         if (this->sampler_->vbside_.voltage_ > this->buckboost_alpha_.CAP_MAX_VOLTAGE * 0.9f)
         {
             float vb_duty =
@@ -155,9 +156,9 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         clampf(&duty_gamma, 0.05f, 10.0f);
 
         // 6. 更新三相底层 PWM (注意这里使用相同的 sys_mode)
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), duty_alpha, sys_mode);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), duty_beta, sys_mode);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), duty_gamma, sys_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), duty_alpha, buckboost_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), duty_beta, buckboost_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), duty_gamma, buckboost_mode);
     }
     else
     {
@@ -175,10 +176,10 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         Component_PID_Reset(&(this->PID_pRefree_));
 
         // 获取全局空闲模式
-        bool sys_mode = Device_BuckBoost_GetBuckBoostMode(idle_duty);
+        bool buckboost_mode = Device_BuckBoost_GetBuckBoostMode(idle_duty);
 
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), idle_duty, sys_mode);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), idle_duty, sys_mode);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), idle_duty, sys_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), idle_duty, buckboost_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), idle_duty, buckboost_mode);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), idle_duty, buckboost_mode);
     }
 }

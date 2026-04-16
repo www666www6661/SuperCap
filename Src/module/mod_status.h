@@ -3,19 +3,22 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct {
-  float capEnergy;
-  float chassisPower;
-  float chassisPowerLimit;
+#include "dev_led.h"
 
-  float realVBToVA;
+typedef struct
+{
+    float capEnergy;
+    float chassisPower;
+    float chassisPowerLimit;
 
-  float efficience;
-  float outputduty;
-  float temprature;
-  float dcdc_mode;
+    float realVBToVA;
 
-  bool outputEnabled;
-  bool lowBattery;
-  uint8_t errorcode;
+    float efficience;
+    float outputduty;
+    float temprature;
+    float dcdc_mode;
+
+    bool outputEnabled;
+    bool lowBattery;
+    uint8_t errorcode;
 } Module_Status;

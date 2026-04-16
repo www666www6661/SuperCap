@@ -92,7 +92,7 @@ static inline bsp_status_t __attribute__((always_inline)) bsp_hrtim_allch_stop()
 
 /**
  * @brief Set the duty cycle for a specific HRTIM channel.
- * @param ch The HRTIM channel to configure.
+ * @param ch The HRTIM channel to configure.w
  * @param duty_cycle The duty cycle to set (from 0.0000～01f to 0.9999～f).
  * @return bsp_status_t Status of the operation.
  */

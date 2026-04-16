@@ -1,3 +1,4 @@
+#define BSP_ADC_IMPLEMENTATION
 #include "SuperCap.h"
 
 #include <stdint.h>
@@ -13,10 +14,13 @@
 
 static SuperCap supercap;
 
+#define CPU_FREQ_HZ (170000000UL)
+#define HRTIM_ISR_CYCLE_BUDGET ((uint32_t)(DT * (float)CPU_FREQ_HZ + 0.5f))
+
 void SuperCap_Init(SuperCap *this, SuperCap_Param param)
 {
     Module_Sampler_Init(&supercap.sampler_, param.sampler);
-    Module_ErrChecker_Init(&supercap.errchk_, param.errchk);
+    // Module_ErrChecker_Init(&supercap.errchk_, param.errchk);
     Module_PowerCtrl_Init(&this->powerctrl_, param.powerctrl);
     bsp_time_hs_start();
     bsp_time_ls_start();
@@ -30,7 +34,7 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param)
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
-#define DT (24000.0f * 4.0f / (170000000.0f * 32.0f))  // HRTIM MREP实际控制周期，约17.647us / 56.667kHz
+#define DT (24000.0f * 8.0f / (170000000.0f * 32.0f))  // HRTIM MREP实际控制周期，约17.647us / 56.667kHz
 
 void SuperCap_Start()
 {
@@ -41,37 +45,37 @@ SuperCap_Param param_ = {
         .vaside = {
             .adc_channel = BSP_ADC_VA,
             .k = 0.0073137736f,
-            .b = -0.0561247502f,
+            .b = (-0.0561247502f),
             .cutoff_freq = 150.0f
         },
         .vbside ={
             .adc_channel = BSP_ADC_VB,
             .k = 0.0072455170f,
-            .b = -0.0428535364f,
+            .b = (-0.0428535364f),
             .cutoff_freq = 150.0f
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
-            .k =   0.0140179631f,
-            .b = (-28.5919519601f),
+            .k =   0.0156076632f,
+            .b = (-31.8713917797f),
             .cutoff_freq = 150.0f
         },
         .i_alpha = {
             .adc_channel = BSP_ADC_Ialpha,
-            .k = 0.020190366f,
-            .b = (-41.28785694f),
+            .k = (-0.0171938062f),
+            .b = 35.0536976581f,
             .cutoff_freq = 150.0f
         },
         .i_beta = {
             .adc_channel = BSP_ADC_Ibeta,
-            .k = 0.020190366f,
-            .b = (-41.28785694f),
+            .k = (-0.0173240675f),
+            .b = 35.3941995088f,
             .cutoff_freq = 150.0f
         },
         .i_gamma = {
             .adc_channel = BSP_ADC_Igamma,
-            .k = 0.020190366f,
-            .b = (-41.28785694f),
+            .k = (-0.0169229675f),
+            .b = 34.5661755549f,
             .cutoff_freq = 150.0f
         },
         .iRefree = {
@@ -159,7 +163,7 @@ inline void __attribute__((always_inline))  SuperCap_control(){
   
     Module_Sampler_Update(&(supercap.sampler_));
     //Module_ErrChecker_ShortChk(&(supercap.errchk_));
-    //Module_PowerCtrl_Control(&(supercap.powerctrl_));
+    Module_PowerCtrl_Control(&(supercap.powerctrl_));
 
 }
 
@@ -167,11 +171,17 @@ volatile bool blocking;
 
 
 volatile uint32_t ALLt = 0;
+volatile uint32_t supercap_irq_cycles_last = 0;
+volatile uint32_t supercap_irq_cycles_max = 0;
+volatile uint32_t supercap_irq_load_permille_last = 0;
+volatile uint32_t supercap_irq_load_permille_max = 0;
 /**
  * @brief 64khz control cycle ,pid\pwm update\short check
  *
  */
 void HRTIM1_Master_IRQHandler(void) {
+
+    uint32_t cycle_start = DWT->CYCCNT;
 
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
     SuperCap_control();
@@ -187,6 +197,17 @@ void HRTIM1_Master_IRQHandler(void) {
   }else{
     blocking = false;
   }
+
+  uint32_t cycle_cost = DWT->CYCCNT - cycle_start;
+  supercap_irq_cycles_last = cycle_cost;
+  if (cycle_cost > supercap_irq_cycles_max) {
+    supercap_irq_cycles_max = cycle_cost;
+  }
+
+  supercap_irq_load_permille_last =
+      (uint32_t)(((uint64_t)cycle_cost * 1000ULL) / HRTIM_ISR_CYCLE_BUDGET);
+  supercap_irq_load_permille_max =
+      (uint32_t)(((uint64_t)supercap_irq_cycles_max * 1000ULL) / HRTIM_ISR_CYCLE_BUDGET);
 }
 
 /**

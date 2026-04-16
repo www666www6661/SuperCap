@@ -48,8 +48,7 @@ static inline void bsp_adc_dwt_profiler_init(void)
  *   [2] ADC2 regular rank3 -> BSP_ADC_IREF
  *   [3] ADC2 regular rank4 -> BSP_ADC_IA
  */
-uint32_t adc_buf[BSP_ADC_DEV_NUM][BSP_ADC_BUF_DEPTH] = {0};
-volatile uint32_t bsp_adc_Buf[BSP_ADC_NUM] = {0};
+uint32_t bsp_adc_buf[BSP_ADC_DEV_NUM][BSP_ADC_BUF_DEPTH] = {0};
 
 typedef struct
 {
@@ -163,13 +162,13 @@ bsp_status_t bsp_adc_start(bsp_adc_channel_t ch)
             if (HAL_ADCEx_InjectedStart_IT(adc) != HAL_OK)
                 return BSP_ERR;
 
-            if (HAL_ADC_Start_DMA(adc, adc_buf[BSP_ADC_DEV_1], BSP_ADC1_DMA_LEN) != HAL_OK)
+            if (HAL_ADC_Start_DMA(adc, bsp_adc_buf[BSP_ADC_DEV_1], BSP_ADC1_DMA_LEN) != HAL_OK)
                 return BSP_ERR;
         }
         else if (bsp_adc_map[ch].dev == BSP_ADC_DEV_2)
         {
             /* ADC2 only uses regular group conversion with DMA. */
-            if (HAL_ADC_Start_DMA(adc, adc_buf[BSP_ADC_DEV_2], BSP_ADC2_DMA_LEN) != HAL_OK)
+            if (HAL_ADC_Start_DMA(adc, bsp_adc_buf[BSP_ADC_DEV_2], BSP_ADC2_DMA_LEN) != HAL_OK)
                 return BSP_ERR;
         }
         else
@@ -199,8 +198,7 @@ bsp_status_t bsp_adc_update(bsp_adc_channel_t ch, uint32_t *buf)
     if ((ch >= BSP_ADC_NUM) || (buf == NULL))
         return BSP_ERR;
 
-    bsp_adc_Buf[ch] = adc_buf[bsp_adc_map[ch].dev][bsp_adc_map[ch].offset];
-    *buf = bsp_adc_Buf[ch];
+    *buf = bsp_adc_buf[bsp_adc_map[ch].dev][bsp_adc_map[ch].offset];
 
     return BSP_OK;
 }
@@ -217,13 +215,12 @@ bsp_status_t bsp_adc_update(bsp_adc_channel_t ch, uint32_t *buf)
  */
 void ADC1_2_IRQHandler(void)
 {
-    uint32_t irq_enter_cycles = DWT->CYCCNT;
     uint32_t adc1_pending = ADC1->ISR & ADC1->IER;
 
     if ((adc1_pending & ADC_FLAG_JEOS) != 0U)
     {
-        adc_buf[BSP_ADC_DEV_1][BSP_ADC1_BUF_Ialpha] = ADC1->JDR1;
-        adc_buf[BSP_ADC_DEV_1][BSP_ADC1_BUF_VA] = ADC1->JDR2;
+        bsp_adc_buf[BSP_ADC_DEV_1][BSP_ADC1_BUF_Ialpha] = ADC1->JDR1;
+        bsp_adc_buf[BSP_ADC_DEV_1][BSP_ADC1_BUF_VA] = ADC1->JDR2;
 
         ADC1->ISR = ADC_FLAG_JEOS | ADC_FLAG_JEOC;
         adc1_pending &= ~(ADC_FLAG_JEOS | ADC_FLAG_JEOC);
@@ -240,28 +237,4 @@ void ADC1_2_IRQHandler(void)
 
     if ((ADC2->ISR & ADC2->IER) != 0U)
         HAL_ADC_IRQHandler(&hadc2);
-
-    uint32_t irq_used_cycles = DWT->CYCCNT - irq_enter_cycles;
-    uint32_t now_ms = HAL_GetTick();
-    uint32_t now_cycles = DWT->CYCCNT;
-    uint32_t window_total_cycles = now_cycles - g_bsp_adc_irq_window_start_cycles;
-
-    g_bsp_adc_irq_last_cycles = irq_used_cycles;
-    g_bsp_adc_irq_count++;
-    g_bsp_adc_irq_window_irq_cycles += irq_used_cycles;
-
-    if (irq_used_cycles > g_bsp_adc_irq_max_cycles)
-        g_bsp_adc_irq_max_cycles = irq_used_cycles;
-
-    if ((now_ms - g_bsp_adc_irq_window_start_ms) >= 1000U)
-    {
-        if (window_total_cycles != 0U)
-            g_bsp_adc_irq_cpu_usage_x100 = (g_bsp_adc_irq_window_irq_cycles * 10000U) / window_total_cycles;
-        else
-            g_bsp_adc_irq_cpu_usage_x100 = 0U;
-
-        g_bsp_adc_irq_window_irq_cycles = 0U;
-        g_bsp_adc_irq_window_start_ms = now_ms;
-        g_bsp_adc_irq_window_start_cycles = now_cycles;
-    }
 }

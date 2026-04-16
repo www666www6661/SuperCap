@@ -85,9 +85,6 @@ static inline float __attribute__((always_inline)) Device_Sampler_GetVoltage(Dev
     return this->voltage_ = this->param_.k * this->adc_val_ + this->param_.b;
 }
 
-static volatile uint32_t at;
-static volatile uint32_t bt;
-static volatile uint32_t tttt;
 /**
  * @brief Gets the latest current value.
  * @param this Pointer to the Device_Current_Sampler instance.
@@ -97,11 +94,8 @@ static volatile uint32_t tttt;
 static inline float __attribute__((always_inline)) Device_Sampler_GetCurrrent(Device_Current_Sampler *this, float dt)
 {
     uint32_t raw_val = 0;
-    bsp_adc_update(this->param_.adc_channel, &raw_val);
 
-    at = DWT->CYCCNT;
+    bsp_adc_update(this->param_.adc_channel, &raw_val);
     this->adc_val_ = LowPassFilter_Apply(&(this->lpf_), (float)raw_val, dt);
-    bt = DWT->CYCCNT;
-    tttt = bt - at;
     return this->current_ = this->param_.k * this->adc_val_ + this->param_.b;
 }
