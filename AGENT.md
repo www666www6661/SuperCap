@@ -169,4 +169,7 @@ When reporting:
 - give exact commands when asking for hardware validation
 - keep changes small and easy to revert
 
+## When using the `patch` tool:
+- each invocation can modify only one file; if you need to modify multiple files, you must invoke the `patch` tool separately for each modification.
+
 

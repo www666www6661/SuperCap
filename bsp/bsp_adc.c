@@ -9,28 +9,12 @@
 #define BSP_ADC1_DMA_LEN 2
 #define BSP_ADC2_DMA_LEN BSP_ADC_BUF_DEPTH
 
-volatile uint32_t g_bsp_adc_irq_last_cycles = 0;
-volatile uint32_t g_bsp_adc_irq_max_cycles = 0;
-volatile uint32_t g_bsp_adc_irq_count = 0;
-volatile uint32_t g_bsp_adc_irq_window_start_ms = 0;
-volatile uint32_t g_bsp_adc_irq_window_start_cycles = 0;
-volatile uint32_t g_bsp_adc_irq_window_irq_cycles = 0;
-volatile uint32_t g_bsp_adc_irq_cpu_usage_x100 = 0;
-
 static inline void bsp_adc_dwt_profiler_init(void)
 {
     static uint8_t dwt_inited = 0;
 
     if (dwt_inited != 0U)
         return;
-
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-    DWT->CYCCNT = 0U;
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-
-    g_bsp_adc_irq_window_start_ms = HAL_GetTick();
-    g_bsp_adc_irq_window_start_cycles = DWT->CYCCNT;
-    dwt_inited = 1;
 }
 
 /**

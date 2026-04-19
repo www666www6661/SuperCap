@@ -16,7 +16,8 @@ typedef struct
     float default_output_duty;
     float default_base_referee_power;
 
-    float k_feedforward;
+    float share_gain;
+    float share_limit;
 
     Component_PID_Param vbside;
     Component_PID_Param ialpha;
@@ -38,7 +39,11 @@ typedef struct
     float pRefree_setpoint_;
     float paside_setpoint_;
     float iaside_setpoint_;
+    float iphase_setpoint_;
+
     uint32_t communication_timeout_cnt_;
+
+    Device_BuckBoostMode_t buckboost_mode_;
 
     Component_PID PID_vbside_;
     Component_PID PID_ialpha_;

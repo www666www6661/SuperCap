@@ -12,6 +12,13 @@ typedef enum
     PHAS_NUM
 } Device_BuckBoost_Phase_t;
 
+typedef enum
+{
+    BUCK,
+    BOOST,
+    BUCKBOOST,
+} Device_BuckBoostMode_t;
+
 typedef struct
 {
     float CAP_IOUT_MAX;
@@ -52,46 +59,59 @@ static inline void __attribute__((always_inline)) Device_BuckBoost_Disable() { b
 
 static inline void __attribute__((always_inline)) Device_BuckBoost_Enable() { bsp_hrtim_allch_start(); }
 
-static inline bool __attribute__((always_inline)) Device_BuckBoost_GetBuckBoostMode(float Physical_VBToVA)
+static inline Device_BuckBoostMode_t __attribute__((always_inline)) Device_BuckBoost_GetMode(float VBToVA)
 {
-    static bool buckBoostMode = false;
+    static Device_BuckBoostMode_t mode = BUCK;
 
-    if (buckBoostMode)
+    if (mode == BUCKBOOST)
     {
-        if (Physical_VBToVA < 0.8f || Physical_VBToVA > 1.25f)
-            buckBoostMode = false;
+        if (VBToVA < 0.90f || VBToVA > 1.10f)  // BUCKBOOST退出区稍宽，避免模式抖动
+            mode = (VBToVA < 1.0f) ? BUCK : BOOST;
     }
     else
     {
-        if (Physical_VBToVA > 0.9f && Physical_VBToVA < 1.111f)
-            buckBoostMode = true;
+        if (VBToVA > 0.97f && VBToVA < 1.03f)  // 只在接近1:1时进入BUCKBOOST
+        {
+            mode = BUCKBOOST;
+        }
+        else
+        {
+            mode = (VBToVA < 1.0f) ? BUCK : BOOST;
+        }
     }
-    return buckBoostMode;
+    return mode;
 }
 
-static inline void __attribute__((always_inline)) Device_BuckBoost_UpdatePWM(Device_BuckBoost *this, float VBToVA, bool BuckBoostMode)
+static inline void __attribute__((always_inline)) Device_BuckBoost_UpdatePWM(Device_BuckBoost *this, float VBToVA, Device_BuckBoostMode_t mode)
 {
     float dutyA = 0.0f;
     float dutyB = 0.0f;
 
-    if (BuckBoostMode)
+    const float duty_max = 0.95f;        // duty上限
+    const float duty_base = 0.90f;       // BUCK/BOOST固定边占空比
+    const float buckboost_gain = 0.35f;  // BUCKBOOST系数，避免x≈1时占空比过高
+
+    if (mode == BUCKBOOST)
     {
-        dutyA = (VBToVA + 1.0f) * 0.4f;
-        dutyB = (1.0f / VBToVA + 1.0f) * 0.4f;
+        VBToVA = CLAMP(VBToVA, 0.73f, 1.37f);  // 保证BUCKBOOST两边都不易饱和
+        dutyA = buckboost_gain * (VBToVA + 1.0f);
+        dutyB = buckboost_gain * (1.0f / VBToVA + 1.0f);
     }
-    else
+    else if (mode == BUCK)
     {
-        if (VBToVA < 1.0f)
-        {
-            dutyA = 0.9f * VBToVA;
-            dutyB = 0.9f;
-        }
-        else
-        {
-            dutyA = 0.9f;
-            dutyB = 0.9f / VBToVA;
-        }
+        VBToVA = CLAMP(VBToVA, 0.20f, duty_max / duty_base);  // BUCK线性区限幅
+        dutyA = duty_base * VBToVA;
+        dutyB = duty_base;
     }
+    else if (mode == BOOST)
+    {
+        VBToVA = CLAMP(VBToVA, duty_base / duty_max, 3.0f);  // BOOST线性区限幅
+        dutyA = duty_base;
+        dutyB = duty_base / VBToVA;
+    }
+
+    dutyA = CLAMP(dutyA, 0.0f, duty_max);
+    dutyB = CLAMP(dutyB, 0.0f, duty_max);
 
     switch (this->phase)
     {

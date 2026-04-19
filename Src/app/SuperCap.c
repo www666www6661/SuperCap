@@ -25,7 +25,6 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param)
     bsp_time_hs_start();
     bsp_time_ls_start();
     Device_LED_Init();
-    Device_BuckBoost_Enable();
     // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
     // 2. 将 DWT 计数器清零
@@ -34,93 +33,94 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param)
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
-#define DT (24000.0f * 8.0f / (170000000.0f * 32.0f))  // HRTIM MREP实际控制周期，约17.647us / 56.667kHz
+#define DT (24000.0f * 8.0f / (170000000.0f * 32.0f))  // HRTIM MREP实际控制周期，约35.294us / 28.333kHz
 
 void SuperCap_Start()
 {
     /* clang-format off */
 SuperCap_Param param_ = {
     .sampler = {
-        .dt = DT, // HRTIM MREP actual loop rate: about 56.667kHz
+        .dt = DT, // HRTIM MREP actual loop rate: about 28.333kHz
         .vaside = {
             .adc_channel = BSP_ADC_VA,
             .k = 0.0073137736f,
             .b = (-0.0561247502f),
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 250.0f
         },
         .vbside ={
             .adc_channel = BSP_ADC_VB,
             .k = 0.0072455170f,
             .b = (-0.0428535364f),
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 250.0f
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
             .k =   0.0156076632f,
             .b = (-31.8713917797f),
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 600.0f
         },
-        .i_alpha = {
+        .ialpha = {
             .adc_channel = BSP_ADC_Ialpha,
             .k = (-0.0171938062f),
             .b = 35.0536976581f,
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 600.0f
         },
-        .i_beta = {
+        .ibeta = {
             .adc_channel = BSP_ADC_Ibeta,
             .k = (-0.0173240675f),
             .b = 35.3941995088f,
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 600.0f
         },
-        .i_gamma = {
+        .igamma = {
             .adc_channel = BSP_ADC_Igamma,
-            .k = (-0.0169229675f),
-            .b = 34.5661755549f,
-            .cutoff_freq = 150.0f
+            .k = (-0.0177031934f),
+            .b = 36.1738733108f,
+            .cutoff_freq = 600.0f
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
             .k =   0.0140179631f,
             .b = (-28.5919519601f),
-            .cutoff_freq = 150.0f
+            .cutoff_freq = 250.0f
         }
 
     },
     .powerctrl = {
-        .dt = DT, // HRTIM MREP actual loop rate: about 56.667kHz
+        .dt = DT, // HRTIM MREP actual loop rate: about 28.333kHz
         .sampler_ = &(supercap.sampler_),
         .status_ = &(supercap.status_),
         .default_energy = 60.0f,
         .default_output_duty = 0.001f,
         .default_base_referee_power = 60.0f,
-        .k_feedforward = 0.0f,
+        .share_gain = 0.1f,
+        .share_limit = 2.5f,
         .vbside = {
-            .k = 0.01f,
+            .k = 1.f,
             .p = 0.01f,
-            .i = 0.01f,
-            .i_limit = 10.0f,
-            .out_limit = 30.0f
+            .i = 0.1f,
+            .i_limit = 0.2f,
+            .out_limit = 0.3f
         },
         .ialpha = {
-            .k = 1.3f,
-            .p = 0.46f,
-            .i = 0.3f,
-            .i_limit = 10.0f,
-            .out_limit = 10.0f
+            .k = 0.1f,
+            .p = 0.26f,
+            .i = 4.9f,
+            .i_limit = 0.9f,
+            .out_limit = 0.9f
         },
         .ibeta = {
-            .k = 1.3f,
-            .p = 0.46f,
-            .i = 0.3f,
-            .i_limit = 10.0f,
-            .out_limit = 10.0f
+            .k = 0.1f,
+            .p = 0.26f,
+            .i = 4.9f,
+            .i_limit = 0.9f,
+            .out_limit = 0.9f
         },
         .igamma = {
-            .k = 1.3f,
-            .p = 0.46f,
-            .i = 0.3f,
-            .i_limit = 10.0f,
-            .out_limit = 10.0f
+            .k = 0.1f,
+            .p = 0.26f,
+            .i = 4.9f,
+            .i_limit = 0.9f,
+            .out_limit = 0.9f
         },
         .preferee = {
             .k = 1.1f,
@@ -137,9 +137,9 @@ SuperCap_Param param_ = {
             .out_limit = 30.0f
         },
         .buckboost = {
-            .CAP_CUTOFF_VOLTAGE = 0.1f,
+            .CAP_CUTOFF_VOLTAGE = 6.3f,
             .CAP_MAX_VOLTAGE = 28.8f,
-            .CAP_NORMAL_VOLTAGE = 12.0f,
+            .CAP_NORMAL_VOLTAGE = 20.0f,
             .CAP_IOUT_MAX = 22.5f,
             .CAP_IOUT_MIN = 0.1f,
             .I_LIMIT = 22.5f,
@@ -163,7 +163,7 @@ inline void __attribute__((always_inline))  SuperCap_control(){
   
     Module_Sampler_Update(&(supercap.sampler_));
     //Module_ErrChecker_ShortChk(&(supercap.errchk_));
-    Module_PowerCtrl_Control(&(supercap.powerctrl_));
+   Module_PowerCtrl_Control(&(supercap.powerctrl_));
 
 }
 
@@ -176,7 +176,7 @@ volatile uint32_t supercap_irq_cycles_max = 0;
 volatile uint32_t supercap_irq_load_permille_last = 0;
 volatile uint32_t supercap_irq_load_permille_max = 0;
 /**
- * @brief 64khz control cycle ,pid\pwm update\short check
+ * @brief HRTIM MREP control cycle, about 28.333kHz; pid/pwm update/short check
  *
  */
 void HRTIM1_Master_IRQHandler(void) {
