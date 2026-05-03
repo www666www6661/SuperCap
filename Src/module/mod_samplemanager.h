@@ -35,7 +35,7 @@ typedef struct
     Module_SampleManager_Param param_;
 } Module_SampleManager;
 
-static inline void Module_Sampler_Init(Module_SampleManager *this, Module_SampleManager_Param param)
+static inline void __attribute__((always_inline)) Module_Sampler_Init(Module_SampleManager *this, Module_SampleManager_Param param)
 {
     this->param_ = param;
 

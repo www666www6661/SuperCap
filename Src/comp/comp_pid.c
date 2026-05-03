@@ -22,9 +22,6 @@ void Component_PID_Init(Component_PID *pid, Component_PID_Param param)
  * @param fb    The feedback (measured value).
  * @param dt    The time interval (delta time) in seconds.
  * @return float The calculated controller output.
- * @note This implementation uses derivative on measurement to prevent
- * "derivative kick" and includes integral anti-windup. The derivative term is
- * also low-pass filtered.
  */
 float Component_PID_Calculate(Component_PID *this, float sp, float fb, float dt)
 {

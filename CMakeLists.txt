@@ -53,7 +53,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/bsp/bsp_pwm.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp/comp_pid.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/comp/comp_utils.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/mod_errchecker.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/mod_comm.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/module/mod_powerctrl.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/app/SuperCap.c
 )

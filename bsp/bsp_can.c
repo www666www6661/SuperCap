@@ -6,9 +6,11 @@
 #include "stm32g4xx_hal.h"
 #include "stm32g4xx_hal_fdcan.h"
 
-#define CAN_DEV &hfdcan1
+#define CAN_DEV (&hfdcan1)
 
 extern FDCAN_HandleTypeDef hfdcan1;
+
+static uint32_t s_last_tx_request = 0U;
 
 /**
  * @brief can_filter_init can_it enable can_start
@@ -30,8 +32,8 @@ void bsp_can_init(void)
     // Reject all other standard and extended IDs
     HAL_FDCAN_ConfigGlobalFilter(CAN_DEV, FDCAN_REJECT, FDCAN_REJECT, FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE);
 
-    HAL_FDCAN_Start(CAN_DEV);
     HAL_FDCAN_ActivateNotification(CAN_DEV, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
+    HAL_FDCAN_Start(CAN_DEV);
 }
 
 /**
@@ -48,19 +50,40 @@ bsp_status_t bsp_can_trans_packet(bsp_can_t can, uint8_t *data)
         return BSP_ERR;
     }
 
+    if (hfdcan1.Instance->PSR & FDCAN_PSR_BO_Msk)
+    {
+        hfdcan1.Instance->CCCR &= ~FDCAN_CCCR_INIT;
+    }
+
     FDCAN_TxHeaderTypeDef header = {0};
     header.Identifier = 0x051;
     header.IdType = FDCAN_STANDARD_ID;
     header.TxFrameType = FDCAN_DATA_FRAME;
     header.DataLength = FDCAN_DLC_BYTES_8;
-    header.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    header.ErrorStateIndicator = FDCAN_ESI_PASSIVE;
     header.BitRateSwitch = FDCAN_BRS_OFF;
     header.FDFormat = FDCAN_CLASSIC_CAN;
     header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
     header.MessageMarker = 0;
 
+    if (HAL_FDCAN_GetTxFifoFreeLevel(CAN_DEV) == 0U)
+    {
+        uint32_t pending = s_last_tx_request;
+
+        if (pending == 0U)
+        {
+            pending = HAL_FDCAN_GetLatestTxFifoQRequestBuffer(CAN_DEV);
+        }
+
+        if (pending != 0U)
+        {
+            HAL_FDCAN_AbortTxRequest(CAN_DEV, pending);
+        }
+    }
+
     if (HAL_FDCAN_AddMessageToTxFifoQ(CAN_DEV, &header, data) == HAL_OK)
     {
+        s_last_tx_request = HAL_FDCAN_GetLatestTxFifoQRequestBuffer(CAN_DEV);
         return BSP_OK;
     }
 
@@ -85,19 +108,4 @@ bsp_status_t bsp_can_get_msg(uint8_t *data, uint32_t *index)
     }
 
     return BSP_ERR;
-}
-
-// temp TODO:
-uint32_t id = 0;
-uint8_t rx_data[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
-{
-    if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
-    {
-        if (hfdcan->Instance == FDCAN1)
-        {
-            bsp_can_get_msg(rx_data, &id);
-        }
-    }
 }

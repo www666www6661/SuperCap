@@ -12,12 +12,12 @@
 /**
  * @brief 当前的系统状态
  */
-static dev_led_sys_state_t g_sys_state = DEV_LED_SYS_OFF;
+static dev_led_sys_state_t sys_state = DEV_LED_SYS_OFF;
 
 /**
  * @brief 当前的变换器工作状态
  */
-static dev_led_conv_state_t g_conv_state = DEV_LED_CONV_OFF;
+static dev_led_conv_state_t conv_state = DEV_LED_CONV_OFF;
 
 /**
  * @brief 初始化 LED 设备
@@ -25,8 +25,8 @@ static dev_led_conv_state_t g_conv_state = DEV_LED_CONV_OFF;
  */
 void Device_LED_Init(void)
 {
-    g_sys_state = DEV_LED_SYS_OFF;
-    g_conv_state = DEV_LED_CONV_OFF;
+    sys_state = DEV_LED_SYS_OFF;
+    conv_state = DEV_LED_CONV_OFF;
 
     bsp_gpio_write_pin(BSP_GPIO_LED1_B, false);
     bsp_gpio_write_pin(BSP_GPIO_LED1_R, false);
@@ -41,9 +41,9 @@ void Device_LED_Init(void)
  */
 void Device_LED_SetSysState(dev_led_sys_state_t state)
 {
-    if (g_sys_state != state)
+    if (sys_state != state)
     {
-        g_sys_state = state;
+        sys_state = state;
         /* 切换状态时先关闭 LED1 的所有颜色 */
         bsp_gpio_write_pin(BSP_GPIO_LED1_B, false);
         bsp_gpio_write_pin(BSP_GPIO_LED1_R, false);
@@ -57,9 +57,9 @@ void Device_LED_SetSysState(dev_led_sys_state_t state)
  */
 void Device_LED_SetConvState(dev_led_conv_state_t state)
 {
-    if (g_conv_state != state)
+    if (conv_state != state)
     {
-        g_conv_state = state;
+        conv_state = state;
         switch (state)
         {
         case DEV_LED_CONV_OFF:
@@ -101,7 +101,7 @@ void Device_LED_Task(uint32_t tick_ms)
         counter_100ms++;
 
         /* 针对 LED1 动态闪烁处理 */
-        switch (g_sys_state)
+        switch (sys_state)
         {
         case DEV_LED_SYS_NORMAL:
             /* 蓝灯慢闪 (1Hz): 500ms 亮, 500ms 灭 -> 每 5 个 100ms 翻转 */

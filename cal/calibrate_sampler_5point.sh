@@ -37,6 +37,46 @@ is_number() {
     [[ "$1" =~ '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$' ]]
 }
 
+render_points_table() {
+    local current_index="${1:-0}"
+    local current_field="${2:-}"
+    local idx adc_val real_val marker
+
+    if [[ -t 1 ]]; then
+        printf '\033[2J\033[H'
+    fi
+
+    echo "请输入 ${POINT_COUNT} 组校准点（adc_val, real_value）"
+    echo ""
+    printf '%-6s | %-16s | %-16s | %-6s\n' "序号" "adc_val" "real_value" "状态"
+    printf '%-6s-+-%-16s-+-%-16s-+-%-6s\n' "------" "----------------" "----------------" "------"
+
+    for ((idx = 1; idx <= POINT_COUNT; idx++)); do
+        adc_val="${adc_vals[idx]:-}"
+        real_val="${real_vals[idx]:-}"
+        marker=""
+
+        if [[ -n "$adc_val" && -n "$real_val" ]]; then
+            marker="已填"
+        elif [[ $idx -eq $current_index ]]; then
+            if [[ "$current_field" == "adc" ]]; then
+                marker="录入adc"
+            else
+                marker="录入real"
+            fi
+        else
+            marker="待填"
+        fi
+
+        printf '%-6s | %-16s | %-16s | %-6s\n' \
+            "$idx" \
+            "${adc_val:--}" \
+            "${real_val:--}" \
+            "$marker"
+    done
+    echo ""
+}
+
 declare -a adc_vals=()
 declare -a real_vals=()
 
@@ -46,11 +86,12 @@ if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
 fi
 
 if [[ $# -eq 0 ]]; then
-    echo "请输入 ${POINT_COUNT} 组校准点（adc_val, real_value）"
     for ((i = 1; i <= POINT_COUNT; i++)); do
         while true; do
-            read -r -p "第${i}组 adc_val: " adc
-            read -r -p "第${i}组 real_value: " real
+            render_points_table "$i" "adc"
+            read -r "adc?第${i}组 adc_val: "
+            render_points_table "$i" "real"
+            read -r "real?第${i}组 real_value: "
 
             if ! is_number "$adc"; then
                 echo "adc_val 必须是数字，请重新输入。"
@@ -63,6 +104,7 @@ if [[ $# -eq 0 ]]; then
 
             adc_vals+=("$adc")
             real_vals+=("$real")
+            render_points_table "$((i + 1))" "adc"
             break
         done
     done

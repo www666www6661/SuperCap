@@ -1,6 +1,7 @@
 #include "mod_powerctrl.h"
 
 #include <math.h>
+#include <sys/cdefs.h>
 
 #include "comp_pid.h"
 #include "comp_utils.h"
@@ -12,87 +13,165 @@ void Module_PowerCtrl_Init(Module_PowerCtrl *this, Module_PowerCtrl_Param param)
     this->param_ = param;
 
     this->dt = this->param_.dt;
-    this->base_referee_power_ = this->param_.default_base_referee_power;
 
     this->sampler_ = this->param_.sampler_;
     this->status_ = this->param_.status_;
+    this->conn_ = this->param_.conn_;
 
     this->pRefree_setpoint_ = this->param_.default_base_referee_power;
-    this->status_->chassisPowerLimit = this->pRefree_setpoint_;
-    this->buckboost_mode_ = BUCK;
+    this->status_->PowerLimit_ = this->pRefree_setpoint_;
+    this->conn_->refereePowerLimit_ = (uint8_t)(this->pRefree_setpoint_);
 
-    Component_PID_Init(&(this->PID_vbside_), this->param_.vbside);
+    LowPassFilter_Init(&this->pRefree_Filter_, this->param_.pRefree_cutoff_freq);
+
     Component_PID_Init(&(this->PID_pRefree_), this->param_.preferee);
 
     Component_PID_Init(&(this->PID_ialpha_), this->param_.ialpha);
     Component_PID_Init(&(this->PID_ibeta_), this->param_.ibeta);
     Component_PID_Init(&(this->PID_igamma_), this->param_.igamma);
 
-    param.buckboost.phase = PHAS_ALPHA;
-    Device_BuckBoost_Init(&(this->buckboost_alpha_), param.buckboost);
+    {
+        float VbtoVa = MAX(this->sampler_->vbside_.voltage_, 0.1f) / MAX(this->sampler_->vaside_.voltage_, 0.1f);
+        Device_BuckBoostMode_t init_mode = (VbtoVa < 0.97f) ? BUCK : ((VbtoVa > 1.03f) ? BOOST : BUCKBOOST);
+        Device_BuckBoost_Init(&(this->buckboost_), init_mode);
+    }
 
-    param.buckboost.phase = PHAS_BETA;
-    Device_BuckBoost_Init(&(this->buckboost_beta_), param.buckboost);
-
-    param.buckboost.phase = PHAS_GAMMA;
-    Device_BuckBoost_Init(&(this->buckboost_gamma_), param.buckboost);
+    this->status_->enableCONV_ = true;
+    this->status_->outputEnabled_ = true;
 
     Device_BuckBoost_Enable();
 }
 
-volatile float temp;
+static inline void __attribute__((always_inline)) Module_PowerCtrl_SetRefereePowerLimit(Module_PowerCtrl *this, float limit)
+{
+    if (limit < 0.0f)
+    {
+        limit = 0.0f;
+    }
+
+    this->pRefree_setpoint_ = limit;
+    this->conn_->refereePowerLimit_ = (uint8_t)(this->pRefree_setpoint_);
+
+    Component_PID_Reset(&(this->PID_pRefree_));
+}
+
+volatile float temp = 0;
+volatile float power_limit_a_to_b;
+volatile float power_limit_b_to_a;
 
 void Module_PowerCtrl_Control(Module_PowerCtrl *this)
 {
-    if (this->sampler_->vaside_.voltage_ > this->buckboost_alpha_.BAT_VOLTAGE_MIN)
+    static bool cap_charge_blocked = false;
+
+    if (this->status_->PowerLimit_ != this->pRefree_setpoint_)
     {
-        // =========================================================================
+        Module_PowerCtrl_SetRefereePowerLimit(this, this->status_->PowerLimit_);
+    }
+
+    float referee_power = LowPassFilter_Apply(&this->pRefree_Filter_, this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_, this->dt);
+    float chassis_power = referee_power - this->sampler_->vaside_.voltage_ * this->sampler_->iaside_.current_;
+
+    this->conn_->chassisPower_ = chassis_power;
+    this->conn_->refereePower_ = referee_power;
+
+    float paside = this->sampler_->vaside_.voltage_ * this->sampler_->iaside_.current_;
+
+    static bool cutoff_active = false;
+
+    if (cutoff_active && (this->sampler_->vaside_.voltage_ > this->param_.buckboost.BAT_VOLTAGE_MIN + 1.0f))
+    {
+        cutoff_active = false;
+    }
+    else if ((!cutoff_active) && this->sampler_->vaside_.voltage_ < this->param_.buckboost.BAT_VOLTAGE_MIN)
+    {
+        cutoff_active = true;
+    }
+
+    if (!cutoff_active && this->status_->enableCONV_ && this->status_->outputEnabled_)
+    {
+        // ========================================================================
+
         float VbtoVa = MAX(this->sampler_->vbside_.voltage_, 0.1f) / MAX(this->sampler_->vaside_.voltage_, 0.1f);
 
-        this->paside_setpoint_ = Component_PID_Calculate(
-            &(this->PID_pRefree_), this->pRefree_setpoint_, this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_, this->dt);
+        this->status_->chassisPower_ = chassis_power;
+        this->status_->refreePower_ = referee_power;
+        this->status_->paside_ = paside;
 
-        temp = this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_;
-
-        float temp_cap_out_ilimit;
-        float temp_cap_in_ilimit = this->buckboost_alpha_.I_LIMIT;
-        if (this->sampler_->vbside_.voltage_ < this->buckboost_alpha_.CAP_CUTOFF_VOLTAGE)
+        if (cap_charge_blocked)
         {
-            temp_cap_out_ilimit = this->buckboost_alpha_.CAP_IOUT_MIN;
-            temp_cap_in_ilimit = 4.0f;
+            if (this->sampler_->vbside_.voltage_ < this->param_.cap_chargeresume_voltage)
+            {
+                cap_charge_blocked = false;
+            }
         }
-        else if (this->sampler_->vbside_.voltage_ > this->buckboost_alpha_.CAP_NORMAL_VOLTAGE)
+        else if (this->sampler_->vbside_.voltage_ > this->param_.cap_chargestop_voltage)
         {
-            temp_cap_out_ilimit = this->buckboost_alpha_.CAP_IOUT_MAX;
+            cap_charge_blocked = true;
+            Component_PID_Reset(&(this->PID_pRefree_));
+        }
+
+        this->paside_setpoint_ = Component_PID_Calculate(&(this->PID_pRefree_), this->pRefree_setpoint_ - 2.0f, referee_power + 2.5f, this->dt);
+
+        float cap_out_ilimit;
+        float cap_in_ilimit = this->param_.buckboost.I_LIMIT;
+        if (this->sampler_->vbside_.voltage_ < this->param_.buckboost.CAP_CUTOFF_VOLTAGE)
+        {
+            cap_out_ilimit = this->param_.buckboost.CAP_IOUT_MIN;
+            cap_in_ilimit = 4.0f;
+        }
+        else if (this->sampler_->vbside_.voltage_ > this->param_.buckboost.CAP_NORMAL_VOLTAGE)
+        {
+            cap_out_ilimit = this->param_.buckboost.CAP_IOUT_MAX;
         }
         else
         {
-            temp_cap_out_ilimit =
-                this->buckboost_alpha_.CAP_IOUT_MIN + (this->buckboost_alpha_.CAP_IOUT_MAX - this->buckboost_alpha_.CAP_IOUT_MIN) *
-                                                          (this->sampler_->vbside_.voltage_ - this->buckboost_alpha_.CAP_CUTOFF_VOLTAGE) /
-                                                          (this->buckboost_alpha_.CAP_NORMAL_VOLTAGE - this->buckboost_alpha_.CAP_CUTOFF_VOLTAGE);
-            clampf(&temp_cap_out_ilimit, this->buckboost_alpha_.CAP_IOUT_MIN, this->buckboost_alpha_.CAP_IOUT_MAX);
+            cap_out_ilimit =
+                this->param_.buckboost.CAP_IOUT_MIN + (this->param_.buckboost.CAP_IOUT_MAX - this->param_.buckboost.CAP_IOUT_MIN) *
+                                                          (this->sampler_->vbside_.voltage_ - this->param_.buckboost.CAP_CUTOFF_VOLTAGE) /
+                                                          (this->param_.buckboost.CAP_NORMAL_VOLTAGE - this->param_.buckboost.CAP_CUTOFF_VOLTAGE);
+            clampf(&cap_out_ilimit, this->param_.buckboost.CAP_IOUT_MIN, this->param_.buckboost.CAP_IOUT_MAX);
         }
 
-        float power_limit_a_to_b =
-            MIN(this->buckboost_alpha_.I_LIMIT * this->sampler_->vaside_.voltage_, temp_cap_in_ilimit * this->sampler_->vaside_.voltage_ * VbtoVa);
-        float power_limit_b_to_a = MAX(-1 * this->buckboost_alpha_.I_LIMIT * this->sampler_->vaside_.voltage_,
-                                       -1 * temp_cap_out_ilimit * this->sampler_->vaside_.voltage_ * VbtoVa);
+        power_limit_a_to_b = MIN(this->param_.buckboost.I_LIMIT * this->sampler_->vaside_.voltage_, cap_in_ilimit * this->sampler_->vbside_.voltage_);
+        power_limit_b_to_a =
+            MAX(-1 * this->param_.buckboost.I_LIMIT * this->sampler_->vaside_.voltage_, -1 * cap_out_ilimit * this->sampler_->vbside_.voltage_);
+
+        if (this->paside_setpoint_ > 0.0f && this->sampler_->vbside_.voltage_ > this->param_.buckboost.CAP_MAX_VOLTAGE * 0.9f)
+        {
+            float taper_scale =
+                (this->param_.buckboost.CAP_MAX_VOLTAGE - this->sampler_->vbside_.voltage_) / (this->param_.buckboost.CAP_MAX_VOLTAGE * 0.1f);
+            clampf(&taper_scale, 0.0f, 1.0f);
+
+            float vbside_power_limit = power_limit_a_to_b * taper_scale;
+
+            vbside_power_limit = CLAMP(vbside_power_limit, 0.0f, power_limit_a_to_b);
+            this->paside_setpoint_ = MIN(this->paside_setpoint_, vbside_power_limit);
+        }
 
         if (this->paside_setpoint_ < power_limit_b_to_a)
         {
             this->paside_setpoint_ = power_limit_b_to_a;
-            if (this->base_referee_power_ > this->status_->chassisPowerLimit + 3.0f)
-                this->base_referee_power_ = this->status_->chassisPowerLimit + 3.0f;
         }
         else if (this->paside_setpoint_ > power_limit_a_to_b)
         {
             this->paside_setpoint_ = power_limit_a_to_b;
-            if (this->base_referee_power_ > this->status_->chassisPowerLimit + 3.0f)
-                this->base_referee_power_ = this->status_->chassisPowerLimit + 3.0f;
         }
 
-        this->iaside_setpoint_ = abs_clampf(this->paside_setpoint_ / MAX(this->sampler_->vaside_.voltage_, 0.1f), this->buckboost_alpha_.I_LIMIT);
+        /*满充停止*/
+        if (cap_charge_blocked && this->paside_setpoint_ > 0.0f)
+        {
+            this->paside_setpoint_ = 0.0f;
+        }
+
+        this->conn_->SuperCapOutputMx_ = (uint16_t)(-power_limit_b_to_a);
+        this->conn_->OutPutCapability_ =
+            (uint8_t)(255.0f *
+                      abs_clampf((this->conn_->SuperCapOutputMx_ - this->param_.buckboost.CAP_CUTOFF_VOLTAGE * this->param_.buckboost.CAP_IOUT_MIN) /
+                                     (this->param_.buckboost.CAP_MAX_VOLTAGE * this->param_.buckboost.CAP_IOUT_MAX -
+                                      this->param_.buckboost.CAP_CUTOFF_VOLTAGE * this->param_.buckboost.CAP_IOUT_MIN),
+                                 1.0f));
+
+        this->iaside_setpoint_ = abs_clampf(this->paside_setpoint_ / MAX(this->sampler_->vaside_.voltage_, 0.1f), this->param_.buckboost.I_LIMIT);
 
         // =========================================================================
 
@@ -138,65 +217,29 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
             (1 + Component_PID_Calculate(&(this->PID_igamma_), ibase_setpoint + igamma_share, this->sampler_->igamma_.current_, this->dt));
 
         float avg_cmd = (alpha_cmd + beta_cmd + gamma_cmd) / 3.0f;
-        this->buckboost_mode_ = Device_BuckBoost_GetMode(avg_cmd);
+        Device_BuckBoost_UpdateMode(&(this->buckboost_), avg_cmd);
 
-        // 5. 电压/电流竞争：高压充电区由电压环对三相电流环输出做下压钳位
-        if (this->paside_setpoint_ > 0.0f && this->sampler_->vbside_.voltage_ > this->buckboost_alpha_.CAP_MAX_VOLTAGE * 0.9f)
-        {
-            float vb_cmd_limit =
-                volt_feedforward *
-                (1.0f +
-                 Component_PID_Calculate(&(this->PID_vbside_), this->buckboost_alpha_.CAP_MAX_VOLTAGE, this->sampler_->vbside_.voltage_, this->dt));
-
-            // 电压环仅作为“下压限制器”参与竞争，不允许反向抬高充电命令
-            vb_cmd_limit = CLAMP(vb_cmd_limit, 0.0f, 1.5f);
-            vb_cmd_limit = MIN(vb_cmd_limit, volt_feedforward);
-
-            if (vb_cmd_limit < alpha_cmd || vb_cmd_limit < beta_cmd || vb_cmd_limit < gamma_cmd)
-            {
-                alpha_cmd = MIN(alpha_cmd, vb_cmd_limit);
-                beta_cmd = MIN(beta_cmd, vb_cmd_limit);
-                gamma_cmd = MIN(gamma_cmd, vb_cmd_limit);
-
-                if (this->base_referee_power_ > this->status_->chassisPowerLimit + 3.0f)
-                    this->base_referee_power_ = this->status_->chassisPowerLimit + 3.0f;
-
-                if (this->paside_setpoint_ > 8.0f)
-                    this->paside_setpoint_ -= 8.0f;
-            }
-        }
-        else
-        {
-            Component_PID_Reset(&(this->PID_vbside_));
-        }
-
-        this->output_duty_ = (alpha_cmd + beta_cmd + gamma_cmd) / 3.0f;
-        this->status_->outputduty = this->output_duty_;
-
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), alpha_cmd, this->buckboost_mode_);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), beta_cmd, this->buckboost_mode_);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), gamma_cmd, this->buckboost_mode_);
+        Device_BuckBoost_UpdatePWM(&(this->buckboost_), alpha_cmd, beta_cmd, gamma_cmd);
     }
     else
     {
-        // 电压过低，直接停机或进入空闲状态
-        float idle_vb_cmd = this->sampler_->vbside_.voltage_ / this->sampler_->vaside_.voltage_;
+        this->status_->chassisPower_ = chassis_power;
+        this->status_->refreePower_ = referee_power;
+        this->status_->paside_ = paside;
 
+        // A侧掉电/欠压、外部禁止使能，或内部保护禁止时，禁止超级电容向A侧反向供电
         this->paside_setpoint_ = 0.0f;
         this->iaside_setpoint_ = 0.0f;
         this->iphase_setpoint_ = 0.0f;
 
+        this->conn_->SuperCapOutputMx_ = 0U;
+        this->conn_->OutPutCapability_ = 0U;
+
         Component_PID_Reset(&(this->PID_ialpha_));
         Component_PID_Reset(&(this->PID_ibeta_));
         Component_PID_Reset(&(this->PID_igamma_));
-        Component_PID_Reset(&(this->PID_vbside_));
         Component_PID_Reset(&(this->PID_pRefree_));
 
-        // 获取全局空闲模式
-        this->buckboost_mode_ = Device_BuckBoost_GetMode(idle_vb_cmd);
-
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_alpha_), idle_vb_cmd, this->buckboost_mode_);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_beta_), idle_vb_cmd, this->buckboost_mode_);
-        Device_BuckBoost_UpdatePWM(&(this->buckboost_gamma_), idle_vb_cmd, this->buckboost_mode_);
+        Device_BuckBoost_CutOff(&(this->buckboost_));
     }
 }

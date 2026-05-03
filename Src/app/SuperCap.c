@@ -1,30 +1,35 @@
+#include <sys/cdefs.h>
 #define BSP_ADC_IMPLEMENTATION
-#include "SuperCap.h"
-
 #include <stdint.h>
 
+#include "SuperCap.h"
 #include "bsp_adc.h"
 #include "bsp_time.h"
 #include "dev_buckboost.h"
 #include "dev_buzzer.h"
 #include "dev_led.h"
+#include "iwdg.h"
 #include "mod_errchecker.h"
 #include "mod_powerctrl.h"
 #include "mod_status.h"
+#include "tim.h"
 
-static SuperCap supercap;
+SuperCap supercap;
 
 #define CPU_FREQ_HZ (170000000UL)
 #define HRTIM_ISR_CYCLE_BUDGET ((uint32_t)(DT * (float)CPU_FREQ_HZ + 0.5f))
 
 void SuperCap_Init(SuperCap *this, SuperCap_Param param)
 {
-    Module_Sampler_Init(&supercap.sampler_, param.sampler);
-    // Module_ErrChecker_Init(&supercap.errchk_, param.errchk);
-    Module_PowerCtrl_Init(&this->powerctrl_, param.powerctrl);
     bsp_time_hs_start();
     bsp_time_ls_start();
+    Module_Sampler_Init(&supercap.sampler_, param.sampler);
+    Module_ErrChecker_Init(&supercap.errchk_, param.errchk);
+    Module_PowerCtrl_Init(&this->powerctrl_, param.powerctrl);
+    Module_Comm_Init(&this->comm_, &this->status_, &this->conn_);
+    this->heartbeat_ = 0U;
     Device_LED_Init();
+    Device_LED_SetSysState(DEV_LED_SYS_NORMAL);
     // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
     // 2. 将 DWT 计数器清零
@@ -43,8 +48,8 @@ SuperCap_Param param_ = {
         .dt = DT, // HRTIM MREP actual loop rate: about 28.333kHz
         .vaside = {
             .adc_channel = BSP_ADC_VA,
-            .k = 0.0073137736f,
-            .b = (-0.0561247502f),
+            .k = 0.0073428809f,
+            .b = (-0.0676202320f),
             .cutoff_freq = 250.0f
         },
         .vbside ={
@@ -55,32 +60,32 @@ SuperCap_Param param_ = {
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
-            .k =   0.0156076632f,
-            .b = (-31.8713917797f),
+            .k =   0.0170487785f,
+            .b = (-34.8319823082f),
             .cutoff_freq = 600.0f
         },
         .ialpha = {
             .adc_channel = BSP_ADC_Ialpha,
-            .k = (-0.0171938062f),
-            .b = 35.0536976581f,
+            .k = (-0.0169824765f),
+            .b = 34.6869424325f,
             .cutoff_freq = 600.0f
         },
         .ibeta = {
             .adc_channel = BSP_ADC_Ibeta,
-            .k = (-0.0173240675f),
-            .b = 35.3941995088f,
+            .k = (-0.0173633552f),
+            .b = 35.4643917976f,
             .cutoff_freq = 600.0f
         },
         .igamma = {
             .adc_channel = BSP_ADC_Igamma,
-            .k = (-0.0177031934f),
-            .b = 36.1738733108f,
+            .k = (-0.0167286818f),
+            .b = 34.1624723030f,
             .cutoff_freq = 600.0f
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
-            .k =   0.0140179631f,
-            .b = (-28.5919519601f),
+            .k =   0.0138746097f,
+            .b = (-28.2941082940f),
             .cutoff_freq = 250.0f
         }
 
@@ -89,68 +94,64 @@ SuperCap_Param param_ = {
         .dt = DT, // HRTIM MREP actual loop rate: about 28.333kHz
         .sampler_ = &(supercap.sampler_),
         .status_ = &(supercap.status_),
-        .default_energy = 60.0f,
-        .default_output_duty = 0.001f,
+        .conn_ = &(supercap.conn_),
         .default_base_referee_power = 60.0f,
+        .referee_power_margin = 2.0f,
+        .referee_light_load_ratio = 0.6f,
         .share_gain = 0.1f,
         .share_limit = 2.5f,
-        .vbside = {
-            .k = 1.f,
-            .p = 0.01f,
-            .i = 0.1f,
-            .i_limit = 0.2f,
-            .out_limit = 0.3f
-        },
+        .cap_chargestop_voltage = 28.6f,
+        .cap_chargeresume_voltage = 28.0f,
+        .pRefree_cutoff_freq = 120.0f,
         .ialpha = {
             .k = 0.1f,
             .p = 0.26f,
             .i = 4.9f,
             .i_limit = 0.9f,
-            .out_limit = 0.9f
+            .out_limit = 1.2f
         },
         .ibeta = {
             .k = 0.1f,
             .p = 0.26f,
             .i = 4.9f,
             .i_limit = 0.9f,
-            .out_limit = 0.9f
+            .out_limit = 1.2f
         },
         .igamma = {
             .k = 0.1f,
             .p = 0.26f,
             .i = 4.9f,
             .i_limit = 0.9f,
-            .out_limit = 0.9f
+            .out_limit = 1.2f
         },
         .preferee = {
-            .k = 1.1f,
-            .p = 0.53f,
-            .i = 1.1f,
-            .i_limit = 100.0f,
-            .out_limit = 130.0f
-        },
-        .energy = {
-            .k = 0.01f,
-            .p = 0.01f,
-            .i = 10.0f,
-            .i_limit = 10.0f,
-            .out_limit = 30.0f
+            .k = 4.8f,
+            .p = 14.9f,
+            .i = 17.9f,
+            .i_limit = 300.0f,
+            .out_limit = 400.0f
         },
         .buckboost = {
             .CAP_CUTOFF_VOLTAGE = 6.3f,
             .CAP_MAX_VOLTAGE = 28.8f,
-            .CAP_NORMAL_VOLTAGE = 20.0f,
-            .CAP_IOUT_MAX = 22.5f,
+            .CAP_NORMAL_VOLTAGE = 18.0f,
+            .CAP_IOUT_MAX = 27.5f,
             .CAP_IOUT_MIN = 0.1f,
-            .I_LIMIT = 22.5f,
-            .BAT_VOLTAGE_MIN = 10.0f
+            .I_LIMIT = 27.5f,
+            .BAT_VOLTAGE_MIN = 12.0f
         }
     },
     .errchk = {
+        .UNDER_VOLTAGE = 12.0f,
+        .NO_POWER_INPUT_VOLTAGE = 12.0f,
+        .WARNING_DEBOUNCE_CNT = 80U,
         .SHORT_CIRCUIT_VOLTAGE = 4.0f,
-        .SHORT_CIRCUIT_CURRENT = 20.0f,
-        .sampler_ = &(supercap.sampler_),
-        .status_ = &(supercap.status_),
+        .SHORT_CIRCUIT_CURRENT = 40.0f,
+        .PHASE_SHARE_DIFF = 1.5f,
+        .PHASE_SHARE_DEBOUNCE_CNT = 80U,
+        .sampler = &(supercap.sampler_),
+        .conn = &(supercap.conn_),
+        .status = &(supercap.status_),
     }
 };
 /*clang-format on*/
@@ -162,13 +163,44 @@ SuperCap_Param param_ = {
 inline void __attribute__((always_inline))  SuperCap_control(){
   
     Module_Sampler_Update(&(supercap.sampler_));
-    //Module_ErrChecker_ShortChk(&(supercap.errchk_));
-   Module_PowerCtrl_Control(&(supercap.powerctrl_));
+    Module_ErrChecker_ShortChk(&(supercap.errchk_));
+    Module_ErrChecker_PhaseShareChk(&(supercap.errchk_));
+    Module_PowerCtrl_Control(&(supercap.powerctrl_));
 
 }
 
-volatile bool blocking;
+void SuperCap_BackgroundTask(void)
+{
+    Module_Status_UpdateLED(&(supercap.status_), Device_BuckBoost_GetMode(&(supercap.powerctrl_.buckboost_)));
+    Device_Buzzer_UpdateErrorCode(supercap.status_.errorcode_, HAL_GetTick());
+    Device_LED_Task(HAL_GetTick());
+}
 
+static inline void __attribute__((always_inline)) SuperCap_HeartbeatCheck(void)
+{
+    static uint32_t last_heartbeat = 0U;
+    static uint32_t ALLt = 0;
+
+    if (supercap.heartbeat_ != last_heartbeat)
+    {
+        last_heartbeat = supercap.heartbeat_;
+        HAL_IWDG_Refresh(&hiwdg);
+        ALLt = 0;
+        return;
+    }
+
+    /* 超时阈值硬编码为 100：若 TIM2 连续 100 次检测到 heartbeat 未变化，则停止喂狗 */
+    if (ALLt < 100U)
+    {
+        ALLt++;
+        HAL_IWDG_Refresh(&hiwdg);
+    }
+}
+
+static inline void __attribute__((always_inline)) SuperCap_CommTask(void)
+{
+    Module_Comm_Transmit(&supercap.comm_);
+}
 
 volatile uint32_t ALLt = 0;
 volatile uint32_t supercap_irq_cycles_last = 0;
@@ -184,18 +216,15 @@ void HRTIM1_Master_IRQHandler(void) {
     uint32_t cycle_start = DWT->CYCCNT;
 
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1, HRTIM_MASTER_IT_MREP);
+    supercap.heartbeat_++;
     SuperCap_control();
 
 
   if (__HAL_HRTIM_MASTER_GET_FLAG(&hhrtim1, HRTIM_MASTER_FLAG_MREP) !=
       RESET) // blocking detected
   {
-    blocking = true;
     ALLt++;
-    Device_Buzzer_Play(1800 * 0.65f, 1.0f);
     __HAL_HRTIM_MASTER_CLEAR_IT(&hhrtim1,HRTIM_MASTER_IT_MREP); // stall the loop 
-  }else{
-    blocking = false;
   }
 
   uint32_t cycle_cost = DWT->CYCCNT - cycle_start;
@@ -215,5 +244,16 @@ void HRTIM1_Master_IRQHandler(void) {
  *
  */
 void TIM2_IRQHandler(void) { 
+    static uint32_t comm_divider = 0U;
+
     __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
+    SuperCap_HeartbeatCheck();
+    Module_ErrChecker_WarningChk(&(supercap.errchk_));
+
+    comm_divider++;
+    if (comm_divider >= 5U)
+    {
+        comm_divider = 0U;
+        SuperCap_CommTask();
+    }
  }

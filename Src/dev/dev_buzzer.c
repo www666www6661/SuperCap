@@ -2,7 +2,11 @@
 
 #include "bsp_hrtim.h"
 #include "bsp_pwm.h"
+#include "mod_errchecker.h"
 #include "stm32g4xx_hal.h"
+
+#define DEV_BUZZER_WARNING_MASK (ERROR_UNDER_VOLTAGE | ERROR_NO_POWER_INPUT)
+#define DEV_BUZZER_FAULT_MASK (ERROR_SHORT_CIRCUIT | ERROR_PHASE_UNBALANCE)
 
 void Device_Buzzer_Start() { bsp_pwm_start(BSP_PWM_BUZZER); }
 
@@ -36,6 +40,39 @@ void Device_Buzzer_PowerOn()
     /* G5 */
     Device_Buzzer_Set(1567.98f * 0.65f, 0.5f);
     HAL_Delay(250);
+
+    Device_Buzzer_Stop();
+}
+
+void Device_Buzzer_UpdateErrorCode(uint8_t errorcode, uint32_t now_ms)
+{
+    if ((errorcode & DEV_BUZZER_FAULT_MASK) != 0U)
+    {
+        Device_Buzzer_Set(1218.5f, 0.5f);
+        if ((now_ms % 400U) < 200U)
+        {
+            Device_Buzzer_Start();
+        }
+        else
+        {
+            Device_Buzzer_Stop();
+        }
+        return;
+    }
+
+    if ((errorcode & DEV_BUZZER_WARNING_MASK) != 0U)
+    {
+        Device_Buzzer_Set(780.0f, 0.5f);
+        if ((now_ms % 1000U) < 100U)
+        {
+            Device_Buzzer_Start();
+        }
+        else
+        {
+            Device_Buzzer_Stop();
+        }
+        return;
+    }
 
     Device_Buzzer_Stop();
 }

@@ -1,16 +1,18 @@
 #pragma once
 #include "bsp.h"
 
-typedef enum {
-  BSP_CAN_1,
-  BSP_CAN_ERR,
+typedef enum
+{
+    BSP_CAN_1,
+    BSP_CAN_ERR,
 } bsp_can_t;
 
-typedef enum {
-  CAN_FORMAT_STD_DATA,
-  CAN_FORMAT_EXT_DATA,
-  CAN_FORMAT_STD_REMOTE,
-  CAN_FORMAT_EXT_REMOTE,
+typedef enum
+{
+    CAN_FORMAT_STD_DATA,
+    CAN_FORMAT_EXT_DATA,
+    CAN_FORMAT_STD_REMOTE,
+    CAN_FORMAT_EXT_REMOTE,
 } bsp_can_format_t;
 
 void bsp_can_init(void);
