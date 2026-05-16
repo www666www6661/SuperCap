@@ -141,7 +141,7 @@ BEGIN {
     m = split(real_csv, y, ",")
 
     if (n != m || n != 5) {
-        print "输入点数量必须恰好为 5 组。" > "/dev/stderr"
+        print "输入点数量必须为 5 组。" > "/dev/stderr"
         exit 1
     }
 

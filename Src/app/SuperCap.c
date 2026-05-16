@@ -1,8 +1,8 @@
-#include <sys/cdefs.h>
-#define BSP_ADC_IMPLEMENTATION
-#include <stdint.h>
-
 #include "SuperCap.h"
+
+#include <stdint.h>
+#include <sys/cdefs.h>
+
 #include "bsp_adc.h"
 #include "bsp_time.h"
 #include "dev_buckboost.h"
@@ -30,7 +30,7 @@ void SuperCap_Init(SuperCap *this, SuperCap_Param param)
     this->heartbeat_ = 0U;
     Device_LED_Init();
     Device_LED_SetSysState(DEV_LED_SYS_NORMAL);
-    // 1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
+    //  1. 开启 CoreDebug 中的 TRCENA 位，允许使用跟踪组件
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
     // 2. 将 DWT 计数器清零
     DWT->CYCCNT = 0;
@@ -46,48 +46,50 @@ void SuperCap_Start()
 SuperCap_Param param_ = {
     .sampler = {
         .dt = DT, // HRTIM MREP actual loop rate: about 28.333kHz
+        /* CALIBRATION_BEGIN */
         .vaside = {
             .adc_channel = BSP_ADC_VA,
-            .k = 0.0073428809f,
-            .b = (-0.0676202320f),
-            .cutoff_freq = 250.0f
+            .k = 0.0072475795f,
+            .b = 0.0216226430f,
+            .cutoff_freq = 250.0000000000f
         },
-        .vbside ={
+        .vbside = {
             .adc_channel = BSP_ADC_VB,
-            .k = 0.0072455170f,
-            .b = (-0.0428535364f),
-            .cutoff_freq = 250.0f
+            .k = 0.0071909501f,
+            .b = 0.0158060932f,
+            .cutoff_freq = 250.0000000000f
         },
         .iaside = {
             .adc_channel = BSP_ADC_IA,
-            .k =   0.0170487785f,
-            .b = (-34.8319823082f),
-            .cutoff_freq = 600.0f
+            .k = 0.0158793890f,
+            .b = (-32.4561386628f),
+            .cutoff_freq = 600.0000000000f
         },
         .ialpha = {
             .adc_channel = BSP_ADC_Ialpha,
-            .k = (-0.0169824765f),
-            .b = 34.6869424325f,
-            .cutoff_freq = 600.0f
+            .k = (-0.0166871675f),
+            .b = 34.1009723454f,
+            .cutoff_freq = 600.0000000000f
         },
         .ibeta = {
             .adc_channel = BSP_ADC_Ibeta,
-            .k = (-0.0173633552f),
-            .b = 35.4643917976f,
-            .cutoff_freq = 600.0f
+            .k = (-0.0177773819f),
+            .b = 36.3205091167f,
+            .cutoff_freq = 600.0000000000f
         },
         .igamma = {
             .adc_channel = BSP_ADC_Igamma,
-            .k = (-0.0167286818f),
-            .b = 34.1624723030f,
-            .cutoff_freq = 600.0f
+            .k = (-0.0164275035f),
+            .b = 33.5710916770f,
+            .cutoff_freq = 600.0000000000f
         },
         .iRefree = {
             .adc_channel = BSP_ADC_IREF,
-            .k =   0.0138746097f,
-            .b = (-28.2941082940f),
-            .cutoff_freq = 250.0f
+            .k = 0.0140972787f,
+            .b = (-28.7948396905f),
+            .cutoff_freq = 250.0000000000f
         }
+        /* CALIBRATION_END */
 
     },
     .powerctrl = {
@@ -98,38 +100,38 @@ SuperCap_Param param_ = {
         .default_base_referee_power = 60.0f,
         .referee_power_margin = 2.0f,
         .referee_light_load_ratio = 0.6f,
-        .share_gain = 0.1f,
-        .share_limit = 2.5f,
+        .share_gain = 0.4f,
+        .share_limit = 4.f,
         .cap_chargestop_voltage = 28.6f,
         .cap_chargeresume_voltage = 28.0f,
         .pRefree_cutoff_freq = 120.0f,
         .ialpha = {
             .k = 0.1f,
-            .p = 0.26f,
-            .i = 4.9f,
+            .p = 0.12f,
+            .i = 3.9f,
             .i_limit = 0.9f,
-            .out_limit = 1.2f
+            .out_limit = 0.99f
         },
         .ibeta = {
             .k = 0.1f,
-            .p = 0.26f,
-            .i = 4.9f,
+            .p = 0.12f,
+            .i = 3.9f,
             .i_limit = 0.9f,
-            .out_limit = 1.2f
+            .out_limit = 0.99f
         },
         .igamma = {
             .k = 0.1f,
-            .p = 0.26f,
-            .i = 4.9f,
+            .p = 0.12f,
+            .i = 3.9f,
             .i_limit = 0.9f,
-            .out_limit = 1.2f
+            .out_limit = 0.99f
         },
         .preferee = {
-            .k = 4.8f,
-            .p = 14.9f,
-            .i = 17.9f,
-            .i_limit = 300.0f,
-            .out_limit = 400.0f
+            .k = 5.0f,
+            .p = 10.5f,
+            .i = 17.5f,
+            .i_limit = 800.0f,
+            .out_limit = 800.0f
         },
         .buckboost = {
             .CAP_CUTOFF_VOLTAGE = 6.3f,
@@ -138,11 +140,11 @@ SuperCap_Param param_ = {
             .CAP_IOUT_MAX = 27.5f,
             .CAP_IOUT_MIN = 0.1f,
             .I_LIMIT = 27.5f,
-            .BAT_VOLTAGE_MIN = 12.0f
+            .BAT_VOLTAGE_MIN = 19.0f
         }
     },
     .errchk = {
-        .UNDER_VOLTAGE = 12.0f,
+        .UNDER_VOLTAGE = 18.0f,
         .NO_POWER_INPUT_VOLTAGE = 12.0f,
         .WARNING_DEBOUNCE_CNT = 80U,
         .SHORT_CIRCUIT_VOLTAGE = 4.0f,

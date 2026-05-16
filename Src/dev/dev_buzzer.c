@@ -60,18 +60,25 @@ void Device_Buzzer_UpdateErrorCode(uint8_t errorcode, uint32_t now_ms)
         return;
     }
 
+    static uint32_t t0 = 0U;
+
     if ((errorcode & DEV_BUZZER_WARNING_MASK) != 0U)
     {
-        Device_Buzzer_Set(780.0f, 0.5f);
-        if ((now_ms % 1000U) < 100U)
-        {
-            Device_Buzzer_Start();
-        }
-        else
+        if (!t0)
+            t0 = now_ms;
+        if ((now_ms - t0) > 100000U)
         {
             Device_Buzzer_Stop();
+            return;
         }
+
+        Device_Buzzer_Set(780.0f, 0.5f);
+        ((now_ms % 1000U) < 50U) ? Device_Buzzer_Start() : Device_Buzzer_Stop();
         return;
+    }
+    else
+    {
+        t0 = 0U;
     }
 
     Device_Buzzer_Stop();

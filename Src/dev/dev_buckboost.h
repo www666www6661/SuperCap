@@ -105,7 +105,7 @@ static inline void __attribute__((always_inline)) Device_BuckBoost_UpdatePWMPhas
 
     const float duty_max = 0.97f;        // duty上限
     const float duty_base = 0.96f;       // BUCK/BOOST固定边占空比
-    const float buckboost_gain = 0.22f;  // BUCKBOOST系数，避免x≈1时占空比过高
+    const float buckboost_gain = 0.33f;  // BUCKBOOST系数，避免x≈1时占空比过高
 
     if (this->mode_ == BUCKBOOST)
     {

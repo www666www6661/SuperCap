@@ -68,11 +68,12 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         Module_PowerCtrl_SetRefereePowerLimit(this, this->status_->PowerLimit_);
     }
 
-    float referee_power = LowPassFilter_Apply(&this->pRefree_Filter_, this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_, this->dt);
+    float raw_referee_power = this->sampler_->vaside_.voltage_ * this->sampler_->iRefree_.current_;
+    float referee_power = LowPassFilter_Apply(&this->pRefree_Filter_, raw_referee_power, this->dt);
     float chassis_power = referee_power - this->sampler_->vaside_.voltage_ * this->sampler_->iaside_.current_;
 
-    this->conn_->chassisPower_ = chassis_power;
-    this->conn_->refereePower_ = referee_power;
+    this->conn_->chassisPower_ = POWER_WATT_TO_U16(chassis_power);
+    this->conn_->refereePower_ = POWER_WATT_TO_U16(referee_power);
 
     float paside = this->sampler_->vaside_.voltage_ * this->sampler_->iaside_.current_;
 
@@ -167,7 +168,7 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
         this->conn_->OutPutCapability_ =
             (uint8_t)(255.0f *
                       abs_clampf((this->conn_->SuperCapOutputMx_ - this->param_.buckboost.CAP_CUTOFF_VOLTAGE * this->param_.buckboost.CAP_IOUT_MIN) /
-                                     (this->param_.buckboost.CAP_MAX_VOLTAGE * this->param_.buckboost.CAP_IOUT_MAX -
+                                     (this->sampler_->vaside_.voltage_ * this->param_.buckboost.CAP_IOUT_MAX -
                                       this->param_.buckboost.CAP_CUTOFF_VOLTAGE * this->param_.buckboost.CAP_IOUT_MIN),
                                  1.0f));
 
@@ -234,6 +235,8 @@ void Module_PowerCtrl_Control(Module_PowerCtrl *this)
 
         this->conn_->SuperCapOutputMx_ = 0U;
         this->conn_->OutPutCapability_ = 0U;
+
+        LowPassFilter_Reset(&this->pRefree_Filter_, raw_referee_power);
 
         Component_PID_Reset(&(this->PID_ialpha_));
         Component_PID_Reset(&(this->PID_ibeta_));

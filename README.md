@@ -22,7 +22,10 @@
 - 超级电容一侧定义为 **B 侧**
   - 电压：`Vbside`
 - 三相电感电流分别为：`Ialpha`、`Ibeta`、`Igamma`
-- 裁判系统直供到底盘一路电流记为 `Iref`
+- 系统总输入电流既裁判chassis输出口电流定义为： `IRefree`
+- 底盘实际使用电流定义为：`IChassis`
+- 系统总输入电流既裁判chassis输出口功率定义为： `pRefree` & `refreePower`
+- 底盘实际使用功率定义为：`pChassis` & `chassisPower`
 
 按当前控制实现中的约定：
 
@@ -48,7 +51,7 @@ refereePower = chassisPower + paside
 ```c
 typedef struct TxData
 {
-    uint8_t errcode;
+    uint8_t PowerLimit;
     uint16_t chassisPower;
     uint16_t refereePower;
     uint16_t SuperCapOutputMx;
@@ -62,11 +65,11 @@ typedef struct TxData
 
 | 字段 | 字节数 | 含义 | 来源 |
 |---|---:|---|---|
-| `errcode` | 1 | 故障/告警码 | `conn_->errcode_` |
+| `PowerLimit` | 1 | 超电认为的功率限制 | `conn_->PowerLimit_` |
 | `chassisPower` | 2 | 底盘功率 | `conn_->chassisPower_` |
 | `refereePower` | 2 | 裁判系统输出总功率 | `conn_->refereePower_` |
 | `SuperCapOutputMx` | 2 | 超级电容可向 A 侧输出的最大功率 | `conn_->SuperCapOutputMx_` |
-| `OutPutCapability` | 1 | 预留/能力标志 | 当前代码未赋值，默认 0 |
+| `OutPutCapability` | 1 | 输出能力百分比 | `当前允许最大功率/理论最大功率上限` |
 
 #### 字节布局
 
@@ -80,17 +83,10 @@ typedef struct TxData
 
 #### 发送字段的物理意义
 
-1. **errcode**
+1. **powerlimit**
 
-   当前错误码定义位于 `mod_errchecker.h`：
-
-   - `0x01`：欠压告警 `ERROR_UNDER_VOLTAGE`
-   - `0x08`：短路故障 `ERROR_SHORT_CIRCUIT`
-   - `0x20`：A 侧无输入电源告警`ERROR_NO_POWER_INPUT`
-   - `0x80`：三相不均流故障 `ERROR_PHASE_UNBALANCE`
-
-   该字段为位标志，可组合出现。
-
+   超电认为的当前底盘（refree `chassis` output）限制功率功率
+  
 2. **chassisPower**
 
    由控制器实时计算：
@@ -117,7 +113,7 @@ typedef struct TxData
 
    表示当前可输出功率占总理论最大可输出功率的百分比（paside），**非电容容量**
 
-> 注意：因为超级电容功率控制逻辑原因，超级电容容量不可作为超级电容输出能力的衡量因素
+> 注意：因为超级电容功率控制逻辑原因，超级电容容量不可作为超级电容输出能力的衡量因素，目前因为理论上限在实际使用中不可能达到，此百分比最大值约为65%左右，正在寻找方案使此数值归一化至0-100%（0-255）
 
 ### 接收帧：外部控制板 -> 模块（ID = 0x061）
 

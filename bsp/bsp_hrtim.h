@@ -100,6 +100,14 @@ static inline bsp_status_t __attribute__((always_inline)) bsp_hrtim_set_comp(bsp
 {
     static HRTIM_CompareCfgTypeDef compare_config = {0};
 
+    if (duty_cycle == 0)
+    {
+        compare_config.CompareValue = 0xFFDF;
+        HAL_HRTIM_WaveformCompareConfig(&hhrtim1, bsp_hrtim_map[ch].timer_idx, HRTIM_COMPAREUNIT_1, &compare_config);
+        HAL_HRTIM_WaveformCompareConfig(&hhrtim1, bsp_hrtim_map[ch].timer_idx, HRTIM_COMPAREUNIT_3, &compare_config);
+        return BSP_OK;
+    }
+
     compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 - duty_cycle);
     HAL_HRTIM_WaveformCompareConfig(&hhrtim1, bsp_hrtim_map[ch].timer_idx, HRTIM_COMPAREUNIT_1, &compare_config);
     compare_config.CompareValue = HRTIM_PERIOD / 2 * (1 + duty_cycle);
