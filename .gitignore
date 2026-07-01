@@ -42,6 +42,8 @@
 
 .history
 
+.settings
+
 .vscode
 
 build
@@ -49,5 +51,3 @@ build
 nohup.out
 
 AGENT.md
-
-.settings
